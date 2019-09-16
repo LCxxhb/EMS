@@ -1,0 +1,14 @@
+#开发配置
+spring:
+  #数据源配置
+  datasource:
+    url: jdbc:oracle:thin:@127.0.0.1:1521:orcl
+    username: root
+    password: root
+    driver-class-name: oracle.jdbc.OracleDriver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+mybatis:
+  typeAliasesPackage: com.longcheng.xxh.energycenter.entity
+  mapperLocations: classpath:mapper/*.xml
+
