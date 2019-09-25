@@ -1,6 +1,10 @@
 spring:
   datasource:
+<<<<<<< HEAD
     url: jdbc:oracle:thin:@10.5.7.130:1521:orcl
+=======
+    url: jdbc:oracle:thin:@10.5.7.130:1521:orcl?useUnicode=true&characterEncoding=utf8
+>>>>>>> 558f2e7617156d9bfbff44ba2b0911cbd842c86f
     username: EMS
     password: EMS
     driver-class-name: oracle.jdbc.OracleDriver
