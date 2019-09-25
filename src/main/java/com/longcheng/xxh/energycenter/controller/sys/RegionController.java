@@ -1,5 +1,6 @@
 package com.longcheng.xxh.energycenter.controller.sys;
 
+import com.alibaba.fastjson.JSON;
 import com.longcheng.xxh.energycenter.entity.sys.Region;
 import com.longcheng.xxh.energycenter.service.sys.RegionService;
 import com.longcheng.xxh.energycenter.entity.basepo.Code;
@@ -26,9 +27,10 @@ public class RegionController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/findAllRegion",method = RequestMethod.POST)
-    public Result findAllRegion(HttpSession session){
+    public String findAllRegion(HttpSession session){
         List<Region> regions = regionService.findAllRegion();
-        return new Result(Code.success,"查询成功！！",JsonUtils.objectToJson(regions),"查询一级分类信息");
+        Result result =  new Result(Code.success,"查询成功！！",regions,"查询一级分类信息");
+        return JSON.toJSONString(result);
     }
 
     @ResponseBody

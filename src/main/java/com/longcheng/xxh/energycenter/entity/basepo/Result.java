@@ -10,6 +10,9 @@ public class Result {
     private Object data; //返回的数据信息
     private String apiDescription;//接口描述描述这个接口是干什么的
 
+    public Result() {
+    }
+
     public Result(String code, String message, Object data, String apiDescription) {
         this.code = code;
         this.message = message;
