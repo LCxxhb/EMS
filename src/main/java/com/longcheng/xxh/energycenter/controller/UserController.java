@@ -24,18 +24,18 @@ public class UserController {
         Results result = new Results();
         if (user.getUSERNAME() == null || user.getPASSWORD() == null) {
             result.setErrCode("4");
-            result.setErrMsg("param");
+            result.setErrMsg("参数校验失败");
             result.setResult(null);
             result.setApiDesc("登录接口");
         } else {
             if (userService.Login(user) != null) {
                 result.setErrCode("1");
-                result.setErrMsg("success");
+                result.setErrMsg("成功");
                 result.setResult(userService.Login(user));
                 result.setApiDesc("登录接口");
             } else {
                 result.setErrCode("2");
-                result.setErrMsg("error");
+                result.setErrMsg("失败");
                 result.setResult(null);
                 result.setApiDesc("登录接口");
             }
