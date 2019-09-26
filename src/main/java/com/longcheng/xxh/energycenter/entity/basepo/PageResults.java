@@ -31,7 +31,7 @@ public class PageResults extends Results {
         this.rows = rows;
     }
 
-    
+
     public PageResults(String errCode, String errMsg, Object result, String apiDesc, int total, Object rows) {
         super(errCode, errMsg, result, apiDesc);
         this.total = total;
