@@ -2,7 +2,7 @@ package com.longcheng.xxh.energycenter.controller;
 
 import com.longcheng.xxh.energycenter.entity.User;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
-import com.longcheng.xxh.energycenter.service.UserService;
+import com.longcheng.xxh.energycenter.service.sys.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
