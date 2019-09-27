@@ -16,8 +16,9 @@ public class UserController {
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public Results login(User user) {
-        return userService.login(user);
+    public String login(User user) {
+        userService.login(user);
+        return "";
     }
 
     /**
@@ -27,8 +28,9 @@ public class UserController {
      * @date 2019/09/27
      **/
     @RequestMapping("/insert")
-    public Results insert(User user) {
-        return userService.insert(user);
+    public String insert(User user) {
+        userService.insert(user);
+        return "";
     }
 
     /**
@@ -38,8 +40,9 @@ public class UserController {
      * @date 2019/09/27
      **/
     @RequestMapping("/delete")
-    public Results delete(int id) {
-        return userService.delete(id);
+    public String delete(int id) {
+        userService.delete(id);
+        return "";
     }
 
     /**
@@ -49,8 +52,9 @@ public class UserController {
      * @date 2019/09/27
      **/
     @RequestMapping("/update")
-    public Results update(User user) {
-        return userService.update(user);
+    public String update(User user) {
+        userService.update(user);
+        return "";
 
     }
 
@@ -61,8 +65,9 @@ public class UserController {
      * @date 2019/09/27
      **/
     @RequestMapping("/findbyId")
-    public Results load(int id) {
-        return userService.load(id);
+    public String load(int id) {
+        userService.load(id);
+        return "";
 
     }
 
