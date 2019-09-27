@@ -4,8 +4,14 @@ import com.longcheng.xxh.energycenter.entity.sys.Roles;
 import com.longcheng.xxh.energycenter.entity.sys.RolesExample;
 import java.math.BigDecimal;
 import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Component;
+
+@Mapper
+@Component
 public interface RolesMapper {
     long countByExample(RolesExample example);
 

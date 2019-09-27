@@ -1,6 +1,6 @@
 package com.longcheng.xxh.energycenter.entity;
 
-public class  GasPointcollection extends Base {
+public class  GasPointcollection{
     private String BRANCHFACTORY;
     private String AREANAME;
     private String AREAID;
@@ -31,7 +31,6 @@ public class  GasPointcollection extends Base {
     }
 
     public GasPointcollection(int ID, String CREATE_DATE, String COLLECTIONPOINT, String BRANCHFACTORY, String AREANAME, String AREAID, String CUSTOMPROPERTIES, String DESCRIPTION, String TAGTYPE, String USETYPE, String DATATYPE, String DRIVENAME, String DEVICENAME, String DEVICEADDRESS, String SCANMECHANISM, String SCANCYCLE, String SCANOHASE, String ADMITCONTROL, String ADMITSCAN, String USERANGETRANSFORM, String PROJECTUNIT, String PROJECTZERO, String PROJECTFULL, String PROJECTSTARTZERO, String PROJECTSTARTFULL, String ADMITZEROIMPACTION, String ZERO, String FLOATINGVALUE) {
-        super(ID, CREATE_DATE, COLLECTIONPOINT);
         this.BRANCHFACTORY = BRANCHFACTORY;
         this.AREANAME = AREANAME;
         this.AREAID = AREAID;
