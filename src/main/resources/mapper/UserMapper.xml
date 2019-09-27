@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.longcheng.xxh.energycenter.dao.sys.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.longcheng.xxh.energycenter.entity.sys.User" >
+        <result column="uid" property="uid" />
+        <result column="username" property="username" />
+        <result column="area_id" property="areaId" />
+        <result column="create_date" property="createDate" />
+        <result column="create_by" property="createBy" />
+        <result column="last_update_date" property="lastUpdateDate" />
+        <result column="last_update_by" property="lastUpdateBy" />
+        <result column="status" property="status" />
+        <result column="cname" property="cname" />
+        <result column="password" property="password" />
+        <result column="role_id" property="roleId" />
+        <result column="remark1" property="remark1" />
+        <result column="remark2" property="remark2" />
+        <result column="remark4" property="remark4" />
+        <result column="remark3" property="remark3" />
+        <result column="remark5" property="remark5" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+                `uid`,
+                `username`,
+                `area_id`,
+                `create_date`,
+                `create_by`,
+                `last_update_date`,
+                `last_update_by`,
+                `status`,
+                `cname`,
+                `password`,
+                `role_id`,
+                `remark1`,
+                `remark2`,
+                `remark4`,
+                `remark3`,
+                `remark5`
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" parameterType="com.longcheng.xxh.energycenter.entity.sys.User">
+        INSERT INTO user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test ='null != uid'>
+                `uid`,
+            </if>
+            <if test ='null != username'>
+                `username`,
+            </if>
+            <if test ='null != areaId'>
+                `area_id`,
+            </if>
+            <if test ='null != createDate'>
+                `create_date`,
+            </if>
+            <if test ='null != createBy'>
+                `create_by`,
+            </if>
+            <if test ='null != lastUpdateDate'>
+                `last_update_date`,
+            </if>
+            <if test ='null != lastUpdateBy'>
+                `last_update_by`,
+            </if>
+            <if test ='null != status'>
+                `status`,
+            </if>
+            <if test ='null != cname'>
+                `cname`,
+            </if>
+            <if test ='null != password'>
+                `password`,
+            </if>
+            <if test ='null != roleId'>
+                `role_id`,
+            </if>
+            <if test ='null != remark1'>
+                `remark1`,
+            </if>
+            <if test ='null != remark2'>
+                `remark2`,
+            </if>
+            <if test ='null != remark4'>
+                `remark4`,
+            </if>
+            <if test ='null != remark3'>
+                `remark3`,
+            </if>
+            <if test ='null != remark5'>
+                `remark5`
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test ='null != uid'>
+                #{uid},
+            </if>
+            <if test ='null != username'>
+                #{username},
+            </if>
+            <if test ='null != areaId'>
+                #{areaId},
+            </if>
+            <if test ='null != createDate'>
+                #{createDate},
+            </if>
+            <if test ='null != createBy'>
+                #{createBy},
+            </if>
+            <if test ='null != lastUpdateDate'>
+                #{lastUpdateDate},
+            </if>
+            <if test ='null != lastUpdateBy'>
+                #{lastUpdateBy},
+            </if>
+            <if test ='null != status'>
+                #{status},
+            </if>
+            <if test ='null != cname'>
+                #{cname},
+            </if>
+            <if test ='null != password'>
+                #{password},
+            </if>
+            <if test ='null != roleId'>
+                #{roleId},
+            </if>
+            <if test ='null != remark1'>
+                #{remark1},
+            </if>
+            <if test ='null != remark2'>
+                #{remark2},
+            </if>
+            <if test ='null != remark4'>
+                #{remark4},
+            </if>
+            <if test ='null != remark3'>
+                #{remark3},
+            </if>
+            <if test ='null != remark5'>
+                #{remark5}
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delete" >
+        DELETE FROM user
+        WHERE `id_` = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.longcheng.xxh.energycenter.entity.sys.User">
+        UPDATE user
+        <set>
+            <if test ='null != uid'>uid = #{uid},</if>
+            <if test ='null != username'>username = #{username},</if>
+            <if test ='null != areaId'>area_id = #{areaId},</if>
+            <if test ='null != createDate'>create_date = #{createDate},</if>
+            <if test ='null != createBy'>create_by = #{createBy},</if>
+            <if test ='null != lastUpdateDate'>last_update_date = #{lastUpdateDate},</if>
+            <if test ='null != lastUpdateBy'>last_update_by = #{lastUpdateBy},</if>
+            <if test ='null != status'>status = #{status},</if>
+            <if test ='null != cname'>cname = #{cname},</if>
+            <if test ='null != password'>password = #{password},</if>
+            <if test ='null != roleId'>role_id = #{roleId},</if>
+            <if test ='null != remark1'>remark1 = #{remark1},</if>
+            <if test ='null != remark2'>remark2 = #{remark2},</if>
+            <if test ='null != remark4'>remark4 = #{remark4},</if>
+            <if test ='null != remark3'>remark3 = #{remark3},</if>
+            <if test ='null != remark5'>remark5 = #{remark5}</if>
+        </set>
+        WHERE `id_` = #{id}
+    </update>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM user
+        WHERE `id_` = #{id}
+    </select>
+
+    <select id="pageList" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM user
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="pageListCount" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM user
+    </select>
+
+</mapper>
