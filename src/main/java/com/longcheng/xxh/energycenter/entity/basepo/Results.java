@@ -9,43 +9,43 @@ public class Results {
     public Results() {
     }
 
-    public Results(String errCode, String errMsg, Object result, String apiDesc) {
-        ErrCode = errCode;
-        ErrMsg = errMsg;
-        Result = result;
-        ApiDesc = apiDesc;
+    public Results(String ErrCode, String ErrMsg, Object Result, String ApiDesc) {
+        this.ErrCode = ErrCode;
+        this.ErrMsg = ErrMsg;
+        this.Result = Result;
+        this.ApiDesc = ApiDesc;
     }
 
     public String getErrCode() {
         return ErrCode;
     }
 
-    public void setErrCode(String errCode) {
-        ErrCode = errCode;
+    public void setErrCode(String ErrCode) {
+        this.ErrCode = ErrCode;
     }
 
     public String getErrMsg() {
         return ErrMsg;
     }
 
-    public void setErrMsg(String errMsg) {
-        ErrMsg = errMsg;
+    public void setErrMsg(String ErrMsg) {
+        this.ErrMsg = ErrMsg;
     }
 
     public Object getResult() {
         return Result;
     }
 
-    public void setResult(Object result) {
-        Result = result;
+    public void setResult(Object Result) {
+        this.Result = Result;
     }
 
     public String getApiDesc() {
         return ApiDesc;
     }
 
-    public void setApiDesc(String apiDesc) {
-        ApiDesc = apiDesc;
+    public void setApiDesc(String ApiDesc) {
+        this.ApiDesc = ApiDesc;
     }
 
     @Override

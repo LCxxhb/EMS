@@ -1,4 +1,4 @@
-package com.longcheng.xxh.energycenter.mapper;
+package com.longcheng.xxh.energycenter.dao.sys;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Component;

@@ -22,6 +22,6 @@ public interface RegionService {
     public boolean updateRegion(Region region);
 
     //删除区域
-    public boolean deleteRegion(int aid);
+    public boolean deleteRegion(String[] aids);
 
 }
