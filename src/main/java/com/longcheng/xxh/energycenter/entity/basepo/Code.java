@@ -9,5 +9,6 @@ public class Code {
     public static final String error = "ERROR"; //失败
     public static final String permission = "20000"; //无权限
     public static final String param = "30000"; //参数校验失败
+    public static final String trycatch = "40000"; //异常捕获
 
 }

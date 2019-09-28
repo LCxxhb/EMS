@@ -41,56 +41,56 @@
                 `remark5`
     </sql>
 
-    <insert id="insert" useGeneratedKeys="true" keyColumn="id" parameterType="com.longcheng.xxh.energycenter.entity.sys.User">
-        INSERT INTO user
+    <insert id="insert" useGeneratedKeys="true" keyColumn="uid" parameterType="com.longcheng.xxh.energycenter.entity.sys.User">
+        INSERT INTO EMS_SYS_USER
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test ='null != uid'>
-                `uid`,
+                `UID`,
             </if>
             <if test ='null != username'>
-                `username`,
+                `USERNAME`,
             </if>
             <if test ='null != areaId'>
-                `area_id`,
+                `AREA_ID`,
             </if>
             <if test ='null != createDate'>
-                `create_date`,
+                `CREATE_DATE`,
             </if>
             <if test ='null != createBy'>
-                `create_by`,
+                `CREATE_BY`,
             </if>
             <if test ='null != lastUpdateDate'>
-                `last_update_date`,
+                `LAST_UPDATE_DATE`,
             </if>
             <if test ='null != lastUpdateBy'>
-                `last_update_by`,
+                `LAST_UPDATE_BY`,
             </if>
             <if test ='null != status'>
-                `status`,
+                `STATUS`,
             </if>
             <if test ='null != cname'>
-                `cname`,
+                `CNAME`,
             </if>
             <if test ='null != password'>
-                `password`,
+                `PASSWORD`,
             </if>
             <if test ='null != roleId'>
-                `role_id`,
+                `ROLE_ID`,
             </if>
             <if test ='null != remark1'>
-                `remark1`,
+                `REMARK1`,
             </if>
             <if test ='null != remark2'>
-                `remark2`,
+                `REMARK2`,
             </if>
             <if test ='null != remark4'>
-                `remark4`,
+                `REMARK4`,
             </if>
             <if test ='null != remark3'>
-                `remark3`,
+                `REMARK3`,
             </if>
             <if test ='null != remark5'>
-                `remark5`
+                `REMARK5`
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">

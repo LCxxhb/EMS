@@ -1,24 +1,32 @@
 package com.longcheng.xxh.energycenter.controller.sys;
 
+import com.alibaba.fastjson.JSON;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
 import com.longcheng.xxh.energycenter.entity.sys.User;
 import com.longcheng.xxh.energycenter.service.sys.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping(value = "/User")
+@RequestMapping(value = "/user")
 public class UserController {
 
-    @Resource
+    @Autowired
     private UserService userService;
 
+    /**
+     * 用户登录校验
+     * @param user
+     * @return
+     */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public String login(User user) {
-        userService.login(user);
-        return "";
+    public String login(User user, HttpServletRequest request) {
+
+//        userService.login(user ,request);
+        return "用户登录";
     }
 
     /**
@@ -27,10 +35,9 @@ public class UserController {
      * @author shadow
      * @date 2019/09/27
      **/
-    @RequestMapping("/insert")
+    @PostMapping("/insert")
     public String insert(User user) {
-        userService.insert(user);
-        return "";
+        return JSON.toJSONString(userService.insert(user));
     }
 
     /**

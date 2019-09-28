@@ -3,6 +3,8 @@ package com.longcheng.xxh.energycenter.service.sys;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
 import com.longcheng.xxh.energycenter.entity.sys.User;
 
+import javax.servlet.http.HttpServletRequest;
+
 
 /**
  * user
@@ -14,7 +16,7 @@ public interface UserService {
     /**
      * 登录
      */
-    public Results login(User user);
+    public Results login(User user , HttpServletRequest request);
 
     /**
      * 新增
@@ -35,7 +37,10 @@ public interface UserService {
      * 根據主鍵 id 查詢
      */
     public Results load(int id);
-
+    /**
+     * 查詢all
+     */
+    public Results findAll();
     /**
      * 分页查询
      */
