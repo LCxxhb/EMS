@@ -13,7 +13,7 @@ public class User implements Serializable {
     /**
      * uid
      */
-    private Integer uid;
+    private Integer id;
 
     /**
      * username
@@ -94,12 +94,12 @@ public class User implements Serializable {
     public User() {
     }
 
-    public Integer getUid() {
-        return uid;
+    public Integer getId() {
+        return id;
     }
 
-    public void setUid(Integer uid) {
-        this.uid = uid;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public String getUsername() {

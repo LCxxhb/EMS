@@ -45,6 +45,13 @@ public interface UserMapper {
     User load(@Param("id") int id);
 
     /**
+     * [查詢] 查詢所有
+     * @author shadow
+     * @date 2019/09/27
+     **/
+    List<User> findAll();
+
+    /**
      * [查詢] 分頁查詢
      * @author shadow
      * @date 2019/09/27
