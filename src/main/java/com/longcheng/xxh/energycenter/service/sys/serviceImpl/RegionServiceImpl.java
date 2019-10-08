@@ -3,6 +3,7 @@ package com.longcheng.xxh.energycenter.service.sys.serviceImpl;
 import com.longcheng.xxh.energycenter.dao.sys.RegionMapper;
 import com.longcheng.xxh.energycenter.entity.sys.Region;
 import com.longcheng.xxh.energycenter.entity.sys.RegionExample;
+import com.longcheng.xxh.energycenter.entity.sys.RegionExtend;
 import com.longcheng.xxh.energycenter.service.sys.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -79,5 +80,10 @@ public class RegionServiceImpl implements RegionService {
         }else {
             return false;
         }
+    }
+
+    @Override
+    public List<RegionExtend> findAllRegionExtend() {
+        return regionMapper.findAllRegionExtend();
     }
 }

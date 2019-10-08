@@ -1,6 +1,7 @@
 package com.longcheng.xxh.energycenter.service.sys;
 
 import com.longcheng.xxh.energycenter.entity.sys.Region;
+import com.longcheng.xxh.energycenter.entity.sys.RegionExtend;
 
 import java.util.List;
 
@@ -24,4 +25,5 @@ public interface RegionService {
     //删除区域
     public boolean deleteRegion(String[] aids);
 
+    public  List<RegionExtend> findAllRegionExtend();
 }

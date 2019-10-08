@@ -5,9 +5,11 @@ import com.longcheng.xxh.energycenter.entity.sys.RegionExample;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.longcheng.xxh.energycenter.entity.sys.RegionExtend;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Component;
 
 @Mapper
@@ -42,4 +44,7 @@ public interface RegionMapper {
             "      #{createby,jdbcType=VARCHAR}, #{lastupdatedate,jdbcType=VARCHAR}, #{lastupdateby,jdbcType=VARCHAR}, \n" +
             "      #{spare1,jdbcType=VARCHAR}, #{spare2,jdbcType=VARCHAR})")
     int insertRegion(Region region);
+
+    @Select("SELECT a.AID,a.ANAME,a.PID,a.CREATEDATE,a.CREATEBY,a.LASTUPDATEBY,a.LASTUPDATEDATE,a.SPARE1,a.SPARE2,b.ANAME PNAME FROM EMS_SYS_REGION a LEFT JOIN EMS_SYS_REGION b ON a.PID = b.AID")
+    List<RegionExtend> findAllRegionExtend();
 }
