@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.longcheng.xxh.energycenter.dao.sys.PointMapper">
+    <resultMap id="BaseResultMap" type="com.longcheng.xxh.energycenter.entity.sys.Point" >
+        <result column="id" property="id" />
+        <result column="create_date" property="createDate" />
+        <result column="collectionpoint" property="collectionpoint" />
+        <result column="branchfactory" property="branchfactory" />
+        <result column="areaname" property="areaname" />
+        <result column="areaid" property="areaid" />
+        <result column="description" property="description" />
+        <result column="tagtype" property="tagtype" />
+        <result column="usetype" property="usetype" />
+        <result column="datatype" property="datatype" />
+        <result column="drivename" property="drivename" />
+        <result column="devicename" property="devicename" />
+        <result column="deviceaddress" property="deviceaddress" />
+        <result column="projectunit" property="projectunit" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+                id,
+                create_date,
+                collectionpoint,
+                branchfactory,
+                areaname,
+                areaid,
+                description,
+                tagtype,
+                usetype,
+                datatype,
+                drivename,
+                devicename,
+                deviceaddress,
+                projectunit
+    </sql>
+
+   <!-- <insert id="insert" useGeneratedKeys="true" keyColumn="id" parameterType="com.longcheng.xxh.energycenter.entity.entity.GaspointEntity">
+        INSERT INTO gaspoint
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test ='null != id'>
+                `id`,
+            </if>
+            <if test ='null != createDate'>
+                `create_date`,
+            </if>
+            <if test ='null != collectionpoint'>
+                `collectionpoint`,
+            </if>
+            <if test ='null != branchfactory'>
+                `branchfactory`,
+            </if>
+            <if test ='null != areaname'>
+                `areaname`,
+            </if>
+            <if test ='null != areaid'>
+                `areaid`,
+            </if>
+            <if test ='null != description'>
+                `description`,
+            </if>
+            <if test ='null != tagtype'>
+                `tagtype`,
+            </if>
+            <if test ='null != usetype'>
+                `usetype`,
+            </if>
+            <if test ='null != datatype'>
+                `datatype`,
+            </if>
+            <if test ='null != drivename'>
+                `drivename`,
+            </if>
+            <if test ='null != devicename'>
+                `devicename`,
+            </if>
+            <if test ='null != deviceaddress'>
+                `deviceaddress`,
+            </if>
+            <if test ='null != projectunit'>
+                `projectunit`
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test ='null != id'>
+                #{id},
+            </if>
+            <if test ='null != createDate'>
+                #{createDate},
+            </if>
+            <if test ='null != collectionpoint'>
+                #{collectionpoint},
+            </if>
+            <if test ='null != branchfactory'>
+                #{branchfactory},
+            </if>
+            <if test ='null != areaname'>
+                #{areaname},
+            </if>
+            <if test ='null != areaid'>
+                #{areaid},
+            </if>
+            <if test ='null != description'>
+                #{description},
+            </if>
+            <if test ='null != tagtype'>
+                #{tagtype},
+            </if>
+            <if test ='null != usetype'>
+                #{usetype},
+            </if>
+            <if test ='null != datatype'>
+                #{datatype},
+            </if>
+            <if test ='null != drivename'>
+                #{drivename},
+            </if>
+            <if test ='null != devicename'>
+                #{devicename},
+            </if>
+            <if test ='null != deviceaddress'>
+                #{deviceaddress},
+            </if>
+            <if test ='null != projectunit'>
+                #{projectunit}
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delete" >
+        DELETE FROM gaspoint
+        WHERE `id_` = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.longcheng.xxh.energycenter.entity.entity.GaspointEntity">
+        UPDATE gaspoint
+        <set>
+            <if test ='null != id'>id = #{id},</if>
+            <if test ='null != createDate'>create_date = #{createDate},</if>
+            <if test ='null != collectionpoint'>collectionpoint = #{collectionpoint},</if>
+            <if test ='null != branchfactory'>branchfactory = #{branchfactory},</if>
+            <if test ='null != areaname'>areaname = #{areaname},</if>
+            <if test ='null != areaid'>areaid = #{areaid},</if>
+            <if test ='null != description'>description = #{description},</if>
+            <if test ='null != tagtype'>tagtype = #{tagtype},</if>
+            <if test ='null != usetype'>usetype = #{usetype},</if>
+            <if test ='null != datatype'>datatype = #{datatype},</if>
+            <if test ='null != drivename'>drivename = #{drivename},</if>
+            <if test ='null != devicename'>devicename = #{devicename},</if>
+            <if test ='null != deviceaddress'>deviceaddress = #{deviceaddress},</if>
+            <if test ='null != projectunit'>projectunit = #{projectunit}</if>
+        </set>
+        WHERE `id_` = #{id}
+    </update>
+-->
+
+    <select id="findById" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM EMS_GAS_POINTCOLLECTION
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAllPoint" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM EMS_GAS_POINTCOLLECTION
+    </select>
+
+
+    <select id="pageList" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM EMS_GAS_POINTCOLLECTION
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="pageListCount" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM EMS_GAS_POINTCOLLECTION
+    </select>
+
+</mapper>
