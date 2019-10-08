@@ -41,8 +41,10 @@
                 remark5
     </sql>
 
-    <insert id="insert" useGeneratedKeys="true" keyColumn="id"
-            parameterType="com.longcheng.xxh.energycenter.entity.sys.User">
+    <insert id="insert" parameterType="com.longcheng.xxh.energycenter.entity.sys.User">
+        <!--        <selectKey keyProperty="id" resultType="_long" order="BEFORE">-->
+        <!--            select CAST(RANDOM * 100000 as INTEGER) a FROM SYSTEM.EMS_SYS_USER-->
+        <!--        </selectKey>-->
         INSERT INTO EMS_SYS_USER
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test='null != id'>
