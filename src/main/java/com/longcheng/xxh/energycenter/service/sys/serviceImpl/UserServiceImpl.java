@@ -47,9 +47,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public Results insert(User user) {
         String apiDesc = "添加用户接口";
-//        int rs = (int) ((Math.random() * 9 + 1) * Math.pow(10, 10 - 1));//生成10位随机数做主键
-//        user.setId(rs);
-//        logger.info("生成的用户id为{},用户对象信息为{}", rs, JSON.toJSONString(user));
+        int rs = (int) ((Math.random() * 9 + 1) * Math.pow(10, 10 - 1));//生成10位随机数做主键
+        user.setId(rs);
+        logger.info("生成的用户id为{},用户对象信息为{}", rs, JSON.toJSONString(user));
         // valid
         if (StringUtils.isEmpty(user.getPassword()) || StringUtils.isEmpty(user.getUsername())) {
             return new Results(Code.param, "用户名或密码为空", "", apiDesc);
@@ -91,7 +91,7 @@ public class UserServiceImpl implements UserService {
     public Results update(User user) {
         String apiDesc = "修改用户接口";
         // valid
-        if (StringUtils.isEmpty(String.valueOf(user.getId()))||StringUtils.isEmpty(user.getPassword()) || StringUtils.isEmpty(user.getUsername())) {
+        if (StringUtils.isEmpty(String.valueOf(user.getId())) || StringUtils.isEmpty(user.getPassword()) || StringUtils.isEmpty(user.getUsername())) {
             return new Results(Code.param, "用户id或用户名或用户密码为空", "", apiDesc);
         } else {
             try {
@@ -131,12 +131,12 @@ public class UserServiceImpl implements UserService {
     public Results findAll() {
         String apiDesc = "查询所有用户接口";
 //        try {
-            List<User> lists = userMapper.findAll();
-            if (lists == null || lists.size() == 0) {
-                return new Results(Code.error, "查询用户列表失败", lists, apiDesc);
-            } else {
-                return new Results(Code.success, "查询用户列表成功", lists, apiDesc);
-            }
+        List<User> lists = userMapper.findAll();
+        if (lists == null || lists.size() == 0) {
+            return new Results(Code.error, "查询用户列表失败", lists, apiDesc);
+        } else {
+            return new Results(Code.success, "查询用户列表成功", lists, apiDesc);
+        }
 //        } catch (Exception e) {
 //            return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
 //        }

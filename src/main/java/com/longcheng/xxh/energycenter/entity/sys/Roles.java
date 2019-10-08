@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- * @author 
+ * @author
  */
 public class Roles implements Serializable {
     private BigDecimal id;
 
     private String rolename;
 
-    private String desc;
+    private String describe;
 
     private String permission;
 
@@ -43,12 +43,12 @@ public class Roles implements Serializable {
         this.rolename = rolename;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescribe() {
+        return describe;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc;
+    public void setDescribe(String describe) {
+        this.describe = describe;
     }
 
     public String getPermission() {
@@ -113,7 +113,7 @@ public class Roles implements Serializable {
         Roles other = (Roles) that;
         return (this.getId() == null ? other.getId() == null : this.getId().equals(other.getId()))
             && (this.getRolename() == null ? other.getRolename() == null : this.getRolename().equals(other.getRolename()))
-            && (this.getDesc() == null ? other.getDesc() == null : this.getDesc().equals(other.getDesc()))
+            && (this.getDescribe() == null ? other.getDescribe() == null : this.getDescribe().equals(other.getDescribe()))
             && (this.getPermission() == null ? other.getPermission() == null : this.getPermission().equals(other.getPermission()))
             && (this.getCreateDate() == null ? other.getCreateDate() == null : this.getCreateDate().equals(other.getCreateDate()))
             && (this.getCreateBy() == null ? other.getCreateBy() == null : this.getCreateBy().equals(other.getCreateBy()))
@@ -128,7 +128,7 @@ public class Roles implements Serializable {
         int result = 1;
         result = prime * result + ((getId() == null) ? 0 : getId().hashCode());
         result = prime * result + ((getRolename() == null) ? 0 : getRolename().hashCode());
-        result = prime * result + ((getDesc() == null) ? 0 : getDesc().hashCode());
+        result = prime * result + ((getDescribe() == null) ? 0 : getDescribe().hashCode());
         result = prime * result + ((getPermission() == null) ? 0 : getPermission().hashCode());
         result = prime * result + ((getCreateDate() == null) ? 0 : getCreateDate().hashCode());
         result = prime * result + ((getCreateBy() == null) ? 0 : getCreateBy().hashCode());
@@ -146,7 +146,7 @@ public class Roles implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", rolename=").append(rolename);
-        sb.append(", desc=").append(desc);
+        sb.append(", describe=").append(describe);
         sb.append(", permission=").append(permission);
         sb.append(", createDate=").append(createDate);
         sb.append(", createBy=").append(createBy);
