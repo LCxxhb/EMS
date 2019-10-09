@@ -149,7 +149,7 @@ public class RegionController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/findByTwoRegion",method = RequestMethod.POST)
-    public String  findByTwoRegion(String aid,HttpSession session){
+    public String  findByTwoRegion(HttpSession session){
         List<Region>  regions = regionService.findByTwoRegion();
         Results result = new Results(Code.success,"查询二级区域成功！！", regions,"查询二级区域信息");
         return JSON.toJSONString(result);
