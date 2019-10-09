@@ -47,4 +47,7 @@ public interface RegionMapper {
 
     @Select("SELECT a.AID,a.ANAME,a.PID,a.CREATEDATE,a.CREATEBY,a.LASTUPDATEBY,a.LASTUPDATEDATE,a.SPARE1,a.SPARE2,b.ANAME PNAME FROM EMS_SYS_REGION a LEFT JOIN EMS_SYS_REGION b ON a.PID = b.AID")
     List<RegionExtend> findAllRegionExtend();
+
+    @Select("SELECT a.AID,a.ANAME,a.PID,a.CREATEDATE,a.CREATEBY,a.LASTUPDATEBY,a.LASTUPDATEDATE,a.SPARE1,a.SPARE2,b.ANAME PNAME FROM (SELECT * FROM EMS_SYS_REGION WHERE PID = #{pid})   a LEFT JOIN EMS_SYS_REGION b ON a.PID = b.AID " )
+    List<RegionExtend> findByPidRegionExtend(int pid);
 }

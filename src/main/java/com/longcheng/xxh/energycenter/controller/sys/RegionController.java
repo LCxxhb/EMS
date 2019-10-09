@@ -61,7 +61,7 @@ public class RegionController {
     @CrossOrigin(origins = "*")
     public String findByPid(String pid,HttpSession session, ModelAndView modelAndView){
         if(pid!=null&&pid!=""){
-            List<Region> regions = regionService.findByPid(Integer.parseInt(pid));
+            List<RegionExtend> regions = regionService.findByPid(Integer.parseInt(pid));
             Results result =  new Results(Code.success,"查询成功！！", regions,"通过Pid查询区域信息");
             return JSON.toJSONString(result);
         }else {
@@ -80,6 +80,8 @@ public class RegionController {
         region.setCreatedate(dateFormat.format(date));
         region.setAid(new BigDecimal(region.getPid()));
         region.setCreateby("admin");
+        region.setLastupdateby("admin");
+        region.setLastupdatedate(dateFormat.format(date));
         Boolean b = regionService.addRegion(region);
         if(b){
             Results result = new Results(Code.success,"添加成功！！", null,"添加区域信息");
@@ -99,6 +101,7 @@ public class RegionController {
            regions = regionService.findByAid(Integer.parseInt(region.getAid()+""));
         }
         region.setCreatedate(regions.get(0).getCreatedate());
+        region.setCreateby(regions.get(0).getCreateby());
         Date date = new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
         region.setLastupdatedate(simpleDateFormat.format(date));
@@ -134,6 +137,23 @@ public class RegionController {
 
     }
 
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/findByOneTwoRegion",method = RequestMethod.POST)
+    public String  findByOneTwoRegion(HttpSession session){
+                List<Region>  regions = regionService.findByOneTwoRegion();
+                Results result = new Results(Code.success,"查询一二级区域成功！！", regions,"查询一二级区域信息");
+                return JSON.toJSONString(result);
+    }
 
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/findByTwoRegion",method = RequestMethod.POST)
+    public String  findByTwoRegion(String aid,HttpSession session){
+        List<Region>  regions = regionService.findByTwoRegion();
+        Results result = new Results(Code.success,"查询二级区域成功！！", regions,"查询二级区域信息");
+        return JSON.toJSONString(result);
+
+    }
 
 }

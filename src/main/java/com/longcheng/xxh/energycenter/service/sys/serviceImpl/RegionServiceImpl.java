@@ -33,11 +33,11 @@ public class RegionServiceImpl implements RegionService {
     }
 
     @Override
-    public List<Region> findByPid(int pid) {
-        RegionExample regionExample = new RegionExample();
+    public List<RegionExtend> findByPid(int pid) {
+        /*RegionExample regionExample = new RegionExample();
         regionExample.createCriteria().andPidEqualTo(Integer.toString(pid));
-        List<Region> regions =  regionMapper.selectByExample(regionExample);
-        return regions;
+        List<Region> regions =  regionMapper.selectByExample(regionExample);*/
+        return regionMapper.findByPidRegionExtend(pid);
     }
 
     @Override
@@ -85,5 +85,24 @@ public class RegionServiceImpl implements RegionService {
     @Override
     public List<RegionExtend> findAllRegionExtend() {
         return regionMapper.findAllRegionExtend();
+    }
+
+    @Override
+    public List<Region> findByOneTwoRegion() {
+        RegionExample regionExample = new RegionExample();
+        List<String> strings = new ArrayList<>();
+        strings.add("0");
+        strings.add("2");
+        regionExample.createCriteria().andPidIn(strings);
+        List<Region> regions =  regionMapper.selectByExample(regionExample);
+        return regions;
+    }
+
+    @Override
+    public List<Region> findByTwoRegion() {
+        RegionExample regionExample = new RegionExample();
+        regionExample.createCriteria().andPidEqualTo(Integer.toString(2));
+        List<Region> regions =  regionMapper.selectByExample(regionExample);
+        return regions;
     }
 }
