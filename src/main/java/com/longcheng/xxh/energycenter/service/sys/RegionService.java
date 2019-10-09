@@ -14,7 +14,7 @@ public interface RegionService {
     public List<Region> findByAid(int aid);
 
     //通过pid查询区域
-    public List<Region> findByPid(int pid);
+    public List<RegionExtend> findByPid(int pid);
 
     //添加区域
     public boolean addRegion(Region region);
@@ -26,4 +26,8 @@ public interface RegionService {
     public boolean deleteRegion(String[] aids);
 
     public  List<RegionExtend> findAllRegionExtend();
+
+    public List<Region> findByOneTwoRegion() ;
+
+    public List<Region> findByTwoRegion();
 }
