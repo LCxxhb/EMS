@@ -14,7 +14,9 @@ public interface PointService {
     public Point findById(int id);
 
 
-    /*查询所有采集点信息*/
+    /**
+     * 查询所有采集点信息
+     */
     public List<Point> findAllPoint();
 
     /**
@@ -22,5 +24,16 @@ public interface PointService {
      * @return
      */
     public Results pageList(int offset, int pagesize);
+
+    /**
+     * 根据区域查询采集点
+     */
+    public List<Point> findByAreaname(String areaname);
+
+
+    /**
+     * 根据分厂查询采集点
+     */
+    public List<Point> findByBranchfactory(String branchfactory);
 
 }

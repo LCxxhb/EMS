@@ -5,7 +5,7 @@ import com.longcheng.xxh.energycenter.entity.sys.Point;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
+
 
 
 import java.util.List;
@@ -25,6 +25,7 @@ public interface PointMapper {
     /**查询所有采集点*/
     List<Point> findAllPoint();
 
+
     /**
      * [查詢] 分頁查詢
      * @author xieqi
@@ -39,5 +40,17 @@ public interface PointMapper {
      **/
     int pageListCount(@Param("offset") int offset, @Param("pagesize") int pagesize);
 
+    /**
+     * [查询] 根据分厂查询采集点
+     * @param areaname
+     */
 
+    List<Point> findByAreaname(String areaname);
+
+
+    /**
+     * [查询] 根据区域名称查询采集点
+     */
+
+    List<Point> findByBranchfactory(String branchfactory);
 }
