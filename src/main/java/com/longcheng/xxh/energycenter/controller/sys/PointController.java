@@ -49,8 +49,8 @@ public class PointController {
         @CrossOrigin(origins = "*")
         @RequestMapping(value = "/findAllPoint",method = RequestMethod.POST)
         public String findAllPoint(HttpSession session){
-            List<Point> regions = pointService.findAllPoint();
-            Results result =  new Results(Code.success,"查询成功！！",regions,"查询所有采集点信息");
+            List<Point> points = pointService.findAllPoint();
+            Results result =  new Results(Code.success,"查询成功！！",points,"查询所有采集点信息");
             return JSON.toJSONString(result);
         }
 
@@ -68,4 +68,42 @@ public class PointController {
             return (Map<String, Object>) pointService.pageList(offset, pagesize);
         }
 
+
+    /**
+     /** [查詢] 根据区域查询采集点
+     **/
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/findByAreaname", method = RequestMethod.POST)
+    @ResponseBody
+    public String findByAreaname(String areaname, HttpSession session) {
+
+        if (areaname != null && areaname!= "") {
+            List<Point> points = pointService.findByAreaname(areaname);
+            Results results = new Results(Code.success, "查询采集点信息成功", points, "通过区域查询采集点信息");
+            return JSON.toJSONString(results);
+        } else {
+            Results results = new Results(Code.error, "查询采集点信息失败！！", null, "通过区域查询采集点信息");
+            return JSON.toJSONString(results);
+        }
+
+    }
+
+
+    /**
+     /** [查詢] 根据分厂查询采集点
+     **/
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/findByBranchfactory", method = RequestMethod.POST)
+    @ResponseBody
+    public String findByBranchfactory(String branchfactory, HttpSession session) {
+        if (branchfactory != null && branchfactory!= "") {
+            List<Point> points = pointService.findByBranchfactory(branchfactory);
+            Results results = new Results(Code.success, "查询采集点信息成功", points, "通过分厂查询采集点信息");
+            return JSON.toJSONString(results);
+        } else {
+            Results results = new Results(Code.error, "查询采集点信息失败！！", null, "通过分厂查询采集点信息");
+            return JSON.toJSONString(results);
+        }
+
+    }
 }

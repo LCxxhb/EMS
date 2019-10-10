@@ -178,4 +178,18 @@
         FROM EMS_GAS_POINTCOLLECTION
     </select>
 
+    <select id="findByAreaname" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM EMS_GAS_POINTCOLLECTION
+        WHERE areaname = #{areaname}
+    </select>
+
+
+    <select id="findByBranchfactory" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM EMS_GAS_POINTCOLLECTION
+        WHERE branchfactory = #{branchfactory}
+    </select>
+
+
 </mapper>

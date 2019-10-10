@@ -39,5 +39,16 @@ public class PointServiceImpl implements PointService {
         return new Results();
     }
 
+    @Override
+    public List<Point> findByAreaname(String areaname) {
+        return pointMapper.findByAreaname(areaname);
+    }
+
+
+    @Override
+    public List<Point> findByBranchfactory(String branchfactory) {
+        return pointMapper.findByBranchfactory(branchfactory);
+    }
+
 
 }
