@@ -37,7 +37,15 @@ public class RegionServiceImpl implements RegionService {
         /*RegionExample regionExample = new RegionExample();
         regionExample.createCriteria().andPidEqualTo(Integer.toString(pid));
         List<Region> regions =  regionMapper.selectByExample(regionExample);*/
-        return regionMapper.findByPidRegionExtend(pid);
+         List<RegionExtend> regions = regionMapper.findByPidRegionExtend(pid);
+         return regions;
+    }
+
+    public List<Region> findByPidRegion(int pid) {
+        RegionExample regionExample = new RegionExample();
+        regionExample.createCriteria().andPidEqualTo(Integer.toString(pid));
+        List<Region> regions =  regionMapper.selectByExample(regionExample);
+        return  regions;
     }
 
     @Override

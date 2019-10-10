@@ -16,6 +16,7 @@ public interface RegionService {
     //通过pid查询区域
     public List<RegionExtend> findByPid(int pid);
 
+    public List<Region> findByPidRegion(int pid);
     //添加区域
     public boolean addRegion(Region region);
 

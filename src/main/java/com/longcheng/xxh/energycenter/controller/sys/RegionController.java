@@ -59,7 +59,7 @@ public class RegionController {
     @ResponseBody
     @RequestMapping(value = "/findByPid",method = RequestMethod.POST)
     @CrossOrigin(origins = "*")
-    public String findByPid(String pid,HttpSession session, ModelAndView modelAndView){
+    public String findByPid(String pid){
         if(pid!=null&&pid!=""){
             List<RegionExtend> regions = regionService.findByPid(Integer.parseInt(pid));
             Results result =  new Results(Code.success,"查询成功！！", regions,"通过Pid查询区域信息");
@@ -71,6 +71,20 @@ public class RegionController {
 
     }
 
+    @ResponseBody
+    @RequestMapping(value = "/findByPidRegion",method = RequestMethod.POST)
+    @CrossOrigin(origins = "*")
+    public String findByPidRegion(String pid){
+        if(pid!=null&&pid!=""){
+            List<Region> regions = regionService.findByPidRegion(Integer.parseInt(pid));
+            Results result =  new Results(Code.success,"查询成功！！", regions,"通过Pid查询区域信息");
+            return JSON.toJSONString(result);
+        }else {
+            Results result = new Results(Code.error,"查询失败！！Pid不能为空！！", null,"通过Pid查询区域信息");
+            return JSON.toJSONString(result);
+        }
+
+    }
     @ResponseBody
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/addRegion",method = RequestMethod.POST)
