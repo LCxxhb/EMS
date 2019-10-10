@@ -47,9 +47,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public Results insert(User user) {
         String apiDesc = "添加用户接口";
-        int rs = (int) ((Math.random() * 9 + 1) * Math.pow(10, 10 - 1));//生成10位随机数做主键
-        user.setId(rs);
-        logger.info("生成的用户id为{},用户对象信息为{}", rs, JSON.toJSONString(user));
+//        int rs = (int) ((Math.random() * 9 + 1) * Math.pow(10, 10 - 1));//生成10位随机数做主键
+//        user.setId(rs);
+        logger.info("用户对象信息为{}", JSON.toJSONString(user));
         // valid
         if (StringUtils.isEmpty(user.getPassword()) || StringUtils.isEmpty(user.getUsername())) {
             return new Results(Code.param, "用户名或密码为空", "", apiDesc);
@@ -68,14 +68,21 @@ public class UserServiceImpl implements UserService {
 
 
     @Override
-    public Results delete(int id) {
+    public Results delete(String id) {
         String apiDesc = "删除用户接口";
         // valid
-        if (StringUtils.isEmpty(String.valueOf(id))) {
+        if (StringUtils.isEmpty(id)) {
             return new Results(Code.param, "用户id为空!!", "", apiDesc);
         } else {
             try {
-                if (userMapper.delete(id) > 0) {
+                String[] ids = id.split(",");
+                int count =0;
+                for (int i = 0; i < ids.length; i++) {
+                    userMapper.delete(ids[i]);
+                    count++;
+                }
+                logger.info("count===============>"+count);
+                if (count > 0) {
                     return new Results(Code.success, "删除用户成功", "", apiDesc);
                 } else {
                     return new Results(Code.error, "删除用户失败", "", apiDesc);
@@ -128,20 +135,64 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Results findAll() {
-        String apiDesc = "查询所有用户接口";
-//        try {
-        List<User> lists = userMapper.findAll();
-        if (lists == null || lists.size() == 0) {
-            return new Results(Code.error, "查询用户列表失败", lists, apiDesc);
+    public Results resetPassword(int id) {
+        String apiDesc = "用户密码重置";
+        // valid
+        if (StringUtils.isEmpty(String.valueOf(id))) {
+            return new Results(Code.param, "参数校验失败id为空!!", "", apiDesc);
         } else {
-            return new Results(Code.success, "查询用户列表成功", lists, apiDesc);
+            try {
+                User user = userMapper.load(id);//根据id查询用户进行密码重置
+                if (user != null) {
+                    //密码重置
+                    user.setPassword("000000");
+                    if(userMapper.update(user)>0){
+                        return new Results(Code.success, "用户密码重置成功", "", apiDesc);
+                    }else{
+                        return new Results(Code.error, "用户密码重置失败", "", apiDesc);
+                    }
+
+                } else {
+                    return new Results(Code.error, "未查到该用户信息", "", apiDesc);
+                }
+            } catch (Exception e) {
+                return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+            }
         }
-//        } catch (Exception e) {
-//            return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
-//        }
     }
 
+    @Override
+    public Results findAll() {
+        String apiDesc = "查询所有用户接口";
+        try {
+            List<User> lists = userMapper.findAll();
+            if (lists == null || lists.size() == 0) {
+                return new Results(Code.error, "查询用户列表失败", lists, apiDesc);
+            } else {
+                return new Results(Code.success, "查询用户列表成功", lists, apiDesc);
+            }
+        } catch (Exception e) {
+            return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+        }
+    }
+
+    @Override
+    public Results listLessonSumByCourseIdList(Map<String,String> map) {
+        String apiDesc = "查询所有用户接口";
+        try {
+            List<HashMap<String, Object>> hashMaps = userMapper.listLessonSumByCourseIdList(map);
+
+
+//            if (lists == null || lists.size() == 0) {
+//                return new Results(Code.error, "查询用户列表失败", lists, apiDesc);
+//            } else {
+//                return new Results(Code.success, "查询用户列表成功", lists, apiDesc);
+//            }
+        } catch (Exception e) {
+            return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+        }
+        return new Results(Code.trycatch, "捕获到异常" , "", apiDesc);
+    }
 
     @Override
     public Results pageList(int offset, int pagesize) {

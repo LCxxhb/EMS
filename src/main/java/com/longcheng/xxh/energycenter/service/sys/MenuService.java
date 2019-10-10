@@ -1,21 +1,20 @@
 package com.longcheng.xxh.energycenter.service.sys;
 
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
-import com.longcheng.xxh.energycenter.entity.sys.Roles;
-
-import java.util.Map;
+import com.longcheng.xxh.energycenter.entity.sys.Menu;
 
 /**
- * roles
+ * MenuService
+ *
  * @author shadow
  * @date 2019/10/10
  */
-public interface RolesService {
+public interface MenuService {
 
     /**
      * 新增
      */
-    public Results insert(Roles roles);
+    public Results insert(Menu menu);
 
     /**
      * 删除
@@ -25,7 +24,7 @@ public interface RolesService {
     /**
      * 更新
      */
-    public Results update(Roles roles);
+    public Results update(Menu menu);
 
     /**
      * 根據主鍵 id 查詢

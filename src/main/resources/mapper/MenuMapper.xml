@@ -1,43 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.longcheng.xxh.energycenter.dao.sys.RolesMapper">
+<mapper namespace="com.longcheng.xxh.energycenter.dao.sys.MenuMapper">
 
-    <resultMap id="BaseResultMap" type="com.longcheng.xxh.energycenter.entity.sys.Roles" >
+    <resultMap id="BaseResultMap" type="com.longcheng.xxh.energycenter.entity.sys.Menu" >
         <result column="id" property="id" />
-        <result column="rolename" property="rolename" />
-        <result column="describe" property="describe" />
-        <result column="permission" property="permission" />
+        <result column="pid" property="pid" />
+        <result column="menuname" property="menuname" />
+        <result column="munuurl" property="munuurl" />
         <result column="create_date" property="createDate" />
         <result column="create_by" property="createBy" />
         <result column="last_update_date" property="lastUpdateDate" />
         <result column="last_update_by" property="lastUpdateBy" />
+        <result column="remark" property="remark" />
         <result column="spare" property="spare" />
     </resultMap>
 
     <sql id="Base_Column_List">
-                id,
-                rolename,
-                describe,
-                permission,
-                create_date,
-                create_by,
-                last_update_date,
-                last_update_by,
-                spare
+        id,
+        pid,
+        menuname,
+        munuurl,
+        create_date,
+        create_by,
+        last_update_date,
+        last_update_by,
+        remark,
+        spare
     </sql>
 
-    <insert id="insert" useGeneratedKeys="true" keyColumn="id" parameterType="com.longcheng.xxh.energycenter.entity.sys.Roles">
-        INSERT INTO roles
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" parameterType="com.longcheng.xxh.energycenter.entity.sys.Menu">
+        INSERT INTO menu
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test ='null != rolename'>
-                rolename,
+            <if test ='null != pid'>
+                pid,
             </if>
-            <if test ='null != describe'>
-                describe,
+            <if test ='null != menuname'>
+                menuname,
             </if>
-            <if test ='null != permission'>
-                permission,
+            <if test ='null != munuurl'>
+                munuurl,
             </if>
             <if test ='null != createDate'>
                 create_date,
@@ -51,19 +53,22 @@
             <if test ='null != lastUpdateBy'>
                 last_update_by,
             </if>
+            <if test ='null != remark'>
+                remark,
+            </if>
             <if test ='null != spare'>
                 spare
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test ='null != rolename'>
-                #{rolename},
+            <if test ='null != pid'>
+                #{pid},
             </if>
-            <if test ='null != describe'>
-                #{describe},
+            <if test ='null != menuname'>
+                #{menuname},
             </if>
-            <if test ='null != permission'>
-                #{permission},
+            <if test ='null != munuurl'>
+                #{munuurl},
             </if>
             <if test ='null != createDate'>
                 #{createDate},
@@ -77,6 +82,9 @@
             <if test ='null != lastUpdateBy'>
                 #{lastUpdateBy},
             </if>
+            <if test ='null != remark'>
+                #{remark},
+            </if>
             <if test ='null != spare'>
                 #{spare}
             </if>
@@ -84,20 +92,21 @@
     </insert>
 
     <delete id="delete" >
-        DELETE FROM roles
+        DELETE FROM menu
         WHERE id = #{id}
     </delete>
 
-    <update id="update" parameterType="com.longcheng.xxh.energycenter.entity.sys.Roles">
-        UPDATE roles
+    <update id="update" parameterType="com.longcheng.xxh.energycenter.entity.sys.Menu">
+        UPDATE menu
         <set>
-            <if test ='null != rolename'>rolename = #{rolename},</if>
-            <if test ='null != describe'>describe = #{describe},</if>
-            <if test ='null != permission'>permission = #{permission},</if>
+            <if test ='null != pid'>pid = #{pid},</if>
+            <if test ='null != menuname'>menuname = #{menuname},</if>
+            <if test ='null != munuurl'>munuurl = #{munuurl},</if>
             <if test ='null != createDate'>create_date = #{createDate},</if>
             <if test ='null != createBy'>create_by = #{createBy},</if>
             <if test ='null != lastUpdateDate'>last_update_date = #{lastUpdateDate},</if>
             <if test ='null != lastUpdateBy'>last_update_by = #{lastUpdateBy},</if>
+            <if test ='null != remark'>remark = #{remark},</if>
             <if test ='null != spare'>spare = #{spare}</if>
         </set>
         WHERE id = #{id}
@@ -106,19 +115,19 @@
 
     <select id="load" resultMap="BaseResultMap">
         SELECT <include refid="Base_Column_List" />
-        FROM roles
+        FROM menu
         WHERE id = #{id}
     </select>
 
     <select id="pageList" resultMap="BaseResultMap">
         SELECT <include refid="Base_Column_List" />
-        FROM roles
+        FROM menu
         LIMIT #{offset}, #{pageSize}
     </select>
 
     <select id="pageListCount" resultType="java.lang.Integer">
         SELECT count(1)
-        FROM roles
+        FROM menu
     </select>
 
 </mapper>

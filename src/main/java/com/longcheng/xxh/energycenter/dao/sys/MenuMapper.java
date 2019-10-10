@@ -1,26 +1,26 @@
 package com.longcheng.xxh.energycenter.dao.sys;
 
-import com.longcheng.xxh.energycenter.entity.sys.Roles;
+import com.longcheng.xxh.energycenter.entity.sys.Menu;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
- * roles
+ * menu
  * @author shadow
  * @date 2019/10/10
  */
 @Mapper
 @Repository
-public interface RolesMapper {
+public interface MenuMapper {
 
     /**
      * [新增]
      * @author shadow
      * @date 2019/10/10
      **/
-    int insert(Roles roles);
+    int insert(Menu menu);
 
     /**
      * [刪除]
@@ -34,21 +34,21 @@ public interface RolesMapper {
      * @author shadow
      * @date 2019/10/10
      **/
-    int update(Roles roles);
+    int update(Menu menu);
 
     /**
      * [查詢] 根據主鍵 id 查詢
      * @author shadow
      * @date 2019/10/10
      **/
-    Roles load(int id);
+    Menu load(int id);
 
     /**
      * [查詢] 分頁查詢
      * @author shadow
      * @date 2019/10/10
      **/
-    List<Roles> pageList(int offset,int pagesize);
+    List<Menu> pageList(int offset,int pagesize);
 
     /**
      * [查詢] 分頁查詢 count

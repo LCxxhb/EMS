@@ -5,7 +5,9 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * user
@@ -21,14 +23,14 @@ public interface UserMapper {
      * @author shadow
      * @date 2019/09/27
      **/
-    int insert(@Param("user") User user);
+    int insert(User user);
 
     /**
      * [刪除]
      * @author shadow
      * @date 2019/09/27
      **/
-    int delete(@Param("id") int id);
+    int delete(@Param("id") String id);
 
     /**
      * [更新]
@@ -50,6 +52,14 @@ public interface UserMapper {
      * @date 2019/09/27
      **/
     List<User> findAll();
+
+    /**
+     * [查詢] 按条件查询
+     * @author shadow
+     * @date 2019/09/27
+     **/
+    List<HashMap<String,Object>> listLessonSumByCourseIdList(Map<String,String> map);
+
 
     /**
      * [查詢] 分頁查詢

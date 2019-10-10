@@ -42,8 +42,8 @@
     </sql>
 
     <insert id="insert" parameterType="com.longcheng.xxh.energycenter.entity.sys.User">
-        <!--        <selectKey keyProperty="id" resultType="_long" order="BEFORE">-->
-        <!--            select CAST(RANDOM * 100000 as INTEGER) a FROM SYSTEM.EMS_SYS_USER-->
+        <!--        <selectKey keyProperty="id" resultType="String" order="BEFORE">-->
+        <!--            select SEQ_EMS_SYS_USER.NEXTVAL a FROM dual-->
         <!--        </selectKey>-->
         INSERT INTO EMS_SYS_USER
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -175,6 +175,15 @@
         </set>
         WHERE ID = #{id}
     </update>
+
+    <!--查询返回map对象-->
+    <select id="listLessonSumByCourseIdList" parameterType="java.util.Map" resultType="java.util.HashMap">
+        SELECT U.USERNAME, U.AREA_ID, U.STATUS, U.ROLE_ID, T.ANAME
+        FROM EMS_SYS_USER U
+        LEFT JOIN EMS_SYS_REGION T ON U.AREA_ID = T.AID
+        <if test='null != username'>username = #{username},</if>
+        <if test='null != areaId'>area_id = #{areaId},</if>
+    </select>
 
     <select id="findAll" resultMap="BaseResultMap">
         SELECT

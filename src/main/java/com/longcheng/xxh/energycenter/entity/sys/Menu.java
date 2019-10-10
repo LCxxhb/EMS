@@ -4,10 +4,11 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
- *  roles
+ * menu
+ *
  * @author shadow 2019-10-10
  */
-public class Roles implements Serializable {
+public class Menu implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -16,19 +17,19 @@ public class Roles implements Serializable {
     private BigDecimal id;
 
     /**
-     * rolename
+     * pid
      */
-    private String rolename;
+    private BigDecimal pid;
 
     /**
-     * describe
+     * menuname
      */
-    private String describe;
+    private String menuname;
 
     /**
-     * permission
+     * munuurl
      */
-    private String permission;
+    private String munuurl;
 
     /**
      * create_date
@@ -51,12 +52,17 @@ public class Roles implements Serializable {
     private String lastUpdateBy;
 
     /**
+     * remark
+     */
+    private String remark;
+
+    /**
      * spare
      */
     private String spare;
 
 
-    public Roles() {
+    public Menu() {
     }
 
     public BigDecimal getId() {
@@ -67,28 +73,28 @@ public class Roles implements Serializable {
         this.id = id;
     }
 
-    public String getRolename() {
-        return rolename;
+    public BigDecimal getPid() {
+        return pid;
     }
 
-    public void setRolename(String rolename) {
-        this.rolename = rolename;
+    public void setPid(BigDecimal pid) {
+        this.pid = pid;
     }
 
-    public String getDescribe() {
-        return describe;
+    public String getMenuname() {
+        return menuname;
     }
 
-    public void setDescribe(String describe) {
-        this.describe = describe;
+    public void setMenuname(String menuname) {
+        this.menuname = menuname;
     }
 
-    public String getPermission() {
-        return permission;
+    public String getMunuurl() {
+        return munuurl;
     }
 
-    public void setPermission(String permission) {
-        this.permission = permission;
+    public void setMunuurl(String munuurl) {
+        this.munuurl = munuurl;
     }
 
     public String getCreateDate() {
@@ -121,6 +127,14 @@ public class Roles implements Serializable {
 
     public void setLastUpdateBy(String lastUpdateBy) {
         this.lastUpdateBy = lastUpdateBy;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public String getSpare() {
