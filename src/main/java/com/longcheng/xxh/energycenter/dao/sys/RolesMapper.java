@@ -1,5 +1,6 @@
 package com.longcheng.xxh.energycenter.dao.sys;
 
+import com.longcheng.xxh.energycenter.entity.sys.Menu;
 import com.longcheng.xxh.energycenter.entity.sys.Roles;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -22,6 +23,12 @@ public interface RolesMapper {
      **/
     int insert(Roles roles);
 
+    /**
+     * [查詢] 查詢所有
+     * @author shadow
+     * @date 2019/09/27
+     **/
+    List<Roles> findAll();
     /**
      * [刪除]
      * @author shadow

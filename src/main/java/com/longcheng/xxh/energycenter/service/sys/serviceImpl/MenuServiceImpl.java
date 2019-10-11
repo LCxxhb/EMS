@@ -1,6 +1,7 @@
 package com.longcheng.xxh.energycenter.service.sys.serviceImpl;
 
 import com.longcheng.xxh.energycenter.dao.sys.MenuMapper;
+import com.longcheng.xxh.energycenter.entity.basepo.Code;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
 import com.longcheng.xxh.energycenter.entity.sys.Menu;
 import com.longcheng.xxh.energycenter.service.sys.MenuService;
@@ -13,6 +14,7 @@ import java.util.Map;
 
 /**
  * menu
+ *
  * @author shadow
  * @date 2019/10/10
  */
@@ -49,10 +51,25 @@ public class MenuServiceImpl implements MenuService {
         return new Results();
     }
 
+    @Override
+    public Results findAll() {
+        String apiDesc = "查询所有菜单接口";
+        try {
+            List<Menu> lists = menuMapper.findAll();
+            if (lists == null || lists.size() == 0) {
+                return new Results(Code.error, "查询菜单列表失败", lists, apiDesc);
+            } else {
+                return new Results(Code.success, "查询菜单列表成功", lists, apiDesc);
+            }
+        } catch (Exception e) {
+            return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+        }
+    }
+
 
     @Override
     public Results load(int id) {
-         menuMapper.load(id);
+        menuMapper.load(id);
         return new Results();
     }
 

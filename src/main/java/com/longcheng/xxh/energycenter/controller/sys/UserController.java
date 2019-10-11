@@ -59,8 +59,10 @@ public class UserController {
     }
 
     @CrossOrigin(origins = "*")
-//    @PostMapping("/findAll")
+    @PostMapping("/findBy")
     public String findAllbyCondition(@RequestParam Map<String, String> params) {
+        int a =10;
+        System.out.println(10);
         logger.info("传入参数为params=======>{}", params);
         return JSON.toJSONString(userService.listLessonSumByCourseIdList(params));
     }

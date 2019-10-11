@@ -1,7 +1,9 @@
 package com.longcheng.xxh.energycenter.service.sys.serviceImpl;
 
 import com.longcheng.xxh.energycenter.dao.sys.RolesMapper;
+import com.longcheng.xxh.energycenter.entity.basepo.Code;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
+import com.longcheng.xxh.energycenter.entity.sys.Menu;
 import com.longcheng.xxh.energycenter.entity.sys.Roles;
 import com.longcheng.xxh.energycenter.service.sys.RolesService;
 import org.springframework.stereotype.Service;
@@ -49,6 +51,20 @@ public class RolesServiceImpl implements RolesService {
         return new Results();
     }
 
+    @Override
+    public Results findAll() {
+        String apiDesc = "查询所有角色接口";
+        try {
+            List<Roles> lists = rolesMapper.findAll();
+            if (lists == null || lists.size() == 0) {
+                return new Results(Code.error, "查询角色列表失败", lists, apiDesc);
+            } else {
+                return new Results(Code.success, "查询角色列表成功", lists, apiDesc);
+            }
+        } catch (Exception e) {
+            return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+        }
+    }
 
     @Override
     public Results load(int id) {

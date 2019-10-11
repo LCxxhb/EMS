@@ -28,6 +28,11 @@ public interface RolesService {
     public Results update(Roles roles);
 
     /**
+     * 查詢all
+     */
+    public Results findAll();
+
+    /**
      * 根據主鍵 id 查詢
      */
     public Results load(int id);

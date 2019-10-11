@@ -27,6 +27,13 @@
                 spare
     </sql>
 
+    <!--查询所有角色-->
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM EMS_SYS_ROLES
+    </select>
+    
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" parameterType="com.longcheng.xxh.energycenter.entity.sys.Roles">
         INSERT INTO roles
         <trim prefix="(" suffix=")" suffixOverrides=",">

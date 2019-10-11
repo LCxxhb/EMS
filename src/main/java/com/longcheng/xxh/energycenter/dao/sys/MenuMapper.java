@@ -1,6 +1,7 @@
 package com.longcheng.xxh.energycenter.dao.sys;
 
 import com.longcheng.xxh.energycenter.entity.sys.Menu;
+import com.longcheng.xxh.energycenter.entity.sys.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -43,6 +44,12 @@ public interface MenuMapper {
      **/
     Menu load(int id);
 
+    /**
+     * [查詢] 查詢所有
+     * @author shadow
+     * @date 2019/09/27
+     **/
+    List<Menu> findAll();
     /**
      * [查詢] 分頁查詢
      * @author shadow

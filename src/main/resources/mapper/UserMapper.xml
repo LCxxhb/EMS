@@ -181,8 +181,6 @@
         SELECT U.USERNAME, U.AREA_ID, U.STATUS, U.ROLE_ID, T.ANAME
         FROM EMS_SYS_USER U
         LEFT JOIN EMS_SYS_REGION T ON U.AREA_ID = T.AID
-        <if test='null != username'>username = #{username},</if>
-        <if test='null != areaId'>area_id = #{areaId},</if>
     </select>
 
     <select id="findAll" resultMap="BaseResultMap">
