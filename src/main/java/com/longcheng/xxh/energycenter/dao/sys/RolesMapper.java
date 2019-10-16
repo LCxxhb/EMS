@@ -34,7 +34,7 @@ public interface RolesMapper {
      * @author shadow
      * @date 2019/10/10
      **/
-    int delete(int id);
+    int delete(String id);
 
     /**
      * [更新]

@@ -29,30 +29,42 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    private final static Logger logger = LoggerFactory.getLogger(UserService.class);
+    private final static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Override
     public Results login(User user, HttpServletRequest request) {
+        String apiDesc = "用户登录校验接口";
+        logger.info("用户登录获取到的参数为{}，{}", user.getUsername(), user.getPassword());
         //参数校验validte
         if (StringUtils.isEmpty(user.getUsername()) || StringUtils.isEmpty(user.getPassword())) {
-            return new Results(Code.param, "用户名或密码为空!!", "", "用户登录接口");
+            return new Results(Code.param, "用户名或密码为空!!", "", apiDesc);
         } else {
-            //根据登录信息查询用户信息
-            //存放session中用户信息
-            request.getSession().setAttribute("user", user);
+            try {
+                //根据登录信息查询用户信息
+                User exUser = userMapper.findUserByNameAndPassword(user);
+                logger.info("根据用户名密码查询到的用户信息为{}", JSON.toJSONString(exUser));
+                if (exUser == null || exUser.getId() == 0) {
+                    return new Results(Code.error, "用户登录校验失败，请检查用户名密码是否正确！", "", apiDesc);
+                } else {
+                    //将登录的用户信息存放session中
+                    request.getSession().setAttribute("user", user);
+                    return new Results(Code.success, "用户登录校验成功", exUser, apiDesc);
+                }
+            } catch (Exception e) {
+                return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+            }
         }
-        return null;
     }
 
     @Override
     public Results insert(User user) {
         String apiDesc = "添加用户接口";
-//        int rs = (int) ((Math.random() * 9 + 1) * Math.pow(10, 10 - 1));//生成10位随机数做主键
-//        user.setId(rs);
         logger.info("用户对象信息为{}", JSON.toJSONString(user));
         // valid
-        if (StringUtils.isEmpty(user.getPassword()) || StringUtils.isEmpty(user.getUsername())) {
-            return new Results(Code.param, "用户名或密码为空", "", apiDesc);
+        if (StringUtils.isEmpty(user.getUsername())) {
+            return new Results(Code.param, "用户名不能为空", "", apiDesc);
+        } else if (userMapper.findUserByNameAndPassword(user) != null) {
+            return new Results(Code.error, "已存在该用户，不能重复添加！", "", apiDesc);
         } else {
             try {
                 if (userMapper.insert(user) > 0) {
@@ -76,12 +88,12 @@ public class UserServiceImpl implements UserService {
         } else {
             try {
                 String[] ids = id.split(",");
-                int count =0;
+                int count = 0;
                 for (int i = 0; i < ids.length; i++) {
                     userMapper.delete(ids[i]);
                     count++;
                 }
-                logger.info("count===============>"+count);
+                logger.info("删除的用户条数为{}条",count);
                 if (count > 0) {
                     return new Results(Code.success, "删除用户成功", "", apiDesc);
                 } else {
@@ -98,8 +110,8 @@ public class UserServiceImpl implements UserService {
     public Results update(User user) {
         String apiDesc = "修改用户接口";
         // valid
-        if (StringUtils.isEmpty(String.valueOf(user.getId())) || StringUtils.isEmpty(user.getPassword()) || StringUtils.isEmpty(user.getUsername())) {
-            return new Results(Code.param, "用户id或用户名或用户密码为空", "", apiDesc);
+        if (StringUtils.isEmpty(String.valueOf(user.getId())) || StringUtils.isEmpty(user.getUsername())) {
+            return new Results(Code.param, "用户id或用户名为空", "", apiDesc);
         } else {
             try {
                 if (userMapper.update(user) > 0) {
@@ -135,20 +147,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Results resetPassword(int id) {
+    public Results resetPassword(String id) {
         String apiDesc = "用户密码重置";
         // valid
-        if (StringUtils.isEmpty(String.valueOf(id))) {
+        if (StringUtils.isEmpty(id)) {
             return new Results(Code.param, "参数校验失败id为空!!", "", apiDesc);
         } else {
             try {
-                User user = userMapper.load(id);//根据id查询用户进行密码重置
+                User user = userMapper.load(Integer.parseInt(id));//根据id查询用户进行密码重置
                 if (user != null) {
                     //密码重置
                     user.setPassword("000000");
-                    if(userMapper.update(user)>0){
+                    if (userMapper.update(user) > 0) {
                         return new Results(Code.success, "用户密码重置成功", "", apiDesc);
-                    }else{
+                    } else {
                         return new Results(Code.error, "用户密码重置失败", "", apiDesc);
                     }
 
@@ -177,7 +189,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Results listLessonSumByCourseIdList(Map<String,String> map) {
+    public Results listLessonSumByCourseIdList(Map<String, String> map) {
         String apiDesc = "查询所有用户接口";
         try {
             List<HashMap<String, Object>> hashMaps = userMapper.listLessonSumByCourseIdList(map);
@@ -191,7 +203,7 @@ public class UserServiceImpl implements UserService {
         } catch (Exception e) {
             return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
         }
-        return new Results(Code.trycatch, "捕获到异常" , "", apiDesc);
+        return new Results(Code.trycatch, "捕获到异常", "", apiDesc);
     }
 
     @Override

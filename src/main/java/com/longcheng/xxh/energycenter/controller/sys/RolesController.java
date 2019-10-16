@@ -26,10 +26,10 @@ public class RolesController {
      * @author shadow
      * @date 2019/10/10
      **/
-    @RequestMapping("/insert")
+    @CrossOrigin(origins = "*")
+    @PostMapping("/insert")
     public String insert(Roles roles) {
-        rolesService.insert(roles);
-        return "";
+        return JSON.toJSONString(rolesService.insert(roles));
     }
 
     /**
@@ -38,10 +38,10 @@ public class RolesController {
      * @author shadow
      * @date 2019/10/10
      **/
-    @RequestMapping("/delete")
-    public String delete(int id) {
-        rolesService.delete(id);
-        return "";
+    @CrossOrigin(origins = "*")
+    @PostMapping("/delete")
+    public String delete(String id) {
+        return JSON.toJSONString(rolesService.delete(id));
     }
 
     /**
@@ -50,10 +50,10 @@ public class RolesController {
      * @author shadow
      * @date 2019/10/10
      **/
-    @RequestMapping("/update")
+    @CrossOrigin(origins = "*")
+    @PostMapping("/update")
     public String update(Roles roles) {
-        rolesService.update(roles);
-        return "";
+        return JSON.toJSONString(rolesService.update(roles));
     }
 
     /**
@@ -74,7 +74,8 @@ public class RolesController {
      * @author shadow
      * @date 2019/10/10
      **/
-    @RequestMapping("/load")
+    @CrossOrigin(origins = "*")
+    @PostMapping("/load")
     public String load(int id) {
         rolesService.load(id);
         return "";
@@ -86,7 +87,7 @@ public class RolesController {
      * @author shadow
      * @date 2019/10/10
      **/
-    @RequestMapping("/pageList")
+    @PostMapping("/pageList")
     public String pageList(@RequestParam(required = false, defaultValue = "0") int offset,
                            @RequestParam(required = false, defaultValue = "10") int pagesize) {
         return "";

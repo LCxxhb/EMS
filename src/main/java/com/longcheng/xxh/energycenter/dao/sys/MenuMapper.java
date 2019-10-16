@@ -28,7 +28,7 @@ public interface MenuMapper {
      * @author shadow
      * @date 2019/10/10
      **/
-    int delete(int id);
+    int delete(String id);
 
     /**
      * [更新]
@@ -50,6 +50,13 @@ public interface MenuMapper {
      * @date 2019/09/27
      **/
     List<Menu> findAll();
+
+    /**
+     * [查詢] 查詢所有父级菜单
+     * @author shadow
+     * @date 2019/09/27
+     **/
+    List<Menu> findParentMenu();
     /**
      * [查詢] 分頁查詢
      * @author shadow

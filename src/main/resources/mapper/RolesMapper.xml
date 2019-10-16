@@ -35,7 +35,7 @@
     </select>
     
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" parameterType="com.longcheng.xxh.energycenter.entity.sys.Roles">
-        INSERT INTO roles
+        INSERT INTO EMS_SYS_ROLES
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test ='null != rolename'>
                 rolename,
@@ -91,12 +91,12 @@
     </insert>
 
     <delete id="delete" >
-        DELETE FROM roles
+        DELETE FROM EMS_SYS_ROLES
         WHERE id = #{id}
     </delete>
 
     <update id="update" parameterType="com.longcheng.xxh.energycenter.entity.sys.Roles">
-        UPDATE roles
+        UPDATE EMS_SYS_ROLES
         <set>
             <if test ='null != rolename'>rolename = #{rolename},</if>
             <if test ='null != describe'>describe = #{describe},</if>
@@ -113,19 +113,19 @@
 
     <select id="load" resultMap="BaseResultMap">
         SELECT <include refid="Base_Column_List" />
-        FROM roles
+        FROM EMS_SYS_ROLES
         WHERE id = #{id}
     </select>
 
     <select id="pageList" resultMap="BaseResultMap">
         SELECT <include refid="Base_Column_List" />
-        FROM roles
+        FROM EMS_SYS_ROLES
         LIMIT #{offset}, #{pageSize}
     </select>
 
     <select id="pageListCount" resultType="java.lang.Integer">
         SELECT count(1)
-        FROM roles
+        FROM EMS_SYS_ROLES
     </select>
 
 </mapper>

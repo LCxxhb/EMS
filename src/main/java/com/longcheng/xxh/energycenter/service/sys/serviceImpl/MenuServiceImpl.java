@@ -5,9 +5,13 @@ import com.longcheng.xxh.energycenter.entity.basepo.Code;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
 import com.longcheng.xxh.energycenter.entity.sys.Menu;
 import com.longcheng.xxh.energycenter.service.sys.MenuService;
+import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,32 +27,74 @@ public class MenuServiceImpl implements MenuService {
 
     @Resource
     private MenuMapper menuMapper;
-
+    private final static Logger logger = LoggerFactory.getLogger(MenuServiceImpl.class);
 
     @Override
     public Results insert(Menu menu) {
-
+        String apiDesc = "添加菜单接口";
         // valid
-        if (menu == null) {
-
+        menu.setId(BigDecimal.valueOf(0));
+        if (StringUtils.isEmpty(menu.getMenuname()) || StringUtils.isEmpty(menu.getMunuurl())) {
+            return new Results(Code.param, "菜单不能为空", "", apiDesc);
+        } else {
+            try {
+                if (menuMapper.insert(menu) > 0) {
+                    return new Results(Code.success, "添加菜单成功", "", apiDesc);
+                } else {
+                    return new Results(Code.error, "添加菜单失败", "", apiDesc);
+                }
+            } catch (Exception e) {
+                return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+            }
         }
-
-        menuMapper.insert(menu);
-        return new Results();
     }
 
 
     @Override
-    public Results delete(int id) {
-        int ret = menuMapper.delete(id);
-        return new Results();
+    public Results delete(String id) {
+        String apiDesc = "删除菜单接口";
+        // valid
+        if (StringUtils.isEmpty(id)) {
+            return new Results(Code.param, "菜单id不能为空!!", "", apiDesc);
+        } else {
+            try {
+                String[] ids = id.split(",");
+                int count = 0;
+                for (int i = 0; i < ids.length; i++) {
+                    menuMapper.delete(ids[i]);
+                    count++;
+                }
+                logger.info("删除的菜单条数为{}条",count);
+                if (count > 0) {
+                    return new Results(Code.success, "删除菜单成功", "", apiDesc);
+                } else {
+                    return new Results(Code.error, "删除菜单失败", "", apiDesc);
+                }
+            } catch (Exception e) {
+                return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+            }
+        }
     }
+
 
 
     @Override
     public Results update(Menu menu) {
-        int ret = menuMapper.update(menu);
-        return new Results();
+        String apiDesc = "修改菜单信息接口";
+        // valid
+        if (StringUtils.isEmpty(String.valueOf(menu.getId())) || StringUtils.isEmpty(menu.getMenuname())) {
+            return new Results(Code.param, "菜单id或菜单名称不能为空", "", apiDesc);
+        } else {
+            try {
+                if (menuMapper.update(menu) > 0) {
+                    return new Results(Code.success, "编辑菜单成功", "", apiDesc);
+                } else {
+                    return new Results(Code.error, "编辑菜单失败", "", apiDesc);
+                }
+            } catch (Exception e) {
+                return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+            }
+        }
     }
 
     @Override
@@ -66,11 +112,26 @@ public class MenuServiceImpl implements MenuService {
         }
     }
 
+    @Override
+    public Results findParentMenu() {
+        String apiDesc = "查询父级菜单接口";
+        try {
+            List<Menu> lists = menuMapper.findParentMenu();
+            if (lists == null || lists.size() == 0) {
+                return new Results(Code.error, "查询父级菜单列表失败", lists, apiDesc);
+            } else {
+                return new Results(Code.success, "查询父级菜单列表成功", lists, apiDesc);
+            }
+        } catch (Exception e) {
+            return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+        }
+    }
+
 
     @Override
     public Results load(int id) {
         menuMapper.load(id);
-        return new Results();
+        return new  Results();
     }
 
 

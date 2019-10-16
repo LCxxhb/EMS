@@ -29,9 +29,7 @@ public class UserController {
     @CrossOrigin(origins = "*")
     @PostMapping(value = "/login")
     public String login(User user, HttpServletRequest request) {
-
-//        userService.login(user ,request);
-        return "用户登录";
+        return JSON.toJSONString(userService.login(user, request));
     }
 
     /**
@@ -61,8 +59,6 @@ public class UserController {
     @CrossOrigin(origins = "*")
     @PostMapping("/findBy")
     public String findAllbyCondition(@RequestParam Map<String, String> params) {
-        int a =10;
-        System.out.println(10);
         logger.info("传入参数为params=======>{}", params);
         return JSON.toJSONString(userService.listLessonSumByCourseIdList(params));
     }
@@ -88,9 +84,7 @@ public class UserController {
     @CrossOrigin(origins = "*")
     @PostMapping("/update")
     public String update(User user) {
-        userService.update(user);
-        return "";
-
+        return JSON.toJSONString(userService.update(user));
     }
 
     /**
@@ -102,8 +96,7 @@ public class UserController {
     @CrossOrigin(origins = "*")
     @PostMapping("/findbyId")
     public String load(int id) {
-        userService.load(id);
-        return "";
+        return JSON.toJSONString(userService.load(id));
 
     }
 
@@ -115,11 +108,8 @@ public class UserController {
      **/
     @CrossOrigin(origins = "*")
     @PostMapping("/resetPassword")
-    public String resetPassword(int id) {
-        Results load = userService.resetPassword(id);
-
-        return "";
-
+    public String resetPassword(String id) {
+        return JSON.toJSONString(userService.resetPassword(id));
     }
 
     /**

@@ -36,9 +36,18 @@
         FROM EMS_SYS_MENU
     </select>
 
+    <!--查询所有父级菜单-->
+    <select id="findParentMenu" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM EMS_SYS_MENU
+        where  id &lt; 10
+    </select>
+
+    <!--添加菜单-->
     <insert id="insert" useGeneratedKeys="true" keyColumn="id"
             parameterType="com.longcheng.xxh.energycenter.entity.sys.Menu">
-        INSERT INTO menu
+        INSERT INTO EMS_SYS_MENU
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test='null != pid'>
                 pid,
@@ -105,7 +114,7 @@
     </delete>
 
     <update id="update" parameterType="com.longcheng.xxh.energycenter.entity.sys.Menu">
-        UPDATE menu
+        UPDATE EMS_SYS_MENU
         <set>
             <if test='null != pid'>pid = #{pid},</if>
             <if test='null != menuname'>menuname = #{menuname},</if>
@@ -131,7 +140,7 @@
     <select id="pageList" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
-        FROM menu
+        FROM EMS_SYS_MENU
         LIMIT #{offset}, #{pageSize}
     </select>
 

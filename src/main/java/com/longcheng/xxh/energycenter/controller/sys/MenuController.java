@@ -26,10 +26,10 @@ public class MenuController {
      * @author shadow
      * @date 2019/10/10
      **/
-    @RequestMapping("/insert")
+    @CrossOrigin(origins = "*")
+    @PostMapping("/insert")
     public String insert(Menu menu) {
-        menuService.insert(menu);
-        return "";
+        return JSON.toJSONString(menuService.insert(menu));
     }
 
     /**
@@ -38,10 +38,10 @@ public class MenuController {
      * @author shadow
      * @date 2019/10/10
      **/
-    @RequestMapping("/delete")
-    public String delete(int id) {
-        menuService.delete(id);
-        return "";
+    @CrossOrigin(origins = "*")
+    @PostMapping("/delete")
+    public String delete(String id) {
+        return JSON.toJSONString(menuService.delete(id));
     }
 
     /**
@@ -50,10 +50,22 @@ public class MenuController {
      * @author shadow
      * @date 2019/10/10
      **/
-    @RequestMapping("/update")
+    @CrossOrigin(origins = "*")
+    @PostMapping("/update")
     public String update(Menu menu) {
-        menuService.update(menu);
-        return "";
+        return JSON.toJSONString(menuService.update(menu));
+    }
+
+    /**
+     * [更新]
+     *
+     * @author shadow
+     * @date 2019/10/10
+     **/
+    @CrossOrigin(origins = "*")
+    @PostMapping("/findParentMenu")
+    public String update() {
+        return JSON.toJSONString(menuService.findParentMenu());
     }
 
     /**
@@ -62,7 +74,8 @@ public class MenuController {
      * @author shadow
      * @date 2019/10/10
      **/
-    @RequestMapping("/load")
+    @CrossOrigin(origins = "*")
+    @PostMapping("/load")
     public String load(int id) {
         menuService.load(id);
         return "";
@@ -84,7 +97,7 @@ public class MenuController {
      * @author shadow
      * @date 2019/10/10
      **/
-    @RequestMapping("/pageList")
+    @PostMapping("/pageList")
     public String pageList(@RequestParam(required = false, defaultValue = "0") int offset,
                            @RequestParam(required = false, defaultValue = "10") int pagesize) {
         menuService.pageList(offset, pagesize);

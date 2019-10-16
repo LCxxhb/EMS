@@ -26,6 +26,13 @@ public interface UserMapper {
     int insert(User user);
 
     /**
+     * [用户登录校验]
+     * @author shadow
+     * @date 2019/09/27
+     **/
+    User findUserByNameAndPassword(User user);
+
+    /**
      * [刪除]
      * @author shadow
      * @date 2019/09/27
@@ -37,7 +44,7 @@ public interface UserMapper {
      * @author shadow
      * @date 2019/09/27
      **/
-    int update(@Param("user") User user);
+    int update(User user);
 
     /**
      * [查詢] 根據主鍵 id 查詢

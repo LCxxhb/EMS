@@ -19,7 +19,7 @@ public interface MenuService {
     /**
      * 删除
      */
-    public Results delete(int id);
+    public Results delete(String id);
 
     /**
      * 更新
@@ -30,6 +30,11 @@ public interface MenuService {
      * 查詢all
      */
     public Results findAll();
+
+    /**
+     * 查询所有父级菜单
+     */
+    public Results findParentMenu();
 
     /**
      * 根據主鍵 id 查詢

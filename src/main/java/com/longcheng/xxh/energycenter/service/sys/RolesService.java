@@ -20,7 +20,7 @@ public interface RolesService {
     /**
      * 删除
      */
-    public Results delete(int id);
+    public Results delete(String id);
 
     /**
      * 更新

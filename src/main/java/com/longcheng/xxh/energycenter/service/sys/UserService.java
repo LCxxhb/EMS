@@ -44,7 +44,7 @@ public interface UserService {
     /**
      * 重置用户密码
      */
-    public Results resetPassword(int id);
+    public Results resetPassword(String id);
     /**
      * 查詢all
      */
