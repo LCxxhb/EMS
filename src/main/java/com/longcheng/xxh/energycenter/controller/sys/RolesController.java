@@ -68,6 +68,18 @@ public class RolesController {
         return JSON.toJSONString(rolesService.findAll());
     }
 
+
+    /**
+     * [查询菜单列表]
+     *
+     * @author shadow
+     * @date 2019/09/27
+     **/
+    @CrossOrigin(origins = "*")
+    @PostMapping("/setPermission")
+    public String setPermission(Roles roles) {
+        return JSON.toJSONString(rolesService.setPermission(String.valueOf(roles.getId()),roles.getPermission()));
+    }
     /**
      * [查詢] 根據主鍵 id 查詢
      *

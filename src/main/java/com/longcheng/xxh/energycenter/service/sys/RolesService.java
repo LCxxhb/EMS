@@ -33,6 +33,11 @@ public interface RolesService {
     public Results findAll();
 
     /**
+     * 权限设置
+     */
+    public Results setPermission(String id,String permission);
+
+    /**
      * 根據主鍵 id 查詢
      */
     public Results load(int id);

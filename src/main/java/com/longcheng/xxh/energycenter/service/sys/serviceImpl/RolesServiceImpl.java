@@ -65,7 +65,7 @@ public class RolesServiceImpl implements RolesService {
                     rolesMapper.delete(ids[i]);
                     count++;
                 }
-                logger.info("删除的角色条数为{}条",count);
+                logger.info("删除的角色条数为{}条", count);
                 if (count > 0) {
                     return new Results(Code.success, "删除角色信息成功", "", apiDesc);
                 } else {
@@ -96,6 +96,27 @@ public class RolesServiceImpl implements RolesService {
             }
         } catch (Exception e) {
             return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+        }
+    }
+
+    @Override
+    public Results setPermission(String id, String permission) {
+        String apiDesc = "角色菜单权限设置接口";
+        if (StringUtils.isEmpty(id)||StringUtils.isEmpty(permission)) {
+            return new Results(Code.param, "角色id为空或权限菜单列表未选择！", "", apiDesc);
+        } else {
+            try {
+                Roles exroles = rolesMapper.load(Integer.parseInt(id));
+                //设置权限
+                exroles.setPermission(permission);
+                if (rolesMapper.update(exroles)>0) {
+                    return new Results(Code.success, "角色菜单权限设置成功！", "", apiDesc);
+                } else {
+                    return new Results(Code.error, "角色菜单权限设置失败！", "", apiDesc);
+                }
+            } catch (Exception e) {
+                return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+            }
         }
     }
 

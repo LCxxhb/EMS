@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -102,10 +103,20 @@ public class MenuServiceImpl implements MenuService {
         String apiDesc = "查询所有菜单接口";
         try {
             List<Menu> lists = menuMapper.findAll();
+            List menulist=new ArrayList();
             if (lists == null || lists.size() == 0) {
                 return new Results(Code.error, "查询菜单列表失败", lists, apiDesc);
             } else {
-                return new Results(Code.success, "查询菜单列表成功", lists, apiDesc);
+                for (Menu menu:lists) {
+                    Map map =new HashMap();
+                    map.put("id",menu.getId());
+                    map.put("pid",menu.getPid());
+                    map.put("name",menu.getMenuname());
+                    map.put("menuname",menu.getMenuname());
+                    map.put("munuurl",menu.getMunuurl());
+                    menulist.add(map);
+                }
+                return new Results(Code.success, "查询菜单列表成功", menulist, apiDesc);
             }
         } catch (Exception e) {
             return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
