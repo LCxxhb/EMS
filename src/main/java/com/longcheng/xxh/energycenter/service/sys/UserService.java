@@ -48,7 +48,7 @@ public interface UserService {
     /**
      * 查詢all
      */
-    public Results findAll();
+    public Results findAll(User user);
     /**
      * 分页查询
      */

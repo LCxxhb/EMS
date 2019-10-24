@@ -1,6 +1,7 @@
 package com.longcheng.xxh.energycenter.controller.sys;
 
 import com.alibaba.fastjson.JSON;
+import com.longcheng.xxh.energycenter.dao.sys.UserMapper;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
 import com.longcheng.xxh.energycenter.entity.sys.User;
 import com.longcheng.xxh.energycenter.service.sys.UserService;
@@ -18,6 +19,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
     private final static Logger logger = LoggerFactory.getLogger(UserController.class);
 
     /**
@@ -52,15 +54,8 @@ public class UserController {
      **/
     @CrossOrigin(origins = "*")
     @PostMapping("/findAll")
-    public String findAll() {
-        return JSON.toJSONString(userService.findAll());
-    }
-
-    @CrossOrigin(origins = "*")
-    @PostMapping("/findBy")
-    public String findAllbyCondition(@RequestParam Map<String, String> params) {
-        logger.info("传入参数为params=======>{}", params);
-        return JSON.toJSONString(userService.listLessonSumByCourseIdList(params));
+    public String findAll(User user) {
+        return JSON.toJSONString(userService.findAll(user));
     }
 
     /**

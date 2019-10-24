@@ -58,7 +58,7 @@ public interface UserMapper {
      * @author shadow
      * @date 2019/09/27
      **/
-    List<User> findAll();
+    List<HashMap<String,Object>> findAll(User user);
 
     /**
      * [查詢] 按条件查询
