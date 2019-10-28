@@ -5,13 +5,20 @@ import com.longcheng.xxh.energycenter.dao.sys.RolesMapper;
 import com.longcheng.xxh.energycenter.entity.basepo.Code;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
 import com.longcheng.xxh.energycenter.entity.sys.Roles;
+import com.longcheng.xxh.energycenter.entity.sys.User;
 import com.longcheng.xxh.energycenter.service.sys.RolesService;
+import com.longcheng.xxh.energycenter.util.UserRequest;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,16 +35,28 @@ public class RolesServiceImpl implements RolesService {
     @Resource
     private RolesMapper rolesMapper;
 
+    @Autowired
+    private HttpSession session;
+
+    @Autowired
+    private HttpServletRequest request;
+
     private final static Logger logger = LoggerFactory.getLogger(RolesServiceImpl.class);
 
     @Override
     public Results insert(Roles roles) {
         String apiDesc = "添加角色接口";
-        logger.info("角色对象信息为{}", JSON.toJSONString(roles));
         // valid
         if (StringUtils.isEmpty(roles.getRolename())) {
             return new Results(Code.param, "角色名称不能为空", "", apiDesc);
         } else {
+            roles.setLastUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));// 设置时间
+            User user = (User) session.getAttribute("user");
+            User user1 = (User)  request.getSession().getAttribute("user");
+//            User user2 = UserRequest.getCurrentUser();
+//            logger.info("user信息为{},user1信息为{},user2信息为{}", JSON.toJSONString(user),JSON.toJSONString(user1),JSON.toJSONString(user2));
+            roles.setLastUpdateBy("admin");//设置更新人
+            logger.info("角色对象信息为{}", JSON.toJSONString(roles));
             try {
                 if (rolesMapper.insert(roles) > 0) {
                     return new Results(Code.success, "添加角色成功", "", apiDesc);
@@ -90,7 +109,7 @@ public class RolesServiceImpl implements RolesService {
         try {
             List<Roles> lists = rolesMapper.findAll();
             if (lists == null || lists.size() == 0) {
-                return new Results(Code.error, "查询角色列表失败", lists, apiDesc);
+                return new Results(Code.error, "查询角色列表为空！", lists, apiDesc);
             } else {
                 return new Results(Code.success, "查询角色列表成功", lists, apiDesc);
             }

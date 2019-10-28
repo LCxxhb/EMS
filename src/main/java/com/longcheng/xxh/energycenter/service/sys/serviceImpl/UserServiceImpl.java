@@ -174,12 +174,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Results findAll() {
+    public Results findAll(User user) {
         String apiDesc = "查询所有用户接口";
         try {
-            List<User> lists = userMapper.findAll();
+            List<HashMap<String,Object>> lists = userMapper.findAll(user);
             if (lists == null || lists.size() == 0) {
-                return new Results(Code.error, "查询用户列表失败", lists, apiDesc);
+                return new Results(Code.error, "查询用户列表为空！", lists, apiDesc);
             } else {
                 return new Results(Code.success, "查询用户列表成功", lists, apiDesc);
             }
