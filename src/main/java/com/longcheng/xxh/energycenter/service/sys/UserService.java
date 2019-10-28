@@ -54,11 +54,5 @@ public interface UserService {
      */
     public Results pageList(int offset, int pagesize);
 
-    /**
-     * [查詢] 按条件查询
-     * @author shadow
-     * @date 2019/09/27
-     **/
-    public Results listLessonSumByCourseIdList(Map<String,String> map);
 
 }

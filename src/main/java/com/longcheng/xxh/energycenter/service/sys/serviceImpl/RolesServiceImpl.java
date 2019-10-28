@@ -129,9 +129,9 @@ public class RolesServiceImpl implements RolesService {
                 //设置权限
                 exroles.setPermission(permission);
                 if (rolesMapper.update(exroles)>0) {
-                    return new Results(Code.success, "角色菜单权限设置成功！", "", apiDesc);
+                    return new Results(Code.success, "权限分配成功！", "", apiDesc);
                 } else {
-                    return new Results(Code.error, "角色菜单权限设置失败！", "", apiDesc);
+                    return new Results(Code.error, "权限分配失败！", "", apiDesc);
                 }
             } catch (Exception e) {
                 return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
@@ -140,9 +140,23 @@ public class RolesServiceImpl implements RolesService {
     }
 
     @Override
-    public Results load(int id) {
-        rolesMapper.load(id);
-        return new Results();
+    public Results findMenuByRoleId(int id) {
+        String apiDesc = "根據根據角色id 查詢菜单列表！";
+        if (StringUtils.isEmpty(String.valueOf(id))) {
+            return new Results(Code.param, "角色id为空！", "", apiDesc);
+        } else {
+            try {
+                List<HashMap<String,Object>> lists=  rolesMapper.findMenuByRoleId(id);
+
+                if (lists == null || lists.size() == 0) {
+                    return new Results(Code.error, "根據根據角色id 查詢菜单列表为空！", "", apiDesc);
+                } else {
+                    return new Results(Code.success, "根據根據角色id 查詢菜单列表成功！", "", apiDesc);
+                }
+            } catch (Exception e) {
+                return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+            }
+        }
     }
 
 

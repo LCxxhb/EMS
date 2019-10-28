@@ -189,24 +189,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Results listLessonSumByCourseIdList(Map<String, String> map) {
-        String apiDesc = "查询所有用户接口";
-        try {
-            List<HashMap<String, Object>> hashMaps = userMapper.listLessonSumByCourseIdList(map);
-
-
-//            if (lists == null || lists.size() == 0) {
-//                return new Results(Code.error, "查询用户列表失败", lists, apiDesc);
-//            } else {
-//                return new Results(Code.success, "查询用户列表成功", lists, apiDesc);
-//            }
-        } catch (Exception e) {
-            return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
-        }
-        return new Results(Code.trycatch, "捕获到异常", "", apiDesc);
-    }
-
-    @Override
     public Results pageList(int offset, int pagesize) {
 
         List<User> pageList = userMapper.pageList(offset, pagesize);

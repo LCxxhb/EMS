@@ -110,6 +110,11 @@
         WHERE id = #{id}
     </update>
 
+    <select id="findMenuByRoleId" resultType="java.util.Map" >
+         select m.id,m.pid,m.menuname,m.munuurl
+           from ems_sys_menu m
+         where m.id in (select permission from ems_sys_roles where id = #{id})
+    </select>
 
     <select id="load" resultMap="BaseResultMap">
         SELECT <include refid="Base_Column_List" />

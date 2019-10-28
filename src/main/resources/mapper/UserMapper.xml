@@ -173,13 +173,6 @@
         WHERE ID = #{id}
     </update>
 
-    <!--查询返回map对象-->
-    <select id="listLessonSumByCourseIdList" parameterType="java.util.Map" resultType="java.util.HashMap">
-        SELECT U.USERNAME, U.AREA_ID, U.STATUS, U.ROLE_ID, T.ANAME
-        FROM EMS_SYS_USER U
-        LEFT JOIN EMS_SYS_REGION T ON U.AREA_ID = T.AID
-    </select>
-
     <!--用户登录校验接口-->
     <select id="findUserByNameAndPassword" parameterType="com.longcheng.xxh.energycenter.entity.sys.User"
             resultMap="BaseResultMap">

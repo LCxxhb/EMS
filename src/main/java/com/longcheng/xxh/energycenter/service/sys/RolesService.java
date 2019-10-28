@@ -38,9 +38,9 @@ public interface RolesService {
     public Results setPermission(String id,String permission);
 
     /**
-     * 根據主鍵 id 查詢
+     * 根據根據角色id 查詢菜单列表
      */
-    public Results load(int id);
+    public Results findMenuByRoleId(int id);
 
     /**
      * 分页查询

@@ -61,14 +61,6 @@ public interface UserMapper {
     List<HashMap<String,Object>> findAll(User user);
 
     /**
-     * [查詢] 按条件查询
-     * @author shadow
-     * @date 2019/09/27
-     **/
-    List<HashMap<String,Object>> listLessonSumByCourseIdList(Map<String,String> map);
-
-
-    /**
      * [查詢] 分頁查詢
      * @author shadow
      * @date 2019/09/27

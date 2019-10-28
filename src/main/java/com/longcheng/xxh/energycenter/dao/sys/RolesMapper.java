@@ -5,6 +5,7 @@ import com.longcheng.xxh.energycenter.entity.sys.Roles;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -49,6 +50,13 @@ public interface RolesMapper {
      * @date 2019/10/10
      **/
     Roles load(int id);
+
+    /**
+     * [查詢] 根據根據角色id 查詢菜单列表
+     * @author shadow
+     * @date 2019/10/10
+     **/
+    List<HashMap<String,Object>> findMenuByRoleId(int id);
 
     /**
      * [查詢] 分頁查詢
