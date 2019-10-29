@@ -28,7 +28,7 @@ public class Plan {
     /**
      * medium_name
      */
-    private String mediumName;
+    private String mediaName;
 
     /**
      * plan_number
@@ -101,12 +101,11 @@ public class Plan {
         this.area = area;
     }
 
-    public String getMediumName() {
-        return mediumName;
+    public String getMediaName() {
+        return mediaName;
     }
 
-    public void setMediumName(String mediumName) {
-        this.mediumName = mediumName;
+    public void setMediaName(String mediaName) { this.mediaName = mediaName;
     }
 
     public String getPlanNumber() {
@@ -167,12 +166,12 @@ public class Plan {
 
     @Override
     public String toString() {
-        return "Plan{" +
+        return "plan{" +
                 "id=" + id +
                 ", startTime='" + startTime + '\'' +
                 ", endTime='" + endTime + '\'' +
                 ", area='" + area + '\'' +
-                ", mediumName='" + mediumName + '\'' +
+                ", mediumName='" + mediaName + '\'' +
                 ", planNumber='" + planNumber + '\'' +
                 ", measureMent='" + measureMent + '\'' +
                 ", planUseTotal='" + planUseTotal + '\'' +
