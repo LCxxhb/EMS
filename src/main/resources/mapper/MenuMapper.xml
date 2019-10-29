@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.longcheng.xxh.energycenter.dao.sys.MenuMapper">
+
+    <resultMap id="BaseResultMap" type="com.longcheng.xxh.energycenter.entity.sys.Menu">
+        <result column="id" property="id"/>
+        <result column="pid" property="pid"/>
+        <result column="menuname" property="menuname"/>
+        <result column="munuurl" property="munuurl"/>
+        <result column="create_date" property="createDate"/>
+        <result column="create_by" property="createBy"/>
+        <result column="last_update_date" property="lastUpdateDate"/>
+        <result column="last_update_by" property="lastUpdateBy"/>
+        <result column="remark" property="remark"/>
+        <result column="spare" property="spare"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        pid,
+        menuname,
+        munuurl,
+        create_date,
+        create_by,
+        last_update_date,
+        last_update_by,
+        remark,
+        spare
+    </sql>
+
+    <!--查询所有菜单-->
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM EMS_SYS_MENU
+    </select>
+
+    <!--查询所有父级菜单-->
+    <select id="findParentMenu" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM EMS_SYS_MENU
+        where  id &lt; 10
+    </select>
+
+    <!--添加菜单-->
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id"
+            parameterType="com.longcheng.xxh.energycenter.entity.sys.Menu">
+        INSERT INTO EMS_SYS_MENU
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test='null != pid'>
+                pid,
+            </if>
+            <if test='null != menuname'>
+                menuname,
+            </if>
+            <if test='null != munuurl'>
+                munuurl,
+            </if>
+            <if test='null != createDate'>
+                create_date,
+            </if>
+            <if test='null != createBy'>
+                create_by,
+            </if>
+            <if test='null != lastUpdateDate'>
+                last_update_date,
+            </if>
+            <if test='null != lastUpdateBy'>
+                last_update_by,
+            </if>
+            <if test='null != remark'>
+                remark,
+            </if>
+            <if test='null != spare'>
+                spare
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test='null != pid'>
+                #{pid},
+            </if>
+            <if test='null != menuname'>
+                #{menuname},
+            </if>
+            <if test='null != munuurl'>
+                #{munuurl},
+            </if>
+            <if test='null != createDate'>
+                #{createDate},
+            </if>
+            <if test='null != createBy'>
+                #{createBy},
+            </if>
+            <if test='null != lastUpdateDate'>
+                #{lastUpdateDate},
+            </if>
+            <if test='null != lastUpdateBy'>
+                #{lastUpdateBy},
+            </if>
+            <if test='null != remark'>
+                #{remark},
+            </if>
+            <if test='null != spare'>
+                #{spare}
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM EMS_SYS_MENU
+        WHERE id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.longcheng.xxh.energycenter.entity.sys.Menu">
+        UPDATE EMS_SYS_MENU
+        <set>
+            <if test='null != pid'>pid = #{pid},</if>
+            <if test='null != menuname'>menuname = #{menuname},</if>
+            <if test='null != munuurl'>munuurl = #{munuurl},</if>
+            <if test='null != createDate'>create_date = #{createDate},</if>
+            <if test='null != createBy'>create_by = #{createBy},</if>
+            <if test='null != lastUpdateDate'>last_update_date = #{lastUpdateDate},</if>
+            <if test='null != lastUpdateBy'>last_update_by = #{lastUpdateBy},</if>
+            <if test='null != remark'>remark = #{remark},</if>
+            <if test='null != spare'>spare = #{spare}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+    <select id="load" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM EMS_SYS_MENU
+        WHERE id = #{id}
+    </select>
+
+    <select id="pageList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM EMS_SYS_MENU
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="pageListCount" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM menu
+    </select>
+
+</mapper>

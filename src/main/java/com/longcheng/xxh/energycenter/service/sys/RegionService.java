@@ -1,6 +1,7 @@
 package com.longcheng.xxh.energycenter.service.sys;
 
 import com.longcheng.xxh.energycenter.entity.sys.Region;
+import com.longcheng.xxh.energycenter.entity.sys.RegionExtend;
 
 import java.util.List;
 
@@ -13,8 +14,9 @@ public interface RegionService {
     public List<Region> findByAid(int aid);
 
     //通过pid查询区域
-    public List<Region> findByPid(int pid);
+    public List<RegionExtend> findByPid(int pid);
 
+    public List<Region> findByPidRegion(int pid);
     //添加区域
     public boolean addRegion(Region region);
 
@@ -22,6 +24,11 @@ public interface RegionService {
     public boolean updateRegion(Region region);
 
     //删除区域
-    public boolean deleteRegion(int aid);
+    public boolean deleteRegion(String[] aids);
 
+    public  List<RegionExtend> findAllRegionExtend();
+
+    public List<Region> findByOneTwoRegion() ;
+
+    public List<Region> findByTwoRegion();
 }
