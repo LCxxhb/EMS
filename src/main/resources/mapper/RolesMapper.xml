@@ -110,10 +110,17 @@
         WHERE id = #{id}
     </update>
 
-    <select id="findMenuByRoleId" resultType="java.util.Map" >
-         select m.id,m.pid,m.menuname,m.munuurl
-           from ems_sys_menu m
-         where m.id in (select permission from ems_sys_roles where id = #{id})
+    <select id="findPermissionByRoleId" resultType="java.util.Map" >
+         select permission from ems_sys_roles where id = #{id}
+    </select>
+
+    <select id="findMenuByPermission" resultType="java.util.Map" >
+        select m.id,m.pid,m.menuname,m.munuurl
+        from ems_sys_menu m
+        where m.id  IN
+        <foreach collection="array" item="ids" index="index" open="(" close=")" separator=",">
+            #{ids}
+        </foreach>
     </select>
 
     <select id="load" resultMap="BaseResultMap">

@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.longcheng.xxh.energycenter.dao.sys.RolesMapper;
 import com.longcheng.xxh.energycenter.entity.basepo.Code;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
+import com.longcheng.xxh.energycenter.entity.sys.Menu;
 import com.longcheng.xxh.energycenter.entity.sys.Roles;
 import com.longcheng.xxh.energycenter.entity.sys.User;
 import com.longcheng.xxh.energycenter.service.sys.RolesService;
@@ -18,10 +19,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * roles
@@ -52,7 +50,7 @@ public class RolesServiceImpl implements RolesService {
         } else {
             roles.setLastUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));// 设置时间
             User user = (User) session.getAttribute("user");
-            User user1 = (User)  request.getSession().getAttribute("user");
+            User user1 = (User) request.getSession().getAttribute("user");
 //            User user2 = UserRequest.getCurrentUser();
 //            logger.info("user信息为{},user1信息为{},user2信息为{}", JSON.toJSONString(user),JSON.toJSONString(user1),JSON.toJSONString(user2));
             roles.setLastUpdateBy("admin");//设置更新人
@@ -121,14 +119,14 @@ public class RolesServiceImpl implements RolesService {
     @Override
     public Results setPermission(String id, String permission) {
         String apiDesc = "角色菜单权限设置接口";
-        if (StringUtils.isEmpty(id)||StringUtils.isEmpty(permission)) {
+        if (StringUtils.isEmpty(id) || StringUtils.isEmpty(permission)) {
             return new Results(Code.param, "角色id为空或权限菜单列表未选择！", "", apiDesc);
         } else {
             try {
                 Roles exroles = rolesMapper.load(Integer.parseInt(id));
                 //设置权限
                 exroles.setPermission(permission);
-                if (rolesMapper.update(exroles)>0) {
+                if (rolesMapper.update(exroles) > 0) {
                     return new Results(Code.success, "权限分配成功！", "", apiDesc);
                 } else {
                     return new Results(Code.error, "权限分配失败！", "", apiDesc);
@@ -141,17 +139,30 @@ public class RolesServiceImpl implements RolesService {
 
     @Override
     public Results findMenuByRoleId(int id) {
-        String apiDesc = "根據根據角色id 查詢菜单列表！";
+        String apiDesc = "根据角色id 查询菜单列表！";
         if (StringUtils.isEmpty(String.valueOf(id))) {
             return new Results(Code.param, "角色id为空！", "", apiDesc);
         } else {
             try {
-                List<HashMap<String,Object>> lists=  rolesMapper.findMenuByRoleId(id);
-
-                if (lists == null || lists.size() == 0) {
-                    return new Results(Code.error, "根據根據角色id 查詢菜单列表为空！", "", apiDesc);
+                List menuMapList=new ArrayList();//创建菜单列表返回值
+                List<HashMap<String, Object>> lists = rolesMapper.findPermissionByRoleId(id);
+                String permisson = lists.get(0).get("PERMISSION").toString();//查询出权限
+                String[] ids = permisson.split(",");//将权限字符串转换为数组
+                List<HashMap<String, Object>> menuByPermission = rolesMapper.findMenuByPermission(ids);//根据权限查询菜单列表
+                logger.info("查询出来的菜单列表为{}", JSON.toJSONString(menuByPermission));
+                if (menuByPermission.size() == 0 ||menuByPermission==null ) {
+                    return new Results(Code.error, "根据角色id 查询菜单列表为空！", menuByPermission, apiDesc);
                 } else {
-                    return new Results(Code.success, "根據根據角色id 查詢菜单列表成功！", "", apiDesc);
+                    for (Map map:menuByPermission) {
+                        Map menumap =new HashMap();
+                        menumap.put("id",map.get("ID"));
+                        menumap.put("pid",map.get("PID"));
+                        menumap.put("name",map.get("MENUNAME"));
+                        menumap.put("menuname",map.get("MENUNAME"));
+                        menumap.put("munuurl",map.get("MUNUURL"));
+                        menuMapList.add(menumap);
+                    }
+                    return new Results(Code.success, "根据角色id 查询菜单列表成功！", menuMapList, apiDesc);
                 }
             } catch (Exception e) {
                 return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
