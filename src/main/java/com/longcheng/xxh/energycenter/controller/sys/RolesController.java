@@ -81,16 +81,15 @@ public class RolesController {
         return JSON.toJSONString(rolesService.setPermission(String.valueOf(roles.getId()),roles.getPermission()));
     }
     /**
-     * [查詢] 根據主鍵 id 查詢
+     * [查詢] 根據角色id 查詢菜单列表
      *
      * @author shadow
      * @date 2019/10/10
      **/
     @CrossOrigin(origins = "*")
-    @PostMapping("/load")
-    public String load(int id) {
-        rolesService.load(id);
-        return "";
+    @PostMapping("/findMenuByRoleId")
+    public String findMenuByRoleId(int id) {
+        return JSON.toJSONString(rolesService.findMenuByRoleId(id));
     }
 
     /**

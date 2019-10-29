@@ -5,10 +5,12 @@ import com.longcheng.xxh.energycenter.entity.sys.Roles;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
  * roles
+ *
  * @author shadow
  * @date 2019/10/10
  */
@@ -18,6 +20,7 @@ public interface RolesMapper {
 
     /**
      * [新增]
+     *
      * @author shadow
      * @date 2019/10/10
      **/
@@ -25,12 +28,15 @@ public interface RolesMapper {
 
     /**
      * [查詢] 查詢所有
+     *
      * @author shadow
      * @date 2019/09/27
      **/
     List<Roles> findAll();
+
     /**
      * [刪除]
+     *
      * @author shadow
      * @date 2019/10/10
      **/
@@ -38,6 +44,7 @@ public interface RolesMapper {
 
     /**
      * [更新]
+     *
      * @author shadow
      * @date 2019/10/10
      **/
@@ -45,23 +52,42 @@ public interface RolesMapper {
 
     /**
      * [查詢] 根據主鍵 id 查詢
+     *
      * @author shadow
      * @date 2019/10/10
      **/
     Roles load(int id);
 
     /**
-     * [查詢] 分頁查詢
+     * [查詢] 根據角色id 查詢权限
+     *
      * @author shadow
      * @date 2019/10/10
      **/
-    List<Roles> pageList(int offset,int pagesize);
+    List<HashMap<String, Object>> findPermissionByRoleId(int id);
+
+    /**
+     * [查詢] 根據权限查询菜单
+     *
+     * @author shadow
+     * @date 2019/10/10
+     **/
+    List<HashMap<String, Object>> findMenuByPermission(String[] ids);
+
+    /**
+     * [查詢] 分頁查詢
+     *
+     * @author shadow
+     * @date 2019/10/10
+     **/
+    List<Roles> pageList(int offset, int pagesize);
 
     /**
      * [查詢] 分頁查詢 count
+     *
      * @author shadow
      * @date 2019/10/10
      **/
-    int pageListCount(int offset,int pagesize);
+    int pageListCount(int offset, int pagesize);
 
 }
