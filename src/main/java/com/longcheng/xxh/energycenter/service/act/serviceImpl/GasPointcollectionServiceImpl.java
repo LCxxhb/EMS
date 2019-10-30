@@ -1,7 +1,10 @@
-package com.longcheng.xxh.energycenter.service;
+package com.longcheng.xxh.energycenter.service.act.serviceImpl;
 
-import com.longcheng.xxh.energycenter.entity.GasPointcollection;
-import com.longcheng.xxh.energycenter.dao.sys.GasPointcollectionMapper;
+import com.longcheng.xxh.energycenter.entity.act.GasPointcollection;
+import com.longcheng.xxh.energycenter.dao.act.GasPointcollectionMapper;
+import com.longcheng.xxh.energycenter.entity.basepo.Code;
+import com.longcheng.xxh.energycenter.entity.basepo.Results;
+import com.longcheng.xxh.energycenter.service.act.GasPointcollectionService;
 import com.longcheng.xxh.energycenter.util.DBUtils;
 import jxl.Cell;
 import jxl.Sheet;
@@ -14,9 +17,12 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
-public class GasPointcollectionService {
+public class GasPointcollectionServiceImpl implements GasPointcollectionService {
 
     @Autowired
     private GasPointcollectionMapper gasPointcollectionMapper;
@@ -85,5 +91,56 @@ public class GasPointcollectionService {
             }
             return str;
         }
+
+    /**
+     * 历史数据查询
+     * mj
+     *
+     * @param param1
+     * @param param2
+     * @return
+     */
+    public List<GasPointcollection> find(String param1, String param2) {
+        System.out.println(param1);
+        System.out.println(param2);
+        List<GasPointcollection> list = gasPointcollectionMapper.find(param1, param2);
+        return list;
+    }
+
+    /**
+     * 根据主键查询
+     * @param id
+     * @return
+     */
+    public GasPointcollection findById(int id) {
+        return gasPointcollectionMapper.findById(id);
+    }
+
+    /**
+     * 查找所有
+     * @return
+     */
+    public List<GasPointcollection> findAllPoint() {
+        return gasPointcollectionMapper.findAllPoint();
+    }
+
+    /**
+     * 分页查询
+     * @param count
+     * @param pagesize
+     * @return
+     */
+    public Results pageList(int count, int pagesize) {
+        List<GasPointcollection> pageList = gasPointcollectionMapper.pageList(count, pagesize);
+        int totalCount = gasPointcollectionMapper.pageListCount();
+        Map<String, Object> result = new HashMap<String, Object>();
+        result.put("pageList", pageList);
+        result.put("totalCount", totalCount);
+        System.out.println(count);
+        System.out.println(pagesize);
+        System.out.println(pageList);
+        System.out.println(totalCount);
+        return new Results(Code.success, "查询成功！！", result, "分页查询部分采集点信息");
+    }
     }
 

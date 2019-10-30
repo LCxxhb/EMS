@@ -1,10 +1,10 @@
-package com.longcheng.xxh.energycenter.controller.sys;
+package com.longcheng.xxh.energycenter.controller.act;
 
 import com.alibaba.fastjson.JSON;
 import com.longcheng.xxh.energycenter.entity.basepo.Code;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
-import com.longcheng.xxh.energycenter.entity.sys.Gas;
-import com.longcheng.xxh.energycenter.service.sys.serviceImpl.GasService;
+import com.longcheng.xxh.energycenter.entity.act.Gas;
+import com.longcheng.xxh.energycenter.service.act.GasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

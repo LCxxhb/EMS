@@ -1,7 +1,7 @@
-package com.longcheng.xxh.energycenter.service.sys.serviceImpl;
+package com.longcheng.xxh.energycenter.service.act;
 
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
-import com.longcheng.xxh.energycenter.entity.sys.Gas;
+import com.longcheng.xxh.energycenter.entity.act.Gas;
 import java.util.List;
 
 public interface GasService {

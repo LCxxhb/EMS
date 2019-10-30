@@ -1,9 +1,10 @@
-package com.longcheng.xxh.energycenter.service.sys.serviceImpl;
+package com.longcheng.xxh.energycenter.service.act.serviceImpl;
 
-import com.longcheng.xxh.energycenter.dao.sys.mapper.GasMapper;
+import com.longcheng.xxh.energycenter.dao.act.GasMapper;
 import com.longcheng.xxh.energycenter.entity.basepo.Code;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
-import com.longcheng.xxh.energycenter.entity.sys.Gas;
+import com.longcheng.xxh.energycenter.entity.act.Gas;
+import com.longcheng.xxh.energycenter.service.act.GasService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

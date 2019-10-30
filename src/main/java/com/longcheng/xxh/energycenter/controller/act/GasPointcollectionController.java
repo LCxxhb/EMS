@@ -1,6 +1,6 @@
-package com.longcheng.xxh.energycenter.controller;
+package com.longcheng.xxh.energycenter.controller.act;
 
-import com.longcheng.xxh.energycenter.service.GasPointcollectionService;
+import com.longcheng.xxh.energycenter.service.act.serviceImpl.GasPointcollectionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 public class GasPointcollectionController {
 
     @Autowired
-    private GasPointcollectionService gasPointcollectionService;
+    private GasPointcollectionServiceImpl gasPointcollectionService;
 
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     @ResponseBody
