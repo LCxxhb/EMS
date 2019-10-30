@@ -57,6 +57,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Results checkOut(HttpServletRequest request) {
+        String apiDesc = "用户退出！";
+        try {
+            //获取session并清空session信息
+            request.getSession().removeAttribute("user");
+            return new Results(Code.success, "用户退出校验成功", "", apiDesc);
+        } catch (Exception e) {
+            return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+        }
+    }
+
+    @Override
     public Results insert(User user) {
         String apiDesc = "添加用户接口";
         logger.info("用户对象信息为{}", JSON.toJSONString(user));
@@ -93,7 +105,7 @@ public class UserServiceImpl implements UserService {
                     userMapper.delete(ids[i]);
                     count++;
                 }
-                logger.info("删除的用户条数为{}条",count);
+                logger.info("删除的用户条数为{}条", count);
                 if (count > 0) {
                     return new Results(Code.success, "删除用户成功", "", apiDesc);
                 } else {
@@ -174,10 +186,37 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Results updatePassword(String id, String oldPwd, String newPwd) {
+        String apiDesc = "用户密码修改！";
+        // valid
+        if (StringUtils.isEmpty(id)) {
+            return new Results(Code.param, "参数校验失败id为空!!", "", apiDesc);
+        } else {
+            try {
+                User exuser = userMapper.load(Integer.parseInt(id));//根据id查询用户进行密码修改
+                logger.info("当前数据库用户密码为{}，输入的oldPwd密码为{}，newPwd密码为{}", exuser.getPassword(), oldPwd, newPwd);
+                if (!StringUtils.equals(oldPwd, exuser.getPassword())) {
+                    return new Results(Code.error, "当前密码错误！请重新输入！", "", apiDesc);
+                } else {
+                    //密码修改
+                    exuser.setPassword(newPwd);
+                    if (userMapper.update(exuser) > 0) {
+                        return new Results(Code.success, "用户密码修改成功！", exuser, apiDesc);
+                    } else {
+                        return new Results(Code.error, "用户密码修改失败！", exuser, apiDesc);
+                    }
+                }
+            } catch (Exception e) {
+                return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+            }
+        }
+    }
+
+    @Override
     public Results findAll(User user) {
         String apiDesc = "查询所有用户接口";
         try {
-            List<HashMap<String,Object>> lists = userMapper.findAll(user);
+            List<HashMap<String, Object>> lists = userMapper.findAll(user);
             if (lists == null || lists.size() == 0) {
                 return new Results(Code.error, "查询用户列表为空！", lists, apiDesc);
             } else {
