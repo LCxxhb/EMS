@@ -36,12 +36,23 @@
         FROM EMS_SYS_MENU
     </select>
 
+    <!-- 根据菜单id数组查询菜单   -->
+    <select id="findMenuByPermission" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ems_sys_menu m
+        where m.id IN
+        <foreach collection="array" item="ids" index="index" open="(" close=")" separator=",">
+            #{ids}
+        </foreach>
+    </select>
+
     <!--查询所有父级菜单-->
     <select id="findParentMenu" resultMap="BaseResultMap">
         SELECT
         <include refid="Base_Column_List"/>
         FROM EMS_SYS_MENU
-        where  id &lt; 10
+        where id &lt; 10
     </select>
 
     <!--添加菜单-->
@@ -134,7 +145,7 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM EMS_SYS_MENU
-        WHERE id = #{id}
+        WHERE pid = #{pid}
     </select>
 
     <select id="pageList" resultMap="BaseResultMap">

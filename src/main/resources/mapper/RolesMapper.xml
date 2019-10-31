@@ -3,16 +3,16 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.longcheng.xxh.energycenter.dao.sys.RolesMapper">
 
-    <resultMap id="BaseResultMap" type="com.longcheng.xxh.energycenter.entity.sys.Roles" >
-        <result column="id" property="id" />
-        <result column="rolename" property="rolename" />
-        <result column="describe" property="describe" />
-        <result column="permission" property="permission" />
-        <result column="create_date" property="createDate" />
-        <result column="create_by" property="createBy" />
-        <result column="last_update_date" property="lastUpdateDate" />
-        <result column="last_update_by" property="lastUpdateBy" />
-        <result column="spare" property="spare" />
+    <resultMap id="BaseResultMap" type="com.longcheng.xxh.energycenter.entity.sys.Roles">
+        <result column="id" property="id"/>
+        <result column="rolename" property="rolename"/>
+        <result column="describe" property="describe"/>
+        <result column="permission" property="permission"/>
+        <result column="create_date" property="createDate"/>
+        <result column="create_by" property="createBy"/>
+        <result column="last_update_date" property="lastUpdateDate"/>
+        <result column="last_update_by" property="lastUpdateBy"/>
+        <result column="spare" property="spare"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -33,64 +33,65 @@
         <include refid="Base_Column_List"/>
         FROM EMS_SYS_ROLES
     </select>
-    
-    <insert id="insert" useGeneratedKeys="true" keyColumn="id" parameterType="com.longcheng.xxh.energycenter.entity.sys.Roles">
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id"
+            parameterType="com.longcheng.xxh.energycenter.entity.sys.Roles">
         INSERT INTO EMS_SYS_ROLES
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test ='null != rolename'>
+            <if test='null != rolename'>
                 rolename,
             </if>
-            <if test ='null != describe'>
+            <if test='null != describe'>
                 describe,
             </if>
-            <if test ='null != permission'>
+            <if test='null != permission'>
                 permission,
             </if>
-            <if test ='null != createDate'>
+            <if test='null != createDate'>
                 create_date,
             </if>
-            <if test ='null != createBy'>
+            <if test='null != createBy'>
                 create_by,
             </if>
-            <if test ='null != lastUpdateDate'>
+            <if test='null != lastUpdateDate'>
                 last_update_date,
             </if>
-            <if test ='null != lastUpdateBy'>
+            <if test='null != lastUpdateBy'>
                 last_update_by,
             </if>
-            <if test ='null != spare'>
+            <if test='null != spare'>
                 spare
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test ='null != rolename'>
+            <if test='null != rolename'>
                 #{rolename},
             </if>
-            <if test ='null != describe'>
+            <if test='null != describe'>
                 #{describe},
             </if>
-            <if test ='null != permission'>
+            <if test='null != permission'>
                 #{permission},
             </if>
-            <if test ='null != createDate'>
+            <if test='null != createDate'>
                 #{createDate},
             </if>
-            <if test ='null != createBy'>
+            <if test='null != createBy'>
                 #{createBy},
             </if>
-            <if test ='null != lastUpdateDate'>
+            <if test='null != lastUpdateDate'>
                 #{lastUpdateDate},
             </if>
-            <if test ='null != lastUpdateBy'>
+            <if test='null != lastUpdateBy'>
                 #{lastUpdateBy},
             </if>
-            <if test ='null != spare'>
+            <if test='null != spare'>
                 #{spare}
             </if>
         </trim>
     </insert>
 
-    <delete id="delete" >
+    <delete id="delete">
         DELETE FROM EMS_SYS_ROLES
         WHERE id = #{id}
     </delete>
@@ -98,39 +99,32 @@
     <update id="update" parameterType="com.longcheng.xxh.energycenter.entity.sys.Roles">
         UPDATE EMS_SYS_ROLES
         <set>
-            <if test ='null != rolename'>rolename = #{rolename},</if>
-            <if test ='null != describe'>describe = #{describe},</if>
-            <if test ='null != permission'>permission = #{permission},</if>
-            <if test ='null != createDate'>create_date = #{createDate},</if>
-            <if test ='null != createBy'>create_by = #{createBy},</if>
-            <if test ='null != lastUpdateDate'>last_update_date = #{lastUpdateDate},</if>
-            <if test ='null != lastUpdateBy'>last_update_by = #{lastUpdateBy},</if>
-            <if test ='null != spare'>spare = #{spare}</if>
+            <if test='null != rolename'>rolename = #{rolename},</if>
+            <if test='null != describe'>describe = #{describe},</if>
+            <if test='null != permission'>permission = #{permission},</if>
+            <if test='null != createDate'>create_date = #{createDate},</if>
+            <if test='null != createBy'>create_by = #{createBy},</if>
+            <if test='null != lastUpdateDate'>last_update_date = #{lastUpdateDate},</if>
+            <if test='null != lastUpdateBy'>last_update_by = #{lastUpdateBy},</if>
+            <if test='null != spare'>spare = #{spare}</if>
         </set>
         WHERE id = #{id}
     </update>
 
-    <select id="findPermissionByRoleId" resultType="java.util.Map" >
+    <select id="findPermissionByRoleId" resultType="java.util.Map">
          select permission from ems_sys_roles where id = #{id}
     </select>
 
-    <select id="findMenuByPermission" resultType="java.util.Map" >
-        select m.id,m.pid,m.menuname,m.munuurl
-        from ems_sys_menu m
-        where m.id  IN
-        <foreach collection="array" item="ids" index="index" open="(" close=")" separator=",">
-            #{ids}
-        </foreach>
-    </select>
-
     <select id="load" resultMap="BaseResultMap">
-        SELECT <include refid="Base_Column_List" />
+        SELECT
+        <include refid="Base_Column_List"/>
         FROM EMS_SYS_ROLES
         WHERE id = #{id}
     </select>
 
     <select id="pageList" resultMap="BaseResultMap">
-        SELECT <include refid="Base_Column_List" />
+        SELECT
+        <include refid="Base_Column_List"/>
         FROM EMS_SYS_ROLES
         LIMIT #{offset}, #{pageSize}
     </select>
