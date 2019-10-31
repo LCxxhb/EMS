@@ -124,7 +124,7 @@ UPDATE EMS_ENERGY_PLAN
     <if test ='null != startTime'>start_time = #{startTime},</if>
     <if test ='null != endTime'>end_time = #{endTime},</if>
     <if test ='null != area'>area = #{area},</if>
-    <if test ='null != mediumName'>media_name = #{mediaName},</if>
+    <if test ='null != mediaName'>media_name = #{mediaName},</if>
     <if test ='null != planNumber'>plan_number = #{planNumber},</if>
     <if test ='null != measureMent'>measure_ment = #{measureMent},</if>
     <if test ='null != planUseTotal'>plan_use_total = #{planUseTotal},</if>
