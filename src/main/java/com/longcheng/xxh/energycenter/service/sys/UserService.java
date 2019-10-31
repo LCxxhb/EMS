@@ -4,9 +4,6 @@ import com.longcheng.xxh.energycenter.entity.basepo.Results;
 import com.longcheng.xxh.energycenter.entity.sys.User;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -19,7 +16,12 @@ public interface UserService {
     /**
      * 登录
      */
-    public Results login(User user , HttpServletRequest request);
+    public Results login(User user, HttpServletRequest request);
+
+    /**
+     * 退出
+     */
+    public Results checkOut(HttpServletRequest request);
 
     /**
      * 新增
@@ -45,10 +47,17 @@ public interface UserService {
      * 重置用户密码
      */
     public Results resetPassword(String id);
+
+    /**
+     * 修改用户密码
+     */
+    public Results updatePassword(String id, String oldPwd, String newPwd);
+
     /**
      * 查詢all
      */
     public Results findAll(User user);
+
     /**
      * 分页查询
      */

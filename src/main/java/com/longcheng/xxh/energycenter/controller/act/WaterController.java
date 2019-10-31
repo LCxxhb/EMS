@@ -1,12 +1,11 @@
-package com.longcheng.xxh.energycenter.controller.sys;
+package com.longcheng.xxh.energycenter.controller.act;
 
 import com.alibaba.fastjson.JSON;
+import com.longcheng.xxh.energycenter.entity.act.Water;
 import com.longcheng.xxh.energycenter.entity.basepo.Code;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
-import com.longcheng.xxh.energycenter.entity.sys.GasPointcollection;
-import com.longcheng.xxh.energycenter.entity.sys.Water;
-import com.longcheng.xxh.energycenter.service.sys.GasPointcollectionService;
-import com.longcheng.xxh.energycenter.service.sys.WaterService;
+import com.longcheng.xxh.energycenter.service.act.GasPointcollectionService;
+import com.longcheng.xxh.energycenter.service.act.WaterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
