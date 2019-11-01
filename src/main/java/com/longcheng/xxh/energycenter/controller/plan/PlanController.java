@@ -33,12 +33,14 @@ public class PlanController {
      * @date 2019/10/18
      **/
     @RequestMapping("/add")
-    public Results add(Plan plan){
+    public String add(Plan plan){
         Date date = new Date();
         SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
         plan.setCreateBy("admin");
         plan.setCreateDate(dateFormat.format(date));
-        return  planService.add(plan);
+        planService.add(plan);
+        Results results = new Results(Code.success, "添加计划成功",plan, "添加计划内容");
+        return JSON.toJSONString(results);
     }
 
     /**
@@ -47,8 +49,10 @@ public class PlanController {
      * @date 2019/10/18
      **/
     @RequestMapping("/delete")
-    public Results delete(int id){ return planService.delete(id);
-
+    public String delete(String id){
+        Results result =planService.delete(id);
+        Results results =  new Results(Code.success, "修改计划成功",result, "修改计划内容");
+        return JSON.toJSONString(results);
     }
 
     /**
@@ -57,8 +61,10 @@ public class PlanController {
      * @date 2019/10/18
      **/
     @RequestMapping("/update")
-    public Results update(Plan plan){ return  planService.update(plan);
-
+    public String update(Plan plan){
+        planService.update(plan);
+        Results results = new Results(Code.success, "修改计划成功",plan, "修改计划内容");
+        return JSON.toJSONString(results);
     }
 
     /**
@@ -71,8 +77,14 @@ public class PlanController {
     @RequestMapping("/findById")
     public String findById(int id){
         Plan plan = planService.findById(id);
-        Results results = new Results(Code.success, "根据ID查询计划内容成功", plan, "通过ID查询计划内容");
-        return JSON.toJSONString(results);
+        if(plan !=null ){
+            Results results = new Results(Code.success, "根据ID查询计划内容成功", plan, "通过ID查询计划内容");
+            return JSON.toJSONString(results);
+        }else {
+            Results results = new Results(Code.error, "根据ID查询计划内容失败", null, "通过ID查询计划内容");
+            return JSON.toJSONString(results);
+            }
+
     }
 
 
@@ -100,7 +112,7 @@ public class PlanController {
             Results results = new Results(Code.success, "查询计划内容成功", plan, "通过区域查询计划内容");
             return JSON.toJSONString(results);
         }else{
-            Results results = new Results(Code.success, "查询计划内容失败", null, "通过区域查询计划内容");
+            Results results = new Results(Code.error, "查询计划内容失败", null, "通过区域查询计划内容");
             return JSON.toJSONString(results);
         }
     }
@@ -119,7 +131,7 @@ public class PlanController {
             Results results = new Results(Code.success, "查询计划内容成功",plan, "通过介质名称查询计划内容");
             return JSON.toJSONString(results);
         }else{
-            Results results = new Results(Code.success, "查询计划内容失败", null, "通过介质名称查询计划内容");
+            Results results = new Results(Code.error, "查询计划内容失败", null, "通过介质名称查询计划内容");
             return JSON.toJSONString(results);
         }
 
