@@ -138,4 +138,17 @@ public class MediaServiceImpl implements MediaService {
             return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
         }
     }
+
+    @Override
+    public Results findByTwoMedia() {
+        String apiDesc = "查二级介质接口";
+        try {
+            MediaExample example = new MediaExample();
+            example.createCriteria().andPidNotEqualTo(new BigDecimal(0));
+            List<Media> mediaList = mediaMapper.selectByExample(example);
+            return new Results(Code.success, "查询二级介质成功", mediaList, apiDesc);
+        } catch (Exception e) {
+            return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+        }
+    }
 }
