@@ -65,7 +65,7 @@ public class MenuServiceImpl implements MenuService {
                     menuMapper.delete(ids[i]);
                     count++;
                 }
-                logger.info("删除的菜单条数为{}条",count);
+                logger.info("删除的菜单条数为{}条", count);
                 if (count > 0) {
                     return new Results(Code.success, "删除菜单成功", "", apiDesc);
                 } else {
@@ -76,7 +76,6 @@ public class MenuServiceImpl implements MenuService {
             }
         }
     }
-
 
 
     @Override
@@ -103,17 +102,17 @@ public class MenuServiceImpl implements MenuService {
         String apiDesc = "查询所有菜单接口";
         try {
             List<Menu> lists = menuMapper.findAll();
-            List menulist=new ArrayList();
+            List menulist = new ArrayList();
             if (lists == null || lists.size() == 0) {
                 return new Results(Code.error, "查询菜单列表失败", lists, apiDesc);
             } else {
-                for (Menu menu:lists) {
-                    Map map =new HashMap();
-                    map.put("id",menu.getId());
-                    map.put("pid",menu.getPid());
-                    map.put("name",menu.getMenuname());
-                    map.put("menuname",menu.getMenuname());
-                    map.put("munuurl",menu.getMunuurl());
+                for (Menu menu : lists) {
+                    Map map = new HashMap();
+                    map.put("id", menu.getId());
+                    map.put("pid", menu.getPid());
+                    map.put("name", menu.getMenuname());
+                    map.put("menuname", menu.getMenuname());
+                    map.put("munuurl", menu.getMunuurl());
                     menulist.add(map);
                 }
                 return new Results(Code.success, "查询菜单列表成功", menulist, apiDesc);
@@ -140,9 +139,18 @@ public class MenuServiceImpl implements MenuService {
 
 
     @Override
-    public Results load(int id) {
-        menuMapper.load(id);
-        return new  Results();
+    public Results load(int pid) {
+        String apiDesc = "根据父级菜单id查询子菜单！";
+        try {
+            List<Menu> lists = menuMapper.load(pid);
+            if (lists == null || lists.size() == 0) {
+                return new Results(Code.error, "根据父级菜单id查询子菜单失败", lists, apiDesc);
+            } else {
+                return new Results(Code.success, "根据父级菜单id查询子菜单成功", lists, apiDesc);
+            }
+        } catch (Exception e) {
+            return new Results(Code.trycatch, "根据父级菜单id查询子菜单捕获到异常" + e.toString(), "", apiDesc);
+        }
     }
 
 

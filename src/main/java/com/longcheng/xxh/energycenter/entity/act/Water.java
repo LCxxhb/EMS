@@ -1,6 +1,6 @@
-package com.longcheng.xxh.energycenter.entity.sys;
+package com.longcheng.xxh.energycenter.entity.act;
 
-public class Gas {
+public class Water {
     private int id;
     private String collectionPoint;
     private String description;
@@ -13,12 +13,12 @@ public class Gas {
     private String tagVal;
     private String readTime;
 
-    public Gas() {
+    public Water() {
     }
 
     @Override
     public String toString() {
-        return "Gas{" +
+        return "Water{" +
                 "id=" + id +
                 ", collectionPoint='" + collectionPoint + '\'' +
                 ", description='" + description + '\'' +
@@ -121,7 +121,7 @@ public class Gas {
         this.readTime = readTime;
     }
 
-    public Gas(int id, String collectionPoint, String description, String tagType, String useType, String dataType, String driveName, String deviceName, String deviceAddress, String tagVal, String readTime) {
+    public Water(int id, String collectionPoint, String description, String tagType, String useType, String dataType, String driveName, String deviceName, String deviceAddress, String tagVal, String readTime) {
         this.id = id;
         this.collectionPoint = collectionPoint;
         this.description = description;

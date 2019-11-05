@@ -69,17 +69,17 @@ public class MenuController {
     }
 
     /**
-     * [查詢] 根據主鍵 id 查詢
+     * [查詢] 根據pid 查詢子菜单
      *
      * @author shadow
      * @date 2019/10/10
      **/
     @CrossOrigin(origins = "*")
     @PostMapping("/load")
-    public String load(int id) {
-        menuService.load(id);
-        return "";
+    public String load(int pid) {
+        return JSON.toJSONString(menuService.load(pid));
     }
+
     /**
      * [查询菜单列表]
      *
@@ -91,6 +91,7 @@ public class MenuController {
     public String findAll() {
         return JSON.toJSONString(menuService.findAll());
     }
+
     /**
      * [查詢] 分頁查詢
      *

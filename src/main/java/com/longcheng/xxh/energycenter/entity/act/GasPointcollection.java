@@ -1,4 +1,4 @@
-package com.longcheng.xxh.energycenter.entity;
+package com.longcheng.xxh.energycenter.entity.act;
 
 public class  GasPointcollection{
     private String BRANCHFACTORY;

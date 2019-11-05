@@ -2,6 +2,7 @@ package com.longcheng.xxh.energycenter.entity.sys;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * menu
@@ -52,6 +53,12 @@ public class Menu implements Serializable {
     private String lastUpdateBy;
 
     /**
+     * 存储子菜单
+     */
+    private List<Menu> childMenus;
+
+
+    /**
      * remark
      */
     private String remark;
@@ -63,6 +70,14 @@ public class Menu implements Serializable {
 
 
     public Menu() {
+    }
+
+    public List<Menu> getChildMenus() {
+        return childMenus;
+    }
+
+    public void setChildMenus(List<Menu> childMenus) {
+        this.childMenus = childMenus;
     }
 
     public BigDecimal getId() {

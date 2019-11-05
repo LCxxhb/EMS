@@ -1,7 +1,6 @@
 package com.longcheng.xxh.energycenter.controller.sys;
 
 import com.alibaba.fastjson.JSON;
-import com.longcheng.xxh.energycenter.dao.sys.UserMapper;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
 import com.longcheng.xxh.energycenter.entity.sys.User;
 import com.longcheng.xxh.energycenter.service.sys.UserService;
@@ -11,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/user")
@@ -32,6 +30,29 @@ public class UserController {
     @PostMapping(value = "/login")
     public String login(User user, HttpServletRequest request) {
         return JSON.toJSONString(userService.login(user, request));
+    }
+
+    /**
+     * 用户退出
+     *
+     * @return
+     */
+    @CrossOrigin(origins = "*")
+    @PostMapping(value = "/checkOut")
+    public String chekout(HttpServletRequest request) {
+        return JSON.toJSONString(userService.checkOut(request));
+    }
+
+
+    /**
+     * 用户密码修改
+     *
+     * @return
+     */
+    @CrossOrigin(origins = "*")
+    @PostMapping(value = "/updatePwd")
+    public String updatePassword(String id, String oldPwd, String newPwd) {
+        return JSON.toJSONString(userService.updatePassword(id, oldPwd, newPwd));
     }
 
     /**

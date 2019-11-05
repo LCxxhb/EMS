@@ -37,9 +37,9 @@ public interface MenuService {
     public Results findParentMenu();
 
     /**
-     * 根據主鍵 id 查詢
+     * 根據pid 查詢子菜单
      */
-    public Results load(int id);
+    public Results load(int pid);
 
     /**
      * 分页查询

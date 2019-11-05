@@ -1,6 +1,6 @@
-package com.longcheng.xxh.energycenter.dao.sys.mapper;
+package com.longcheng.xxh.energycenter.dao.act;
 
-import com.longcheng.xxh.energycenter.entity.sys.Gas;
+import com.longcheng.xxh.energycenter.entity.act.Gas;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
