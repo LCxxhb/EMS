@@ -5,9 +5,8 @@ import com.longcheng.xxh.energycenter.entity.basepo.Code;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
 import com.longcheng.xxh.energycenter.entity.plan.Plan;
 import com.longcheng.xxh.energycenter.service.plan.PlanService;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
@@ -20,8 +19,8 @@ import java.util.Map;
  * @author xieqi
  * @date 2019/10/18
  */
-@RestController
-@RequestMapping(value = "/plan")
+@Controller
+@RequestMapping(value = "/plan",method = RequestMethod.POST)
 public class PlanController {
 
     @Resource
@@ -32,7 +31,8 @@ public class PlanController {
      * @author xieqi
      * @date 2019/10/18
      **/
-    @RequestMapping("/add")
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value ="/add",method = RequestMethod.POST)
     public Results add(Plan plan){
         Date date = new Date();
         SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd :hh:mm:ss");
@@ -46,7 +46,8 @@ public class PlanController {
      * @author xieqi
      * @date 2019/10/18
      **/
-    @RequestMapping("/delete")
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value ="/delete",method = RequestMethod.POST)
     public Results delete(int id){ return planService.delete(id);
 
     }
@@ -56,7 +57,8 @@ public class PlanController {
      * @author xieqi
      * @date 2019/10/18
      **/
-    @RequestMapping("/update")
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value ="/update",method = RequestMethod.POST)
     public Results update(Plan plan){ return  planService.update(plan);
 
     }
@@ -67,8 +69,8 @@ public class PlanController {
      * @date 2019/10/18
      *
      * @return*/
-
-    @RequestMapping("/findById")
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value ="/findById",method = RequestMethod.POST)
     public String findById(int id){
         Plan plan = planService.findById(id);
         Results results = new Results(Code.success, "根据ID查询计划内容成功", plan, "通过ID查询计划内容");
@@ -81,7 +83,8 @@ public class PlanController {
      * @author xieqi
      * @date 2019/10/18
      **/
-    @RequestMapping("/pageList")
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value ="/pageList",method = RequestMethod.POST)
     public Map<String, Object> pageList(@RequestParam(required = false, defaultValue = "0") int offset,
                                         @RequestParam(required = false, defaultValue = "20") int pagesize) {
         return planService.pageList(offset, pagesize);
@@ -93,7 +96,8 @@ public class PlanController {
      * @author xieqi
      * @date 2019/10/18
      **/
-    @RequestMapping("/findByArea")
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value ="/findByArea",method = RequestMethod.POST)
     public String findByArea(String area){
         List<Plan> plan =planService.findByArea(area);
         if(area != null && area != ""){
@@ -112,7 +116,8 @@ public class PlanController {
      * @author xieqi
      * @date 2019/10/18
      **/
-    @RequestMapping("/findByMediaName")
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value ="/findByMediaName",method = RequestMethod.POST)
     public String findByMediaName(String mediaName){
         List<Plan> plan =planService.findByMediaName(mediaName);
         if(mediaName != null && mediaName != ""){
@@ -131,7 +136,8 @@ public class PlanController {
      * @author xieqi
      * @date 2019/10/18
      **/
-    @RequestMapping("/findAll")
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value ="/findAll",method = RequestMethod.POST)
     public String findAll(){
         List<Plan> plan =planService.findAll();
         Results results = new Results(Code.success, "根据介质类型查询计划内容", plan, "根据介质类型查询计划内容");

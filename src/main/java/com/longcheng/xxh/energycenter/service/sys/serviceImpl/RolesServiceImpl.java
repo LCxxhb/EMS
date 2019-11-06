@@ -1,6 +1,7 @@
 package com.longcheng.xxh.energycenter.service.sys.serviceImpl;
 
 import com.alibaba.fastjson.JSON;
+import com.longcheng.xxh.energycenter.dao.sys.MenuMapper;
 import com.longcheng.xxh.energycenter.dao.sys.RolesMapper;
 import com.longcheng.xxh.energycenter.entity.basepo.Code;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
@@ -8,7 +9,6 @@ import com.longcheng.xxh.energycenter.entity.sys.Menu;
 import com.longcheng.xxh.energycenter.entity.sys.Roles;
 import com.longcheng.xxh.energycenter.entity.sys.User;
 import com.longcheng.xxh.energycenter.service.sys.RolesService;
-import com.longcheng.xxh.energycenter.util.UserRequest;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +32,9 @@ public class RolesServiceImpl implements RolesService {
 
     @Resource
     private RolesMapper rolesMapper;
+
+    @Resource
+    private MenuMapper menuMapper;
 
     @Autowired
     private HttpSession session;
@@ -144,32 +147,68 @@ public class RolesServiceImpl implements RolesService {
             return new Results(Code.param, "角色id为空！", "", apiDesc);
         } else {
             try {
-                List menuMapList=new ArrayList();//创建菜单列表返回值
                 List<HashMap<String, Object>> lists = rolesMapper.findPermissionByRoleId(id);
                 String permisson = lists.get(0).get("PERMISSION").toString();//查询出权限
                 String[] ids = permisson.split(",");//将权限字符串转换为数组
-                List<HashMap<String, Object>> menuByPermission = rolesMapper.findMenuByPermission(ids);//根据权限查询菜单列表
-                logger.info("查询出来的菜单列表为{}", JSON.toJSONString(menuByPermission));
-                if (menuByPermission.size() == 0 ||menuByPermission==null ) {
-                    return new Results(Code.error, "根据角色id 查询菜单列表为空！", menuByPermission, apiDesc);
+                List<Menu> rootMenu = menuMapper.findMenuByPermission(ids);//根据权限查询菜单列表,原始的数据
+                logger.info("查询出来的菜单列表为{}", JSON.toJSONString(rootMenu));
+                if (rootMenu.size() == 0 || rootMenu == null) {
+                    return new Results(Code.error, "根据角色id 查询菜单列表为空！", rootMenu, apiDesc);
                 } else {
-                    for (Map map:menuByPermission) {
-                        Map menumap =new HashMap();
-                        menumap.put("id",map.get("ID"));
-                        menumap.put("pid",map.get("PID"));
-                        menumap.put("name",map.get("MENUNAME"));
-                        menumap.put("menuname",map.get("MENUNAME"));
-                        menumap.put("munuurl",map.get("MUNUURL"));
-                        menuMapList.add(menumap);
+                    // 定义返回的结果list
+                    List<Menu> menuList = new ArrayList<Menu>();
+                    // 先找到所有的一级菜单
+                    for (Menu menu : rootMenu) {
+                        // 找到一级菜单
+                        if (StringUtils.equals("0", menu.getPid().toString())) {
+                            menuList.add(menu);
+                        }
                     }
-                    return new Results(Code.success, "根据角色id 查询菜单列表成功！", menuMapList, apiDesc);
+                    // 为一级菜单设置子菜单，getChild是递归调用的
+                    for (Menu menu : menuList) {
+                        menu.setChildMenus(getChild(menu.getId().toString(), rootMenu));
+                    }
+                    logger.info("最终返回的菜单列表{}", JSON.toJSONString(menuList));
+                    return new Results(Code.success, "根据角色id 查询菜单列表成功！", menuList, apiDesc);
                 }
             } catch (Exception e) {
+                e.printStackTrace();
                 return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
             }
         }
     }
 
+
+    /**
+     * 递归查找子菜单
+     *
+     * @param id       当前菜单id
+     * @param rootMenu 要查找的列表
+     * @return
+     */
+    private List<Menu> getChild(String id, List<Menu> rootMenu) {
+        // 子菜单
+        List<Menu> childList = new ArrayList<>();
+        for (Menu menu : rootMenu) {
+            // 遍历所有节点，将父菜单id与传过来的id比较
+            if (StringUtils.isNotBlank(menu.getPid().toString())) {
+                if (StringUtils.equals(id, menu.getPid().toString())) {
+                    childList.add(menu);
+                }
+            }
+        }
+        // 把子菜单的子菜单再循环一遍
+        for (Menu menu : childList) {// 没有url子菜单还有子菜单
+            if (StringUtils.isBlank(menu.getMunuurl())) {
+                // 递归
+                menu.setChildMenus(getChild(menu.getId().toString(), rootMenu));
+            }
+        } // 递归退出条件
+        if (childList.size() == 0) {
+            return null;
+        }
+        return childList;
+    }
 
     @Override
     public Results pageList(int offset, int pagesize) {

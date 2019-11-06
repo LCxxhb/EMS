@@ -1,6 +1,5 @@
 package com.longcheng.xxh.energycenter.dao.sys;
 
-import com.longcheng.xxh.energycenter.entity.sys.Menu;
 import com.longcheng.xxh.energycenter.entity.sys.Roles;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
@@ -65,14 +64,6 @@ public interface RolesMapper {
      * @date 2019/10/10
      **/
     List<HashMap<String, Object>> findPermissionByRoleId(int id);
-
-    /**
-     * [查詢] 根據权限查询菜单
-     *
-     * @author shadow
-     * @date 2019/10/10
-     **/
-    List<HashMap<String, Object>> findMenuByPermission(String[] ids);
 
     /**
      * [查詢] 分頁查詢
