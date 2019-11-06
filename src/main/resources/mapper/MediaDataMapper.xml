@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.longcheng.xxh.energycenter.dao.mass.MediaDataMapper">
+  <resultMap id="BaseResultMap" type="com.longcheng.xxh.energycenter.entity.mass.MediaData">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="MID" jdbcType="DECIMAL" property="mid" />
+    <result column="MEDIA_NAME" jdbcType="VARCHAR" property="mediaName" />
+    <result column="PATCH_NAME" jdbcType="VARCHAR" property="patchName" />
+    <result column="PROJECT_NAME" jdbcType="VARCHAR" property="projectName" />
+    <result column="MINIMUM" jdbcType="VARCHAR" property="minimum" />
+    <result column="MAXIMUM" jdbcType="VARCHAR" property="maximum" />
+    <result column="MEDIA_DATA" jdbcType="VARCHAR" property="mediaData" />
+    <result column="UNIT_NAME" jdbcType="VARCHAR" property="unitName" />
+    <result column="STATE" jdbcType="VARCHAR" property="state" />
+    <result column="CREATE_DATE" jdbcType="VARCHAR" property="createDate" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="LAST_UPDATE_DAT" jdbcType="VARCHAR" property="lastUpdateDat" />
+    <result column="LAST_UPDATE_BY" jdbcType="VARCHAR" property="lastUpdateBy" />
+    <result column="SPARE1" jdbcType="VARCHAR" property="spare1" />
+    <result column="SPARE2" jdbcType="VARCHAR" property="spare2" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, MID, MEDIA_NAME, PATCH_NAME, PROJECT_NAME, MINIMUM, MAXIMUM, MEDIA_DATA, UNIT_NAME, 
+    STATE, CREATE_DATE, CREATE_BY, LAST_UPDATE_DAT, LAST_UPDATE_BY, SPARE1, SPARE2
+  </sql>
+  <select id="selectByExample" parameterType="com.longcheng.xxh.energycenter.entity.mass.MediaDataExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from EMS_MASS_MEDIA_DATA
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from EMS_MASS_MEDIA_DATA
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from EMS_MASS_MEDIA_DATA
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.longcheng.xxh.energycenter.entity.mass.MediaDataExample">
+    delete from EMS_MASS_MEDIA_DATA
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.longcheng.xxh.energycenter.entity.mass.MediaData">
+    insert into EMS_MASS_MEDIA_DATA (ID, MID, MEDIA_NAME, 
+      PATCH_NAME, PROJECT_NAME, MINIMUM, 
+      MAXIMUM, MEDIA_DATA, UNIT_NAME, 
+      STATE, CREATE_DATE, CREATE_BY, 
+      LAST_UPDATE_DAT, LAST_UPDATE_BY, SPARE1, 
+      SPARE2)
+    values (#{id,jdbcType=DECIMAL}, #{mid,jdbcType=DECIMAL}, #{mediaName,jdbcType=VARCHAR}, 
+      #{patchName,jdbcType=VARCHAR}, #{projectName,jdbcType=VARCHAR}, #{minimum,jdbcType=VARCHAR}, 
+      #{maximum,jdbcType=VARCHAR}, #{mediaData,jdbcType=VARCHAR}, #{unitName,jdbcType=VARCHAR}, 
+      #{state,jdbcType=VARCHAR}, #{createDate,jdbcType=VARCHAR}, #{createBy,jdbcType=VARCHAR}, 
+      #{lastUpdateDat,jdbcType=VARCHAR}, #{lastUpdateBy,jdbcType=VARCHAR}, #{spare1,jdbcType=VARCHAR}, 
+      #{spare2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.longcheng.xxh.energycenter.entity.mass.MediaData">
+    insert into EMS_MASS_MEDIA_DATA
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="mid != null">
+        MID,
+      </if>
+      <if test="mediaName != null">
+        MEDIA_NAME,
+      </if>
+      <if test="patchName != null">
+        PATCH_NAME,
+      </if>
+      <if test="projectName != null">
+        PROJECT_NAME,
+      </if>
+      <if test="minimum != null">
+        MINIMUM,
+      </if>
+      <if test="maximum != null">
+        MAXIMUM,
+      </if>
+      <if test="mediaData != null">
+        MEDIA_DATA,
+      </if>
+      <if test="unitName != null">
+        UNIT_NAME,
+      </if>
+      <if test="state != null">
+        STATE,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="createBy != null">
+        CREATE_BY,
+      </if>
+      <if test="lastUpdateDat != null">
+        LAST_UPDATE_DAT,
+      </if>
+      <if test="lastUpdateBy != null">
+        LAST_UPDATE_BY,
+      </if>
+      <if test="spare1 != null">
+        SPARE1,
+      </if>
+      <if test="spare2 != null">
+        SPARE2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="mid != null">
+        #{mid,jdbcType=DECIMAL},
+      </if>
+      <if test="mediaName != null">
+        #{mediaName,jdbcType=VARCHAR},
+      </if>
+      <if test="patchName != null">
+        #{patchName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null">
+        #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="minimum != null">
+        #{minimum,jdbcType=VARCHAR},
+      </if>
+      <if test="maximum != null">
+        #{maximum,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaData != null">
+        #{mediaData,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null">
+        #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDat != null">
+        #{lastUpdateDat,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateBy != null">
+        #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="spare1 != null">
+        #{spare1,jdbcType=VARCHAR},
+      </if>
+      <if test="spare2 != null">
+        #{spare2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.longcheng.xxh.energycenter.entity.mass.MediaDataExample" resultType="java.lang.Long">
+    select count(*) from EMS_MASS_MEDIA_DATA
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update EMS_MASS_MEDIA_DATA
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mid != null">
+        MID = #{record.mid,jdbcType=DECIMAL},
+      </if>
+      <if test="record.mediaName != null">
+        MEDIA_NAME = #{record.mediaName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.patchName != null">
+        PATCH_NAME = #{record.patchName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.projectName != null">
+        PROJECT_NAME = #{record.projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.minimum != null">
+        MINIMUM = #{record.minimum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.maximum != null">
+        MAXIMUM = #{record.maximum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mediaData != null">
+        MEDIA_DATA = #{record.mediaData,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitName != null">
+        UNIT_NAME = #{record.unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.state != null">
+        STATE = #{record.state,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null">
+        CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateDat != null">
+        LAST_UPDATE_DAT = #{record.lastUpdateDat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastUpdateBy != null">
+        LAST_UPDATE_BY = #{record.lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spare1 != null">
+        SPARE1 = #{record.spare1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spare2 != null">
+        SPARE2 = #{record.spare2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update EMS_MASS_MEDIA_DATA
+    set ID = #{record.id,jdbcType=DECIMAL},
+      MID = #{record.mid,jdbcType=DECIMAL},
+      MEDIA_NAME = #{record.mediaName,jdbcType=VARCHAR},
+      PATCH_NAME = #{record.patchName,jdbcType=VARCHAR},
+      PROJECT_NAME = #{record.projectName,jdbcType=VARCHAR},
+      MINIMUM = #{record.minimum,jdbcType=VARCHAR},
+      MAXIMUM = #{record.maximum,jdbcType=VARCHAR},
+      MEDIA_DATA = #{record.mediaData,jdbcType=VARCHAR},
+      UNIT_NAME = #{record.unitName,jdbcType=VARCHAR},
+      STATE = #{record.state,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=VARCHAR},
+      CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      LAST_UPDATE_DAT = #{record.lastUpdateDat,jdbcType=VARCHAR},
+      LAST_UPDATE_BY = #{record.lastUpdateBy,jdbcType=VARCHAR},
+      SPARE1 = #{record.spare1,jdbcType=VARCHAR},
+      SPARE2 = #{record.spare2,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.longcheng.xxh.energycenter.entity.mass.MediaData">
+    update EMS_MASS_MEDIA_DATA
+    <set>
+      <if test="mid != null">
+        MID = #{mid,jdbcType=DECIMAL},
+      </if>
+      <if test="mediaName != null">
+        MEDIA_NAME = #{mediaName,jdbcType=VARCHAR},
+      </if>
+      <if test="patchName != null">
+        PATCH_NAME = #{patchName,jdbcType=VARCHAR},
+      </if>
+      <if test="projectName != null">
+        PROJECT_NAME = #{projectName,jdbcType=VARCHAR},
+      </if>
+      <if test="minimum != null">
+        MINIMUM = #{minimum,jdbcType=VARCHAR},
+      </if>
+      <if test="maximum != null">
+        MAXIMUM = #{maximum,jdbcType=VARCHAR},
+      </if>
+      <if test="mediaData != null">
+        MEDIA_DATA = #{mediaData,jdbcType=VARCHAR},
+      </if>
+      <if test="unitName != null">
+        UNIT_NAME = #{unitName,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        STATE = #{state,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateDat != null">
+        LAST_UPDATE_DAT = #{lastUpdateDat,jdbcType=VARCHAR},
+      </if>
+      <if test="lastUpdateBy != null">
+        LAST_UPDATE_BY = #{lastUpdateBy,jdbcType=VARCHAR},
+      </if>
+      <if test="spare1 != null">
+        SPARE1 = #{spare1,jdbcType=VARCHAR},
+      </if>
+      <if test="spare2 != null">
+        SPARE2 = #{spare2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.longcheng.xxh.energycenter.entity.mass.MediaData">
+    update EMS_MASS_MEDIA_DATA
+    set MID = #{mid,jdbcType=DECIMAL},
+      MEDIA_NAME = #{mediaName,jdbcType=VARCHAR},
+      PATCH_NAME = #{patchName,jdbcType=VARCHAR},
+      PROJECT_NAME = #{projectName,jdbcType=VARCHAR},
+      MINIMUM = #{minimum,jdbcType=VARCHAR},
+      MAXIMUM = #{maximum,jdbcType=VARCHAR},
+      MEDIA_DATA = #{mediaData,jdbcType=VARCHAR},
+      UNIT_NAME = #{unitName,jdbcType=VARCHAR},
+      STATE = #{state,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      LAST_UPDATE_DAT = #{lastUpdateDat,jdbcType=VARCHAR},
+      LAST_UPDATE_BY = #{lastUpdateBy,jdbcType=VARCHAR},
+      SPARE1 = #{spare1,jdbcType=VARCHAR},
+      SPARE2 = #{spare2,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <select id="findByMidOrPidMediaData" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+   SELECT A.MID,A.MEDIA_NAME,A.PROJECT_NAME,B.PATCH_NAME,A.MINIMUM,A.MAXIMUM,A.UNIT_NAME,A.STATE FROM (SELECT MID,MEDIA_NAME,PROJECT_NAME,"MINIMUM",MAXIMUM,UNIT_NAME,STATE FROM EMS_MASS_MEDIA_PROJECT WHERE MID = #{mid,jdbcType=DECIMAL}) A LEFT JOIN (SELECT PATCH_NAME FROM EMS_MASS_PATCH WHERE ID=#{pid,jdbcType=DECIMAL}) B ON 1=1
+  </select>
+
+</mapper>
