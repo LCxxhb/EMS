@@ -1,3 +1,4 @@
+/*
 package com.longcheng.xxh.energycenter.controller.plan;
 
 import com.alibaba.fastjson.JSON;
@@ -14,11 +15,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+*/
 /**
  * plan
  * @author xieqi
  * @date 2019/10/18
- */
+ *//*
+
 @Controller
 @RequestMapping(value = "/plan",method = RequestMethod.POST)
 public class PlanController {
@@ -26,11 +29,13 @@ public class PlanController {
     @Resource
     private PlanService planService;
 
-    /**
+    */
+/**
      * [新增]
      * @author xieqi
      * @date 2019/10/18
-     **/
+     **//*
+
     @CrossOrigin(origins = "*")
     @RequestMapping(value ="/add",method = RequestMethod.POST)
     public Results add(Plan plan){
@@ -41,34 +46,40 @@ public class PlanController {
         return  planService.add(plan);
     }
 
-    /**
+    */
+/**
      * [刪除]
      * @author xieqi
      * @date 2019/10/18
-     **/
+     **//*
+
     @CrossOrigin(origins = "*")
     @RequestMapping(value ="/delete",method = RequestMethod.POST)
     public Results delete(int id){ return planService.delete(id);
 
     }
 
-    /**
+    */
+/**
      * [更新]
      * @author xieqi
      * @date 2019/10/18
-     **/
+     **//*
+
     @CrossOrigin(origins = "*")
     @RequestMapping(value ="/update",method = RequestMethod.POST)
     public Results update(Plan plan){ return  planService.update(plan);
 
     }
 
-    /**
+    */
+/**
      * [查詢] 根據主鍵 id 查詢
      * @author xieqi
      * @date 2019/10/18
      *
-     * @return*/
+     * @return*//*
+
     @CrossOrigin(origins = "*")
     @RequestMapping(value ="/findById",method = RequestMethod.POST)
     public String findById(int id){
@@ -78,11 +89,13 @@ public class PlanController {
     }
 
 
-    /**
+    */
+/**
      * [查詢] 分頁查詢
      * @author xieqi
      * @date 2019/10/18
-     **/
+     **//*
+
     @CrossOrigin(origins = "*")
     @RequestMapping(value ="/pageList",method = RequestMethod.POST)
     public Map<String, Object> pageList(@RequestParam(required = false, defaultValue = "0") int offset,
@@ -91,11 +104,13 @@ public class PlanController {
     }
 
 
-    /**
+    */
+/**
      * [查詢] 根据区域查詢计划内容
      * @author xieqi
      * @date 2019/10/18
-     **/
+     **//*
+
     @CrossOrigin(origins = "*")
     @RequestMapping(value ="/findByArea",method = RequestMethod.POST)
     public String findByArea(String area){
@@ -111,11 +126,13 @@ public class PlanController {
 
 
 
-    /**
+    */
+/**
      * [查詢] 根据介质名查询计划内容
      * @author xieqi
      * @date 2019/10/18
-     **/
+     **//*
+
     @CrossOrigin(origins = "*")
     @RequestMapping(value ="/findByMediaName",method = RequestMethod.POST)
     public String findByMediaName(String mediaName){
@@ -131,11 +148,13 @@ public class PlanController {
     }
 
 
-    /**
+    */
+/**
      * [查詢] 查询所有计划
      * @author xieqi
      * @date 2019/10/18
-     **/
+     **//*
+
     @CrossOrigin(origins = "*")
     @RequestMapping(value ="/findAll",method = RequestMethod.POST)
     public String findAll(){
@@ -148,3 +167,4 @@ public class PlanController {
 }
 
 
+*/

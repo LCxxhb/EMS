@@ -1,6 +1,7 @@
 package com.longcheng.xxh.energycenter.controller.act;
 
 import com.alibaba.fastjson.JSON;
+import com.longcheng.xxh.energycenter.entity.act.Enti;
 import com.longcheng.xxh.energycenter.entity.basepo.Code;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
 import com.longcheng.xxh.energycenter.entity.act.Gas;
@@ -21,23 +22,33 @@ public class GasController {
     private GasService gasService;
 
 
-    /**
-     * 历史数据查询
-     * mj
-     *
-     * @param param1
-     * @param param2
-     * @return
-     */
+
     @RequestMapping(value = "/history", method = RequestMethod.POST)
     @ResponseBody
-    public String find(String param1, String param2) {
-        List<Gas> gasList = gasService.find(param1, param2);
-        for (int i = 0; i <gasList.size() ; i++) {
-            System.out.println(i);
-        }
-        return  JSON.toJSONString(new Results(Code.success, "查询成功！！", gasService.find(param1, param2), "查询部分气体信息"));
+    public String find_id(String param1, String param2, String param3, String param4, String param5) {
+        String sql = null;
+        String a = "SELECT A .AREANAME,A .BRANCHFACTORY,B.*FROM EMS_GAS_POINTCOLLECTION A LEFT JOIN EMS_HIS_DATA_GAS B ON  A .COLLECTIONPOINT = B.COLLECTIONPOINT where ";
+        String b = "A.AREANAME = #{param1} ";
+        if (param1 != null)
+            sql = a + b;
+        String c = "and A.BRANCHFACTORY = #{param2} ";
+        if (param2 != null)
+            sql += c;
+        String d = "and B.TAGTYPE = #{param3} ";
+        if (param3 != null)
+            sql += d;
+        String e = "and B.READTIME >= (select to_date(#{param4},'yyyy-mm-dd,hh24:mi:ss') from dual )";
+        if (param4 != null)
+            sql += e;
+        String f = "and B.READTIME <= (select to_date(#{param5},'yyyy-mm-dd,hh24:mi:ss') from dual )";
+        if (param5 != null)
+            sql += f;
+        String g = " ORDER BY to_number(B.TAGVAL)";
+        sql += g;
+        System.out.println(sql);
+        return JSON.toJSONString(new Results(Code.success, "查询成功！！", gasService.find_id(sql, param1, param2, param3, param4, param5), "查询部分气体介质信息"));
     }
+
 
     /**
      * /** [查詢] 根据ID查询采集点信息
