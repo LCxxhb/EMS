@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.longcheng.xxh.energycenter.dao.mass.PatchMapper">
+  <resultMap id="BaseResultMap" type="com.longcheng.xxh.energycenter.entity.mass.Patch">
+    <id column="ID" jdbcType="DECIMAL" property="id" />
+    <result column="PATCH_NAME" jdbcType="VARCHAR" property="patchName" />
+    <result column="CREATE_DATE" jdbcType="VARCHAR" property="createDate" />
+    <result column="CREATE_BY" jdbcType="VARCHAR" property="createBy" />
+    <result column="SPARE1" jdbcType="VARCHAR" property="spare1" />
+    <result column="SPARE2" jdbcType="VARCHAR" property="spare2" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, PATCH_NAME, CREATE_DATE, CREATE_BY, SPARE1, SPARE2
+  </sql>
+  <select id="selectByExample" parameterType="com.longcheng.xxh.energycenter.entity.mass.PatchExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from EMS_MASS_PATCH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from EMS_MASS_PATCH
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from EMS_MASS_PATCH
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.longcheng.xxh.energycenter.entity.mass.PatchExample">
+    delete from EMS_MASS_PATCH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.longcheng.xxh.energycenter.entity.mass.Patch">
+    insert into EMS_MASS_PATCH (ID, PATCH_NAME, CREATE_DATE, 
+      CREATE_BY, SPARE1, SPARE2
+      )
+    values (#{id,jdbcType=DECIMAL}, #{patchName,jdbcType=VARCHAR}, #{createDate,jdbcType=VARCHAR}, 
+      #{createBy,jdbcType=VARCHAR}, #{spare1,jdbcType=VARCHAR}, #{spare2,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.longcheng.xxh.energycenter.entity.mass.Patch">
+    insert into EMS_MASS_PATCH
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="patchName != null">
+        PATCH_NAME,
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE,
+      </if>
+      <if test="createBy != null">
+        CREATE_BY,
+      </if>
+      <if test="spare1 != null">
+        SPARE1,
+      </if>
+      <if test="spare2 != null">
+        SPARE2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="patchName != null">
+        #{patchName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="spare1 != null">
+        #{spare1,jdbcType=VARCHAR},
+      </if>
+      <if test="spare2 != null">
+        #{spare2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.longcheng.xxh.energycenter.entity.mass.PatchExample" resultType="java.lang.Long">
+    select count(*) from EMS_MASS_PATCH
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update EMS_MASS_PATCH
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=DECIMAL},
+      </if>
+      <if test="record.patchName != null">
+        PATCH_NAME = #{record.patchName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null">
+        CREATE_DATE = #{record.createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createBy != null">
+        CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spare1 != null">
+        SPARE1 = #{record.spare1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.spare2 != null">
+        SPARE2 = #{record.spare2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update EMS_MASS_PATCH
+    set ID = #{record.id,jdbcType=DECIMAL},
+      PATCH_NAME = #{record.patchName,jdbcType=VARCHAR},
+      CREATE_DATE = #{record.createDate,jdbcType=VARCHAR},
+      CREATE_BY = #{record.createBy,jdbcType=VARCHAR},
+      SPARE1 = #{record.spare1,jdbcType=VARCHAR},
+      SPARE2 = #{record.spare2,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.longcheng.xxh.energycenter.entity.mass.Patch">
+    update EMS_MASS_PATCH
+    <set>
+      <if test="patchName != null">
+        PATCH_NAME = #{patchName,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        CREATE_DATE = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createBy != null">
+        CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      </if>
+      <if test="spare1 != null">
+        SPARE1 = #{spare1,jdbcType=VARCHAR},
+      </if>
+      <if test="spare2 != null">
+        SPARE2 = #{spare2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.longcheng.xxh.energycenter.entity.mass.Patch">
+    update EMS_MASS_PATCH
+    set PATCH_NAME = #{patchName,jdbcType=VARCHAR},
+      CREATE_DATE = #{createDate,jdbcType=VARCHAR},
+      CREATE_BY = #{createBy,jdbcType=VARCHAR},
+      SPARE1 = #{spare1,jdbcType=VARCHAR},
+      SPARE2 = #{spare2,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>
