@@ -21,9 +21,19 @@ public class WaterServiceImpl implements WaterService {
     @Autowired
     private WaterMapper waterMapper;
 
+    /**
+     * 不定参数查询
+     * @param sql
+     * @param param
+     * @param param2
+     * @param param3
+     * @param param4
+     * @param param5
+     * @return
+     */
     public List<Enti>  find_id(String sql, String param, String param2, String param3, String param4, String param5) {
         double sum = 0;
-        double avg =  0;
+        double avg ;
         List<Enti> entilist = waterMapper.find_id(sql, param, param2, param3, param4, param5);
         for (int i = 0; i < entilist.size(); i++) {
             sum += Double.parseDouble(entilist.get(i).getTagVal());

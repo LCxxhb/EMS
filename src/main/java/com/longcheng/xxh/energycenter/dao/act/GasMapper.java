@@ -23,14 +23,12 @@ public interface GasMapper {
     List<Enti> find(String param1, String param2);
 
     /**
-     * 根据参数查询
-     * @param param1
-     * @param param2
-     * @param param3
-     * @param param4
-     * @return*/
-  /*  @Select("SELECT A .AREANAME,A .BRANCHFACTORY,B.*FROM EMS_GAS_POINTCOLLECTION A LEFT JOIN EMS_HIS_DATA_GAS B ON A .COLLECTIONPOINT = B.COLLECTIONPOINT and A.AREANAME = #{param1} and A.BRANCHFACTORY = #{param2} and B.TAGTYPE = #{param3}")
-    List<Enti> find(String param1, String param2,String param3,String param4,String param5);*/
+     * 不定参数查询
+     * @param sql
+     * @return
+     */
+    @Select("${sql}")
+    List<Enti> find_id(@Param("sql") String sql, @Param("param1") String param1, @Param("param2") String param2, @Param("param3")  String param3, @Param("param4") String param4,@Param("param5") String param5);
 
     /**
      * 根据主键查询

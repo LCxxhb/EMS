@@ -9,7 +9,7 @@ public interface GasService {
     //参数查询
     public List<Enti> find(String param1, String param2);
     //参数查询
-    /*public List<Enti> find(String param1, String param2,String param3);*/
+     List<Enti>  find_id(String sql, String param1, String param2, String param3, String param4, String param5);
     //主键查询
     public Gas findById(int id);
     //查询所有

@@ -48,7 +48,7 @@ public class WaterController {
         String g = " ORDER BY to_number(B.TAGVAL)";
             sql += g;
         System.out.println(sql);
-        return JSON.toJSONString(new Results(Code.success, "查询成功！！", waterService.find_id(sql, param1, param2, param3, param4, param5), "查询部分气体信息"));
+        return JSON.toJSONString(new Results(Code.success, "查询成功！！", waterService.find_id(sql, param1, param2, param3, param4, param5), "查询部分水介质信息"));
     }
 
 
