@@ -12,7 +12,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +30,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private HttpServletRequest request;
 
     private final static Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 
@@ -48,6 +53,8 @@ public class UserServiceImpl implements UserService {
                 } else {
                     //将登录的用户信息存放session中
                     request.getSession().setAttribute("user", user);
+                    String sessionId = request.getSession().getId();
+                    System.out.println("login登录时sessionId为：" + sessionId);
                     return new Results(Code.success, "用户登录校验成功", exUser, apiDesc);
                 }
             } catch (Exception e) {
@@ -215,8 +222,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public Results findAll(User user) {
         String apiDesc = "查询所有用户接口";
+        HttpSession session = request.getSession();
+//        Cookie[] cookies = request.getCookies();
+//        System.out.println("cokies=============================>"+JSON.toJSONString(cookies));
+
+        String sessionId = session.getId();
+        System.out.println("用户查询时sessionId为：" + sessionId);
+//        if (session.isNew()) {
+//            System.out.println("session为新创建，sessionId为：" + sessionId);
+//        } else {
+//            System.out.println("sessionId已创建");
+//        }
         try {
             List<HashMap<String, Object>> lists = userMapper.findAll(user);
+            logger.info("查询到的用户信息{}",JSON.toJSONString(lists));
             if (lists == null || lists.size() == 0) {
                 return new Results(Code.error, "查询用户列表为空！", lists, apiDesc);
             } else {
