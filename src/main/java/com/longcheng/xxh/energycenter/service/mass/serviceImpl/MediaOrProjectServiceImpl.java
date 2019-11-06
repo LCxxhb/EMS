@@ -26,6 +26,10 @@ public class MediaOrProjectServiceImpl implements MediaOrProjectService {
 
     @Resource
     private MediaMapper mediaMapper;
+
+
+
+
     @Override
     public Results insert(MediaOrProject mediaOrProject) {
         String apiDesc = "添加质量介质和属性关连数据接口";
@@ -75,7 +79,22 @@ public class MediaOrProjectServiceImpl implements MediaOrProjectService {
 
     @Override
     public Results update(MediaOrProject mediaOrProject) {
-        return null;
+        String apiDesc = "修改质量介质和属性关连数据接口";
+        if(mediaOrProject.getId() == null){
+            return new Results(Code.param, "参数id不能为空", "", apiDesc);
+        }else {
+            try {
+                MediaOrProjectExample example = new MediaOrProjectExample();
+                example.createCriteria().andIdEqualTo(mediaOrProject.getId());
+                if(mediaOrProjectMapper.updateByExampleSelective(mediaOrProject,example)>0){
+                    return new Results(Code.success, "修改质量介质配置成功", "", apiDesc);
+                }else {
+                    return new Results(Code.success, "修改质量介质配置失败", "", apiDesc);
+                }
+            } catch (Exception e) {
+                return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+            }
+        }
     }
 
     @Override

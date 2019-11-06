@@ -116,4 +116,17 @@ public class MediaController {
     public Results findByOneMedia(){
         return mediaService.findByOneMedia();
     }
+
+
+    /**
+     * [查詢] 查詢二级介质
+     * @author yangbo
+     * @date 2019/10/31
+     **/
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/findByTwoMedia",method = RequestMethod.POST)
+    public Results findByTwoMedia(){
+        return mediaService.findByTwoMedia();
+    }
 }

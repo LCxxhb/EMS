@@ -2,19 +2,20 @@ package com.longcheng.xxh.energycenter.service.mass;
 
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
 import com.longcheng.xxh.energycenter.entity.mass.Media;
+import com.longcheng.xxh.energycenter.entity.mass.Patch;
 
 
 /**
      * media
      * @author yangbo
-     * @date 2019/10/16
+     * @date 2019/10/31
      */
-    public interface MediaService {
+    public interface PatchService {
 
         /**
          * 新增
          */
-        public Results insert(Media media);
+        public Results insert(Patch patch);
 
         /**
          * 删除
@@ -24,7 +25,7 @@ import com.longcheng.xxh.energycenter.entity.mass.Media;
         /**
          * 更新
          */
-        public Results update(Media media);
+        public Results update(Patch patch);
 
         /**
          * 根據主鍵 id 查詢
@@ -36,27 +37,12 @@ import com.longcheng.xxh.energycenter.entity.mass.Media;
          */
         public Results pageList(int offset, int pagesize);
 
-    /**
-     * 查詢所有介质
-     */
-    public Results findAllMedia();
-
-    /**
-     * 通过pid查询介质
-     */
-    public Results findByPidMedia(String pid);
+        /**
+         * 查詢所有采集点名
+         */
+        public Results findAllPatch();
 
 
-    /**
-     * 查询一级介质
-     */
-    public Results findByOneMedia();
-
-
-    /**
-     * 查询二级介质
-     */
-    public Results findByTwoMedia();
     }
 
 
