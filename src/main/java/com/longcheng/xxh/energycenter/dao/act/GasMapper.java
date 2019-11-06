@@ -1,5 +1,6 @@
 package com.longcheng.xxh.energycenter.dao.act;
 
+import com.longcheng.xxh.energycenter.entity.act.Enti;
 import com.longcheng.xxh.energycenter.entity.act.Gas;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -18,8 +19,18 @@ public interface GasMapper {
      * @param param2 mj
      * @return
      */
-    @Select("select * from EMS_HIS_DATA_GAS where COLLECTIONPOINT = #{param1} and TAGTYPE = #{param2}")
-    List<Gas> find(String param1, String param2);
+    @Select("SELECT A .AREANAME,A .BRANCHFACTORY,B.*FROM EMS_GAS_POINTCOLLECTION A LEFT JOIN EMS_HIS_DATA_GAS B ON A.COLLECTIONPOINT = B.COLLECTIONPOINT having A.AREANAME = #{param1} and B.TAGTYPE = #{param2}")
+    List<Enti> find(String param1, String param2);
+
+    /**
+     * 根据参数查询
+     * @param param1
+     * @param param2
+     * @param param3
+     * @param param4
+     * @return*/
+  /*  @Select("SELECT A .AREANAME,A .BRANCHFACTORY,B.*FROM EMS_GAS_POINTCOLLECTION A LEFT JOIN EMS_HIS_DATA_GAS B ON A .COLLECTIONPOINT = B.COLLECTIONPOINT and A.AREANAME = #{param1} and A.BRANCHFACTORY = #{param2} and B.TAGTYPE = #{param3}")
+    List<Enti> find(String param1, String param2,String param3,String param4,String param5);*/
 
     /**
      * 根据主键查询

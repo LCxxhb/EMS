@@ -1,6 +1,7 @@
 package com.longcheng.xxh.energycenter.controller.act;
 
 import com.alibaba.fastjson.JSON;
+import com.longcheng.xxh.energycenter.entity.act.Enti;
 import com.longcheng.xxh.energycenter.entity.basepo.Code;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
 import com.longcheng.xxh.energycenter.entity.act.Gas;
@@ -32,12 +33,31 @@ public class GasController {
     @RequestMapping(value = "/history", method = RequestMethod.POST)
     @ResponseBody
     public String find(String param1, String param2) {
-        List<Gas> gasList = gasService.find(param1, param2);
+        List<Enti> gasList = gasService.find(param1, param2);
         for (int i = 0; i <gasList.size() ; i++) {
             System.out.println(i);
         }
         return  JSON.toJSONString(new Results(Code.success, "查询成功！！", gasService.find(param1, param2), "查询部分气体信息"));
     }
+
+    /**
+     * 历史数据查询
+     * mj
+     *
+     * @param param1
+     * @param param2
+     * @return
+     */
+   /* @RequestMapping(value = "/history", method = RequestMethod.POST)
+    @ResponseBody
+    public String find(String param1, String param2,String param3) {
+        List<Enti> gasList = gasService.find(param1, param2,param3);
+        for (int i = 0; i <gasList.size() ; i++) {
+            System.out.println(i);
+        }
+        return  JSON.toJSONString(new Results(Code.success, "查询成功！！", gasService.find(param1, param2,param3), "查询部分气体信息"));
+    }*/
+
 
     /**
      * /** [查詢] 根据ID查询采集点信息

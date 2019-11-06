@@ -1,12 +1,15 @@
 package com.longcheng.xxh.energycenter.service.act;
 
+import com.longcheng.xxh.energycenter.entity.act.Enti;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
 import com.longcheng.xxh.energycenter.entity.act.Gas;
 import java.util.List;
 
 public interface GasService {
     //参数查询
-    public List<Gas> find(String param1, String param2);
+    public List<Enti> find(String param1, String param2);
+    //参数查询
+    /*public List<Enti> find(String param1, String param2,String param3);*/
     //主键查询
     public Gas findById(int id);
     //查询所有
