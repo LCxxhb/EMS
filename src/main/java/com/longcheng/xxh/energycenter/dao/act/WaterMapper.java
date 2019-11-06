@@ -1,5 +1,6 @@
 package com.longcheng.xxh.energycenter.dao.act;
 
+import com.longcheng.xxh.energycenter.entity.act.Enti;
 import com.longcheng.xxh.energycenter.entity.act.Water;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -12,13 +13,21 @@ import java.util.List;
 @Component
 public interface WaterMapper {
     /**
+     * 不定参数查询
+     * @param sql
+     * @return
+     */
+    @Select("${sql}")
+    List<Enti> find_id(@Param("sql") String sql, @Param("param1") String param1, @Param("param2") String param2, @Param("param3")  String param3, @Param("param4") String param4,@Param("param5") String param5);
+
+    /**
      * 根据参数查询
      *
      * @param param1
      * @param param2 mj
      * @return
      */
-    @Select("select * from EMS_HIS_DATA_WATER where COLLECTIONPOINT = #{param1} and TAGTYPE = #{param2}")
+    @Select("SELECT A .AREANAME,A .BRANCHFACTORY,B.*FROM EMS_GAS_POINTCOLLECTION A LEFT JOIN EMS_HIS_DATA_WATER B ON A .COLLECTIONPOINT = B.COLLECTIONPOINT and A.AREANAME = #{param1} and B.TAGTYPE = #{param2}")
     List<Water> find(String param1, String param2);
 
     /**
