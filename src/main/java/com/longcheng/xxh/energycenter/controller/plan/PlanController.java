@@ -1,40 +1,44 @@
-/*
 package com.longcheng.xxh.energycenter.controller.plan;
+
 
 import com.alibaba.fastjson.JSON;
 import com.longcheng.xxh.energycenter.entity.basepo.Code;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
 import com.longcheng.xxh.energycenter.entity.plan.Plan;
 import com.longcheng.xxh.energycenter.service.plan.PlanService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-*/
+
 /**
  * plan
  * @author xieqi
  * @date 2019/10/18
- *//*
+ */
+
 
 @Controller
 @RequestMapping(value = "/plan",method = RequestMethod.POST)
 public class PlanController {
 
-    @Resource
+    @Autowired
     private PlanService planService;
 
-    */
+
 /**
      * [新增]
      * @author xieqi
      * @date 2019/10/18
-     **//*
+     **/
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value ="/add",method = RequestMethod.POST)
@@ -46,12 +50,12 @@ public class PlanController {
         return  planService.add(plan);
     }
 
-    */
+
 /**
      * [刪除]
      * @author xieqi
      * @date 2019/10/18
-     **//*
+     **/
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value ="/delete",method = RequestMethod.POST)
@@ -59,12 +63,12 @@ public class PlanController {
 
     }
 
-    */
+
 /**
      * [更新]
      * @author xieqi
      * @date 2019/10/18
-     **//*
+     **/
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value ="/update",method = RequestMethod.POST)
@@ -72,13 +76,13 @@ public class PlanController {
 
     }
 
-    */
+
 /**
      * [查詢] 根據主鍵 id 查詢
      * @author xieqi
      * @date 2019/10/18
      *
-     * @return*//*
+     * @return*/
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value ="/findById",method = RequestMethod.POST)
@@ -89,12 +93,12 @@ public class PlanController {
     }
 
 
-    */
+
 /**
      * [查詢] 分頁查詢
      * @author xieqi
      * @date 2019/10/18
-     **//*
+     **/
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value ="/pageList",method = RequestMethod.POST)
@@ -104,12 +108,12 @@ public class PlanController {
     }
 
 
-    */
+
 /**
      * [查詢] 根据区域查詢计划内容
      * @author xieqi
      * @date 2019/10/18
-     **//*
+     **/
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value ="/findByArea",method = RequestMethod.POST)
@@ -126,12 +130,12 @@ public class PlanController {
 
 
 
-    */
+
 /**
      * [查詢] 根据介质名查询计划内容
      * @author xieqi
      * @date 2019/10/18
-     **//*
+     **/
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value ="/findByMediaName",method = RequestMethod.POST)
@@ -148,12 +152,12 @@ public class PlanController {
     }
 
 
-    */
+
 /**
      * [查詢] 查询所有计划
      * @author xieqi
      * @date 2019/10/18
-     **//*
+     **/
 
     @CrossOrigin(origins = "*")
     @RequestMapping(value ="/findAll",method = RequestMethod.POST)
@@ -167,4 +171,4 @@ public class PlanController {
 }
 
 
-*/
+
