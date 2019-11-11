@@ -1,8 +1,14 @@
 package com.longcheng.xxh.energycenter.entity.plan;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class Plan {
+/**
+ * plan
+ *
+ * @author xieqi 2019-11-09
+ */
+public class Plan implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -16,24 +22,14 @@ public class Plan {
     private String startTime;
 
     /**
-     * end_time
-     */
-    private String endTime;
-
-    /**
      * area
      */
     private String area;
 
     /**
-     * medium_name
+     * media_name
      */
     private String mediaName;
-
-    /**
-     * plan_number
-     */
-    private String planNumber;
 
     /**
      * measure_ment
@@ -65,6 +61,46 @@ public class Plan {
      */
     private String remark;
 
+    /**
+     * area_id
+     */
+    private Long areaId;
+
+    /**
+     * media_id
+     */
+    private Long mediaId;
+
+    /**
+     * update_by
+     */
+    private String updateBy;
+
+    /**
+     * update_time
+     */
+    private String updateTime;
+
+    /**
+     * update_time
+     */
+    private String beginTime;
+
+    /**
+     * update_time
+     */
+    private String endTime;
+
+    /**
+     * plan_type
+     */
+    private Long planType;
+
+    /**
+     * plan_type_name
+     */
+    private String planTypeName;
+
 
     public Plan() {
     }
@@ -85,14 +121,6 @@ public class Plan {
         this.startTime = startTime;
     }
 
-    public String getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(String endTime) {
-        this.endTime = endTime;
-    }
-
     public String getArea() {
         return area;
     }
@@ -105,15 +133,8 @@ public class Plan {
         return mediaName;
     }
 
-    public void setMediaName(String mediaName) { this.mediaName = mediaName;
-    }
-
-    public String getPlanNumber() {
-        return planNumber;
-    }
-
-    public void setPlanNumber(String planNumber) {
-        this.planNumber = planNumber;
+    public void setMediaName(String mediaName) {
+        this.mediaName = mediaName;
     }
 
     public String getMeasureMent() {
@@ -164,21 +185,67 @@ public class Plan {
         this.remark = remark;
     }
 
-    @Override
-    public String toString() {
-        return "plan{" +
-                "id=" + id +
-                ", startTime='" + startTime + '\'' +
-                ", endTime='" + endTime + '\'' +
-                ", area='" + area + '\'' +
-                ", mediumName='" + mediaName + '\'' +
-                ", planNumber='" + planNumber + '\'' +
-                ", measureMent='" + measureMent + '\'' +
-                ", planUseTotal='" + planUseTotal + '\'' +
-                ", planOutputTotal='" + planOutputTotal + '\'' +
-                ", createBy='" + createBy + '\'' +
-                ", createDate='" + createDate + '\'' +
-                ", remark='" + remark + '\'' +
-                '}';
+    public Long getAreaId() {
+        return areaId;
+    }
+
+    public void setAreaId(Long areaId) {
+        this.areaId = areaId;
+    }
+
+    public Long getMediaId() {
+        return mediaId;
+    }
+
+    public void setMediaId(Long mediaId) {
+        this.mediaId = mediaId;
+    }
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Long getPlanType() {
+        return planType;
+    }
+
+    public void setPlanType(Long planType) {
+        this.planType = planType;
+    }
+
+    public String getPlanTypeName() {
+        return planTypeName;
+    }
+
+    public void setPlanTypeName(String planTypeName) {
+        this.planTypeName = planTypeName;
+    }
+
+    public String getBeginTime() {
+        return beginTime;
+    }
+
+    public void setBeginTime(String beginTime) {
+        this.beginTime = beginTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 }
