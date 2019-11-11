@@ -6,10 +6,8 @@
     <resultMap id="BaseResultMap" type="com.longcheng.xxh.energycenter.entity.plan.Plan" >
         <result column="id" property="id" />
         <result column="start_time" property="startTime" />
-        <result column="end_time" property="endTime" />
         <result column="area" property="area" />
         <result column="media_name" property="mediaName" />
-        <result column="plan_number" property="planNumber" />
         <result column="measure_ment" property="measureMent" />
         <result column="plan_use_total" property="planUseTotal" />
         <result column="plan_output_total" property="planOutputTotal" />
@@ -18,19 +16,17 @@
         <result column="remark" property="remark" />
         <result column="area_id" property="areaId" />
         <result column="media_id" property="mediaId" />
-        <result column="branch" property="branch" />
-        <result column="branch_id" property="branchId" />
         <result column="update_by" property="updateBy" />
         <result column="update_time" property="updateTime" />
+        <result column="plan_type" property="planType" />
+        <result column="plan_type_name" property="planTypeName" />
     </resultMap>
 
     <sql id="Base_Column_List">
                 id,
                 start_time,
-                end_time,
                 area,
                 media_name,
-                plan_number,
                 measure_ment,
                 plan_use_total,
                 plan_output_total,
@@ -39,10 +35,10 @@
                 remark,
                 area_id,
                 media_id,
-                branch,
-                branch_id,
                 update_by,
-                update_time
+                update_time,
+                plan_type,
+                plan_type_name
     </sql>
 
     <insert id="insert" useGeneratedKeys="true" keyColumn="id" parameterType="com.longcheng.xxh.energycenter.entity.plan.Plan">
@@ -51,17 +47,11 @@
             <if test ='null != startTime'>
                 start_time,
             </if>
-            <if test ='null != endTime'>
-                end_time,
-            </if>
             <if test ='null != area'>
                 area,
             </if>
             <if test ='null != mediaName'>
                 media_name,
-            </if>
-            <if test ='null != planNumber'>
-                plan_number,
             </if>
             <if test ='null != measureMent'>
                 measure_ment,
@@ -87,34 +77,28 @@
             <if test ='null != mediaId'>
                 media_id,
             </if>
-            <if test ='null != branch'>
-                branch,
-            </if>
-            <if test ='null != branchId'>
-                branch_id,
-            </if>
             <if test ='null != updateBy'>
                 update_by,
             </if>
             <if test ='null != updateTime'>
-                update_time
+                update_time,
+            </if>
+            <if test ='null != planType'>
+                plan_type,
+            </if>
+            <if test ='null != planTypeName'>
+                plan_type_name
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test ='null != startTime'>
                 #{startTime},
             </if>
-            <if test ='null != endTime'>
-                #{endTime},
-            </if>
             <if test ='null != area'>
                 #{area},
             </if>
             <if test ='null != mediaName'>
                 #{mediaName},
-            </if>
-            <if test ='null != planNumber'>
-                #{planNumber},
             </if>
             <if test ='null != measureMent'>
                 #{measureMent},
@@ -140,17 +124,17 @@
             <if test ='null != mediaId'>
                 #{mediaId},
             </if>
-            <if test ='null != branch'>
-                #{branch},
-            </if>
-            <if test ='null != branchId'>
-                #{branchId},
-            </if>
             <if test ='null != updateBy'>
                 #{updateBy},
             </if>
             <if test ='null != updateTime'>
-                #{updateTime}
+                #{updateTime},
+            </if>
+            <if test ='null != planType'>
+                #{planType},
+            </if>
+            <if test ='null != planTypeName'>
+                #{planTypeName}
             </if>
         </trim>
     </insert>
@@ -164,10 +148,8 @@
         UPDATE EMS_ENERGY_PLAN
         <set>
             <if test ='null != startTime'>start_time = #{startTime},</if>
-            <if test ='null != endTime'>end_time = #{endTime},</if>
             <if test ='null != area'>area = #{area},</if>
             <if test ='null != mediaName'>media_name = #{mediaName},</if>
-            <if test ='null != planNumber'>plan_number = #{planNumber},</if>
             <if test ='null != measureMent'>measure_ment = #{measureMent},</if>
             <if test ='null != planUseTotal'>plan_use_total = #{planUseTotal},</if>
             <if test ='null != planOutputTotal'>plan_output_total = #{planOutputTotal},</if>
@@ -176,10 +158,10 @@
             <if test ='null != remark'>remark = #{remark},</if>
             <if test ='null != areaId'>area_id = #{areaId},</if>
             <if test ='null != mediaId'>media_id = #{mediaId},</if>
-            <if test ='null != branch'>branch = #{branch},</if>
-            <if test ='null != branchId'>branch_id = #{branchId},</if>
             <if test ='null != updateBy'>update_by = #{updateBy},</if>
-            <if test ='null != updateTime'>update_time = #{updateTime}</if>
+            <if test ='null != updateTime'>update_time = #{updateTime},</if>
+            <if test ='null != planType'>plan_type = #{planType},</if>
+            <if test ='null != planTypeName'>plan_type_name = #{planTypeName}</if>
         </set>
         WHERE id = #{id}
     </update>
@@ -191,17 +173,32 @@
         WHERE id = #{id}
     </select>
 
-    <select id="findAll" resultMap="BaseResultMap">
-        SELECT <include refid="Base_Column_List" />
-        FROM
-        EMS_ENERGY_PLAN
+    <select id="findAll" resultMap="BaseResultMap" parameterType="com.longcheng.xxh.energycenter.entity.plan.Plan">
+        select <include refid="Base_Column_List" />
+        from EMS_ENERGY_PLAN
+        where 1=1
+        <if test='planType != null and planType != ""'>
+            and PLAN_TYPE = #{planType}
+        </if>
+        <if test='beginTime != null and beginTime != ""'>
+            and START_TIME &gt; #{beginTime}
+        </if>
+        <if test='endTime != null and endTime != ""'>
+            and START_TIME &lt; #{endTime}
+        </if>
+        <if test='areaId != null and areaId != ""'>
+            and AREA_ID = #{areaId}
+        </if>
+        <if test='mediaId != null and mediaId != ""'>
+            and MEDIA_ID = #{mediaId}
+        </if>
+        order by create_date
     </select>
 
-
     <select id="pageList" resultMap="BaseResultMap">
-    SELECT <include refid="Base_Column_List" />
-    FROM EMS_ENERGY_PLAN
-    LIMIT #{offset}, #{pageSize}
+        SELECT <include refid="Base_Column_List" />
+        FROM EMS_ENERGY_PLAN
+        LIMIT #{offset}, #{pageSize}
     </select>
 
     <select id="pageListCount" resultType="java.lang.Integer">
