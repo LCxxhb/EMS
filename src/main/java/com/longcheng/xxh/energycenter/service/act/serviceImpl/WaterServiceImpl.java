@@ -21,17 +21,7 @@ public class WaterServiceImpl implements WaterService {
     @Autowired
     private WaterMapper waterMapper;
 
-    /**
-     * 不定参数查询
-     * @param sql
-     * @param param
-     * @param param2
-     * @param param3
-     * @param param4
-     * @param param5
-     * @return
-     */
-    public List<Enti>  find_id(String sql, String param, String param2, String param3, String param4, String param5) {
+    public List<Enti>  find_id(String sql, String param, String param2, String param3, String param4, String param5){
         double sum = 0;
         double avg ;
         List<Enti> entilist = waterMapper.find_id(sql, param, param2, param3, param4, param5);
@@ -47,24 +37,24 @@ public class WaterServiceImpl implements WaterService {
     }
 
     @Override
-    public List<Water> find(String param1, String param2) {
-        List<Water> list = waterMapper.find(param1, param2);
+    public List<Enti> find(String param1, String param2) {
+        List<Enti> list = waterMapper.find(param1, param2);
         return list;
     }
 
     @Override
-    public Water findById(int id) {
+    public Enti findById(int id) {
         return waterMapper.findById(id);
     }
 
     @Override
-    public List<Water> findAllPoint() {
+    public List<Enti> findAllPoint() {
         return waterMapper.findAllPoint();
     }
 
     @Override
     public Results pageList(int count, int pagesize) {
-        List<Water> pageList = waterMapper.pageList(count, pagesize);
+        List<Enti> pageList = waterMapper.pageList(count, pagesize);
         int totalCount = waterMapper.pageListCount();
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("pageList", pageList);
