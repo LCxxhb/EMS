@@ -4,8 +4,6 @@ import com.alibaba.druid.util.StringUtils;
 import com.longcheng.xxh.energycenter.dao.mass.ProjectMapper;
 import com.longcheng.xxh.energycenter.entity.basepo.Code;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
-import com.longcheng.xxh.energycenter.entity.mass.Media;
-import com.longcheng.xxh.energycenter.entity.mass.MediaExample;
 import com.longcheng.xxh.energycenter.entity.mass.Project;
 import com.longcheng.xxh.energycenter.entity.mass.ProjectExample;
 import com.longcheng.xxh.energycenter.service.mass.ProjectService;
@@ -62,7 +60,18 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Results update(Project project) {
-        return null;
+        String apiDesc = "修改质量介质属性接口";
+        try {
+            ProjectExample example = new ProjectExample();
+            example.createCriteria().andIdEqualTo(project.getId());
+            if(projectMapper.updateByExampleSelective(project,example) > 0){
+                return new Results(Code.success, "修改质量介质属性成功", "", apiDesc);
+            }else {
+                return new Results(Code.error, "修改质量介质属性失败", "", apiDesc);
+            }
+        }catch (Exception e) {
+            return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+        }
     }
 
     @Override

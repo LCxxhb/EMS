@@ -52,12 +52,35 @@ public class PatchServiceImpl implements PatchService {
 
     @Override
     public Results delete(String id) {
-        return null;
+        String apiDesc = "删除采集点介质名称接口";
+        if (StringUtils.isEmpty(id)) {
+            return new Results(Code.param, "参数id不能为空", "", apiDesc);
+        } else {
+            try {
+                if (patchMapper.deleteByPrimaryKey(new BigDecimal(id)) > 0) {
+                    return new Results(Code.success, "删除采集点介质名称成功", "", apiDesc);
+                } else {
+                    return new Results(Code.error, "删除采集点介质名称失败", "", apiDesc);
+                }
+            } catch (Exception e) {
+                return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+            }
+        }
     }
-
     @Override
     public Results update(Patch patch) {
-        return null;
+        String apiDesc = "修改采集点介质名称接口";
+        try {
+            PatchExample example = new PatchExample();
+            example.createCriteria().andIdEqualTo(patch.getId());
+            if(patchMapper.updateByExampleSelective(patch,example) > 0){
+                return new Results(Code.success, "修改采集点介质名称成功", "", apiDesc);
+            }else {
+                return new Results(Code.error, "修改采集点介质名称失败", "", apiDesc);
+            }
+        } catch (Exception e) {
+            return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+        }
     }
 
     @Override
