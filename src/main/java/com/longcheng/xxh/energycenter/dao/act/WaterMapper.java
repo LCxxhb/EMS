@@ -28,7 +28,7 @@ public interface WaterMapper {
      * @return
      */
     @Select("SELECT A .AREANAME,A .BRANCHFACTORY,B.*FROM EMS_GAS_POINTCOLLECTION A LEFT JOIN EMS_HIS_DATA_WATER B ON A .COLLECTIONPOINT = B.COLLECTIONPOINT and A.AREANAME = #{param1} and B.TAGTYPE = #{param2}")
-    List<Water> find(String param1, String param2);
+    List<Enti> find(String param1, String param2);
 
     /**
      * 根据主键查询
@@ -36,8 +36,8 @@ public interface WaterMapper {
      * @param id mj
      * @return
      */
-    @Select("select * from EMS_HIS_DATA_WATER where ID = #{id}")
-    Water findById(int id);
+    @Select("SELECT A .AREANAME,A .BRANCHFACTORY,B.*FROM EMS_GAS_POINTCOLLECTION A LEFT JOIN EMS_HIS_DATA_WATER B ON A .COLLECTIONPOINT = B.COLLECTIONPOINT where B.ID = #{id}")
+    Enti findById(int id);
 
     /**
      * 查询所有数据
@@ -45,8 +45,8 @@ public interface WaterMapper {
      *
      * @return
      */
-    @Select("select * from EMS_HIS_DATA_WATER")
-    List<Water> findAllPoint();
+    @Select("select * from (SELECT A .AREANAME,A .BRANCHFACTORY,B.*FROM EMS_GAS_POINTCOLLECTION A inner JOIN EMS_HIS_DATA_WATER B ON A .COLLECTIONPOINT = B.COLLECTIONPOINT) where rownum <=1000")
+    List<Enti> findAllPoint();
 
     /**
      * 分页查询
@@ -55,8 +55,8 @@ public interface WaterMapper {
      * @param count
      * @return
      */
-    @Select("SELECT * FROM ( SELECT A .*, ROWNUM r FROM ( SELECT * FROM EMS_HIS_DATA_WATER ) A WHERE ROWNUM <= #{pagesize} ) B WHERE r > #{count}")
-    List<Water> pageList(@Param("count") int count, @Param("pagesize") int pagesize);
+    @Select(" SELECT * FROM ( SELECT A.*, ROWNUM r FROM ( SELECT A.AREANAME,A .BRANCHFACTORY,B.*FROM EMS_GAS_POINTCOLLECTION A inner JOIN EMS_HIS_DATA_WATER B ON A .COLLECTIONPOINT = B.COLLECTIONPOINT ) A WHERE ROWNUM <= #{pagesize} ) B WHERE r > #{count}")
+    List<Enti> pageList(@Param("count") int count, @Param("pagesize") int pagesize);
 
     /**
      * 分页查询
@@ -64,6 +64,6 @@ public interface WaterMapper {
      *
      * @return
      */
-    @Select("SELECT count(1) FROM EMS_HIS_DATA_WATER")
+    @Select(" SELECT count(1) FROM (SELECT A.AREANAME,A .BRANCHFACTORY,B.*FROM EMS_GAS_POINTCOLLECTION A LEFT JOIN EMS_HIS_DATA_WATER B ON A .COLLECTIONPOINT = B.COLLECTIONPOINT)")
     int pageListCount();
 }

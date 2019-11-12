@@ -48,10 +48,15 @@ import com.longcheng.xxh.energycenter.entity.mass.Patch;
          */
         public Results findAllMediaData();
 
-
-
+        /**
+         * 通过mid和pid查询
+         */
         public Results findByMidOrPidMediaData(int mid,int pid);
 
+        /**
+         * 通过条件查詢数据
+         */
+        public Results findMediaDataList(int mid,String patchName,String startTime,String endTime,String spare1);
     }
 
 

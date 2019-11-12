@@ -101,4 +101,12 @@ public class MediaDataController {
     public Results findByMidOrPidMediaData(int mid,int pid){
         return mediaDataService.findByMidOrPidMediaData(mid, pid);
     }
+
+
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/findMediaDataList",method = RequestMethod.POST)
+    public Results findMediaDataList(int mid,String patchName,String startTime,String endTime,String spare1){
+        return mediaDataService.findMediaDataList(mid,patchName,startTime,endTime,spare1);
+    }
 }

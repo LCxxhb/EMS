@@ -38,6 +38,12 @@ public interface UserMapper {
      * @date 2019/09/27
      **/
     int delete(@Param("id") String id);
+    /**
+     * [禁用启用]
+     * @author shadow
+     * @date 2019/09/27
+     **/
+    int isuse(@Param("id") String id,@Param("status") String status);
 
     /**
      * [更新]

@@ -50,7 +50,9 @@ public class UserServiceImpl implements UserService {
                 logger.info("根据用户名密码查询到的用户信息为{}", JSON.toJSONString(exUser));
                 if (exUser == null || exUser.getId() == 0) {
                     return new Results(Code.error, "用户登录校验失败，请检查用户名密码是否正确！", "", apiDesc);
-                } else {
+                } else if (StringUtils.equals("0",exUser.getStatus())){
+                    return new Results(Code.permission, "此用户已被禁用！", "", apiDesc);
+                }else{
                     //将登录的用户信息存放session中
                     request.getSession().setAttribute("user", user);
                     String sessionId = request.getSession().getId();
@@ -86,6 +88,7 @@ public class UserServiceImpl implements UserService {
             return new Results(Code.error, "已存在该用户，不能重复添加！", "", apiDesc);
         } else {
             try {
+                user.setStatus("1");//1启用状态，0禁用状态
                 if (userMapper.insert(user) > 0) {
                     return new Results(Code.success, "添加用户成功", "", apiDesc);
                 } else {
@@ -97,6 +100,40 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public Results isuse(String ids, String status) {
+        String apiDesc = "更新用户状态";
+        String msgSuccess = "";
+        String msgError = "";
+        //判断禁用启用
+        if ("0" == status) {
+            msgSuccess = "用户禁用成功!";
+            msgError = "用户禁用成功!";
+        } else {
+            msgSuccess = "用户禁用成功!";
+            msgError = "用户禁用失败!";
+        }
+        // valid
+        if (StringUtils.isEmpty(ids)) {
+            return new Results(Code.param, "请选择用户!", "", apiDesc);
+        } else {
+            try {
+                int count = 0;
+                String[] idarr = ids.split(",");
+                for (int i = 0; i < idarr.length; i++) {
+                    userMapper.isuse(idarr[i], status);
+                    count++;
+                }
+                if (count > 0) {
+                    return new Results(Code.success, msgSuccess, "", apiDesc);
+                } else {
+                    return new Results(Code.error, msgError, "", apiDesc);
+                }
+            } catch (Exception e) {
+                return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+            }
+        }
+    }
 
     @Override
     public Results delete(String id) {
@@ -235,7 +272,7 @@ public class UserServiceImpl implements UserService {
 //        }
         try {
             List<HashMap<String, Object>> lists = userMapper.findAll(user);
-            logger.info("查询到的用户信息{}",JSON.toJSONString(lists));
+            logger.info("查询到的用户信息{}", JSON.toJSONString(lists));
             if (lists == null || lists.size() == 0) {
                 return new Results(Code.error, "查询用户列表为空！", lists, apiDesc);
             } else {

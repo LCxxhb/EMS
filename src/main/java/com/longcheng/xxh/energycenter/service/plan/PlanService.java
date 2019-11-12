@@ -19,7 +19,7 @@ public interface PlanService {
     /**
      * 删除
      */
-    public Results delete(int id);
+    public Results delete(String id);
 
     /**
      * 更新
@@ -39,7 +39,7 @@ public interface PlanService {
     /**
      * 查询所有计划内容
      */
-    public Results findAll();
+    public Results findAll(Plan plan);
 
 
 }

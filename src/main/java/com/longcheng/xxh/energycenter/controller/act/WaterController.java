@@ -9,10 +9,7 @@ import com.longcheng.xxh.energycenter.service.act.GasPointcollectionService;
 import com.longcheng.xxh.energycenter.service.act.WaterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,6 +23,7 @@ public class WaterController {
 
 
     @RequestMapping(value = "/history", method = RequestMethod.POST)
+    @CrossOrigin(origins = "*")
     @ResponseBody
     public String find_id(String param1, String param2, String param3, String param4, String param5) {
         String sql = null;
@@ -45,8 +43,8 @@ public class WaterController {
         String f = "and B.READTIME <= (select to_date(#{param5},'yyyy-mm-dd,hh24:mi:ss') from dual )";
         if (param5 != null)
             sql += f;
-        String g = " ORDER BY to_number(B.TAGVAL)";
-            sql += g;
+      /*  String g = " ORDER BY to_number(B.TAGVAL)";
+            sql += g;*/
         System.out.println(sql);
         return JSON.toJSONString(new Results(Code.success, "查询成功！！", waterService.find_id(sql, param1, param2, param3, param4, param5), "查询部分水介质信息"));
     }
@@ -63,7 +61,7 @@ public class WaterController {
     @ResponseBody
     public String load(String id) {
         if (id != null && id != "") {
-            Water point = waterService.findById(Integer.parseInt(id));
+            Enti point = waterService.findById(Integer.parseInt(id));
             Results results = new Results(Code.success, "查询采集点信息成功", point, "通过id查询采集点信息");
             return JSON.toJSONString(results);
         } else {
@@ -82,7 +80,7 @@ public class WaterController {
     @ResponseBody
     @RequestMapping(value = "/findAllPoint", method = RequestMethod.POST)
     public String findAllPoint() {
-        List<Water> regions = waterService.findAllPoint();
+        List<Enti> regions = waterService.findAllPoint();
         Results result = new Results(Code.success, "查询成功！！", regions, "查询所有采集点信息");
         return JSON.toJSONString(result);
     }
