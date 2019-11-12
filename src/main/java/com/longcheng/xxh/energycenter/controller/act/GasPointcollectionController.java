@@ -63,7 +63,7 @@ public class GasPointcollectionController {
     @RequestMapping(value = "/find_gas", method = RequestMethod.POST)
     public String find_gas(String areaname, String factory, String tagtype) {
         List<Enti> regions = gasPointcollectionService.find_gas(areaname, factory, tagtype);
-        Results result = new Results(Code.success, "查询成功！！", regions, "查询水介质信息");
+        Results result = new Results(Code.success, "查询成功！！", regions, "查询气体介质信息");
         return JSON.toJSONString(result);
     }
 
