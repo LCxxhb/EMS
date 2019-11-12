@@ -1,5 +1,6 @@
 package com.longcheng.xxh.energycenter.service.act.serviceImpl;
 
+import com.longcheng.xxh.energycenter.entity.act.Enti;
 import com.longcheng.xxh.energycenter.entity.act.GasPointcollection;
 import com.longcheng.xxh.energycenter.dao.act.GasPointcollectionMapper;
 import com.longcheng.xxh.energycenter.entity.basepo.Code;
@@ -77,8 +78,7 @@ public class GasPointcollectionServiceImpl implements GasPointcollectionService 
         return a;
     }
 
-
-        private String column_count (Sheet sheet, String simNumber, String str,int rsColumns){
+    private String column_count (Sheet sheet, String simNumber, String str,int rsColumns){
             for (int j = 0; j < rsColumns; j++) {
                 Cell cell = sheet.getCell(j, 0);
                 simNumber = cell.getContents();
@@ -92,37 +92,71 @@ public class GasPointcollectionServiceImpl implements GasPointcollectionService 
             return str;
         }
 
-    /**
-     * 历史数据查询
-     * mj
-     *
-     * @param param1
-     * @param param2
-     * @return
-     */
-    public List<GasPointcollection> find(String param1, String param2) {
-        System.out.println(param1);
-        System.out.println(param2);
-        List<GasPointcollection> list = gasPointcollectionMapper.find(param1, param2);
+    @Override
+    public List<Enti> find_water(String areaname, String factory, String tagtype) {
+        List<Enti> list = null;
+        if (areaname != null && factory != null && tagtype != null){
+             list = gasPointcollectionMapper.find_gas(areaname, factory, tagtype);
+        }else if (areaname == null && factory != null && tagtype != null){
+             list = gasPointcollectionMapper.find_gas_factory(factory, tagtype);
+        }else if (factory == null && areaname != null && tagtype != null){
+             list = gasPointcollectionMapper.find_gas_factory(areaname,tagtype);
+        }else if (tagtype == null && areaname != null && factory != null ){
+             list = gasPointcollectionMapper.findAllAreaname(areaname);
+        }else{
+             list = null;
+            System.out.println("参数异常");
+        }
         return list;
     }
 
-    /**
-     * 根据主键查询
-     * @param id
-     * @return
-     */
-    public GasPointcollection findById(int id) {
-        return gasPointcollectionMapper.findById(id);
+    @Override
+    public List<Enti> find_gas(String areaname, String factory, String tagtype) {
+        List<Enti> list = null;
+        if (areaname != null && factory != null && tagtype != null){
+            list = gasPointcollectionMapper.find_gas(areaname, factory, tagtype);
+        }else if (areaname == null && factory != null && tagtype != null){
+            list = gasPointcollectionMapper.find_gas_factory(factory, tagtype);
+        }else if (factory == null && areaname != null && tagtype != null){
+            list = gasPointcollectionMapper.find_gas_factory(areaname,tagtype);
+        }else if (tagtype == null && areaname != null && factory != null ){
+            list = gasPointcollectionMapper.findAllAreaname(areaname);
+        }else{
+            list = null;
+            System.out.println("参数异常");
+        }
+        return list;
     }
 
     /**
      * 查找所有
      * @return
      */
-    public List<GasPointcollection> findAllPoint() {
-        return gasPointcollectionMapper.findAllPoint();
+    @Override
+    public List<Enti> findAll() {
+        return gasPointcollectionMapper.findAll();
     }
+
+    /**
+     * 查找分厂所有数据
+     * @param areaname
+     * @return
+     */
+    @Override
+    public List<Enti> findAllPoint(String areaname) {
+        return gasPointcollectionMapper.findAllAreaname(areaname);
+    }
+
+
+    /* *//**
+     * 根据主键查询
+     * @param id
+     * @return
+     *//*
+    public GasPointcollection findById(int id) {
+        return gasPointcollectionMapper.findById(id);
+    }*/
+
 
     /**
      * 分页查询

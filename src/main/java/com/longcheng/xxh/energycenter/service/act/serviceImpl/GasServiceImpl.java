@@ -51,22 +51,23 @@ public class GasServiceImpl implements GasService {
     }
 
     @Override
-    public Gas findById(int id) {
+    public Enti findById(int id) {
         return gasMapper.findById(id);
     }
 
     @Override
-    public List<Gas> findAllPoint() {
+    public List<Enti> findAllPoint() {
         return gasMapper.findAllPoint();
     }
 
     @Override
     public Results pageList(int count, int pagesize) {
-        List<Gas> pageList = gasMapper.pageList(count, pagesize);
+        List<Enti> pageList = gasMapper.pageList(count, pagesize);
         int totalCount = gasMapper.pageListCount();
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("pageList", pageList);
         result.put("totalCount", totalCount);
         return new Results(Code.success,"查询成功！！",result,"分页查询部分气体信息");
+
     }
 }

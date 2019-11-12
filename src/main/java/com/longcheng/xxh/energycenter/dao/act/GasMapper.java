@@ -36,8 +36,8 @@ public interface GasMapper {
      * @param id mj
      * @return
      */
-    @Select("select * from EMS_HIS_DATA_GAS where ID = #{id}")
-    Gas findById(int id);
+    @Select("SELECT A .AREANAME,A .BRANCHFACTORY,B.*FROM EMS_GAS_POINTCOLLECTION A LEFT JOIN EMS_HIS_DATA_GAS B ON A .COLLECTIONPOINT = B.COLLECTIONPOINT where B.ID = #{id}")
+    Enti findById(int id);
 
     /**
      * 查询所有数据
@@ -45,8 +45,8 @@ public interface GasMapper {
      *
      * @return
      */
-    @Select("select * from EMS_HIS_DATA_GAS")
-    List<Gas> findAllPoint();
+    @Select("select * from (SELECT A .AREANAME,A .BRANCHFACTORY,B.*FROM EMS_GAS_POINTCOLLECTION A inner JOIN EMS_HIS_DATA_GAS B ON A .COLLECTIONPOINT = B.COLLECTIONPOINT) where rownum <=1000")
+    List<Enti> findAllPoint();
 
 
     /**
@@ -56,8 +56,8 @@ public interface GasMapper {
      * @param count
      * @return
      */
-    @Select("SELECT * FROM ( SELECT A .*, ROWNUM r FROM ( SELECT * FROM EMS_HIS_DATA_GAS ) A WHERE ROWNUM <= #{pagesize} ) B WHERE r > #{count}")
-    List<Gas> pageList(@Param("count") int count, @Param("pagesize") int pagesize);
+    @Select("SELECT * FROM ( SELECT A.*, ROWNUM r FROM ( SELECT A.AREANAME,A .BRANCHFACTORY,B.*FROM EMS_GAS_POINTCOLLECTION A inner JOIN EMS_HIS_DATA_GAS B ON A .COLLECTIONPOINT = B.COLLECTIONPOINT ) A WHERE ROWNUM <= #{pagesize} ) B WHERE r > #{count}")
+    List<Enti> pageList(@Param("count") int count, @Param("pagesize") int pagesize);
 
     /**
      * 分页查询
@@ -65,6 +65,6 @@ public interface GasMapper {
      *
      * @return
      */
-    @Select("SELECT count(1) FROM EMS_HIS_DATA_GAS")
+    @Select("SELECT count(1) FROM (SELECT A.AREANAME,A .BRANCHFACTORY,B.*FROM EMS_GAS_POINTCOLLECTION A LEFT JOIN EMS_HIS_DATA_GAS B ON A .COLLECTIONPOINT = B.COLLECTIONPOINT)")
     int pageListCount();
 }
