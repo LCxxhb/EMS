@@ -54,6 +54,11 @@ public interface UserService {
     public Results updatePassword(String id, String oldPwd, String newPwd);
 
     /**
+     * 修改用户状态
+     */
+    public Results isuse(String ids, String status);
+
+    /**
      * 查詢all
      */
     public Results findAll(User user);
