@@ -15,11 +15,13 @@ public interface WaterService {
     //主键查询
     public Enti findById(int id);
 
-    //查询所有
+    //历史查询所有
     public List<Enti> findAllPoint();
 
     //分页查询
     public Results pageList(int count, int pagesize);
-
+    //不定参数历史查询
     public List<Enti>  find_id(String sql, String param1, String param2, String param3, String param4, String param5);
+    //实时查询水数据
+    public List<Enti> findAll();
 }

@@ -117,7 +117,7 @@ public class GasController {
     @RequestMapping(value = "/findAll", method = RequestMethod.POST)
     public String findAll() {
         List<Enti> regions = gasService.findAll();
-        Results result = new Results(Code.success, "查询成功！！", regions, "查询所有采集点信息");
+        Results result = new Results(Code.success, "查询成功！！", regions, "查询所有采集点气体信息");
         return JSON.toJSONString(result);
     }
 

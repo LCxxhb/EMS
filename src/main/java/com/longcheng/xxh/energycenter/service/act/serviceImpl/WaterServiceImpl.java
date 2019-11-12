@@ -37,6 +37,11 @@ public class WaterServiceImpl implements WaterService {
     }
 
     @Override
+    public List<Enti> findAll() {
+        return waterMapper.findall();
+    }
+
+    @Override
     public List<Enti> find(String param1, String param2) {
         List<Enti> list = waterMapper.find(param1, param2);
         return list;
