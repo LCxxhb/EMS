@@ -16,4 +16,6 @@ public interface GasService {
     public List<Enti> findAllPoint();
     //分页查询
     public Results pageList(int count, int pagesize);
+    //实时查询气体数据
+    public List<Enti> findAll();
 }

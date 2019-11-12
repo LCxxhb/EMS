@@ -32,7 +32,7 @@ public class GasPointcollectionController {
 
     @ResponseBody
     @CrossOrigin(origins = "*")
-    @RequestMapping(value = "/findall", method = RequestMethod.GET)
+    @RequestMapping(value = "/findall", method = RequestMethod.POST)
     public String findAll() {
         List<Enti> regions = gasPointcollectionService.findAll();
         Results result = new Results(Code.success, "查询成功！！", regions, "查询所有采集点信息");

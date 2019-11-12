@@ -70,4 +70,9 @@ public class GasServiceImpl implements GasService {
         return new Results(Code.success,"查询成功！！",result,"分页查询部分气体信息");
 
     }
+
+    @Override
+    public List<Enti> findAll() {
+        return gasMapper.findall();
+    }
 }

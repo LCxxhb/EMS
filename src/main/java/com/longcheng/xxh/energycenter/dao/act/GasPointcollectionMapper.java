@@ -74,21 +74,12 @@ public interface GasPointcollectionMapper {
     List<Enti> find_gas_factory(String factory, String tagtype);
 
 
-  /*  *//**
-     * 根据主键查询
-     * @param id
-     * mj
-     * @return
-     *//*
-    @Select("select * from EMS_GAS_POINTCOLLECTION where id = #{id}")
-    GasPointcollection findById( int id);*/
-
     /**
      * 查询所有数据
      * mj
      * @return
      */
-    @Select("SELECT * FROM (SELECT A .AREANAME,A .BRANCHFACTORY,B.* FROM EMS_GAS_POINTCOLLECTION A INNER JOIN EMS_HIS_DATA_WATER B ON A .COLLECTIONPOINT = B.COLLECTIONPOINT UNION SELECT A .AREANAME,A .BRANCHFACTORY,B.* FROM EMS_GAS_POINTCOLLECTION A INNER JOIN EMS_HIS_DATA_GAS B ON A .COLLECTIONPOINT = B.COLLECTIONPOINT) WHERE ROWNUM <= 1000")
+    @Select("SELECT * FROM (SELECT A .AREANAME,A .BRANCHFACTORY,B.* FROM EMS_GAS_POINTCOLLECTION A INNER JOIN EMS_HIS_DATA_WATER B ON A .COLLECTIONPOINT = B.COLLECTIONPOINT UNION SELECT A .AREANAME,A .BRANCHFACTORY,B.* FROM EMS_GAS_POINTCOLLECTION A INNER JOIN EMS_HIS_DATA_GAS B ON A .COLLECTIONPOINT = B.COLLECTIONPOINT) WHERE ROWNUM <= 100000")
     List<Enti> findAll();
     /**
      * 查询分厂数据
