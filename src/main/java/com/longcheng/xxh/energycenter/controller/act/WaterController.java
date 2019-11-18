@@ -96,4 +96,18 @@ public class WaterController {
     public String pageList(@RequestParam int count, @RequestParam int pagesize) {
         return JSON.toJSONString(new Results(Code.success, "查询成功！！", waterService.pageList(count, pagesize), "分页查询部分采集点信息"));
     }
+
+    /**
+     * /** [查詢] 实时查询所有采集点信息
+     *
+     * @author mj
+     **/
+
+    @ResponseBody
+    @RequestMapping(value = "/findAll", method = RequestMethod.POST)
+    public String findAll() {
+        List<Enti> regions = waterService.findAll();
+        Results result = new Results(Code.success, "查询成功！！", regions, "查询所有采集点水信息");
+        return JSON.toJSONString(result);
+    }
 }
