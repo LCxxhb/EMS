@@ -18,55 +18,107 @@ public class GasServiceImpl implements GasService {
     @Autowired
     private GasMapper gasMapper;
 
-    @Override
+   /* @Override
     public List<Enti> find(String param1, String param2) {
         List<Enti> list = gasMapper.find(param1,param2);
         System.out.println(list);
         return list;
-    }
+    }*/
 
     /**
      * 不定参数查询
+     *
      * @param sql
-     * @param param
+     * @param param1
      * @param param2
      * @param param3
      * @param param4
      * @param param5
      * @return
      */
-    public List<Enti>  find_id(String sql, String param, String param2, String param3, String param4, String param5) {
+    public List<Enti> find_id(String sql, String param1, String param2, String param3, String param4, String param5,String param6) {
         double sum = 0;
-        double avg ;
-        List<Enti> entilist = gasMapper.find_id(sql, param, param2, param3, param4, param5);
-        for (int i = 0; i < entilist.size(); i++) {
-            sum += Double.parseDouble(entilist.get(i).getTagVal());
+        double avg;
+        List<Enti> entilist = gasMapper.find_id(sql, param1, param2, param3, param4, param5, param6);
+        System.out.println(entilist);
+        if (entilist.size() != 0) {
+            for (int i = 0; i < entilist.size(); i++) {
+                sum += Double.parseDouble(entilist.get(i).getTagVal());
+            }
+            avg = sum / entilist.size();
+            entilist.get(0).setSum(sum);
+            entilist.get(0).setAve(avg);
+            entilist.get(0).setMax(Double.parseDouble((entilist.get(entilist.size() - 1).getTagVal())));
+            entilist.get(0).setMin(Double.parseDouble((entilist.get(0).getTagVal())));
+        } else {
+            System.out.println("数据库暂无此数据!");
         }
-        avg = sum/entilist.size();
-        entilist.get(0).setSum(sum);
-        entilist.get(0).setAve(avg);
-        entilist.get(0).setMax(Double.parseDouble((entilist.get(entilist.size()- 1).getTagVal())));
-        entilist.get(0).setMin(Double.parseDouble((entilist.get(0).getTagVal())));
         return entilist;
     }
-
-    @Override
-    public Gas findById(int id) {
+   /* @Override
+    public Enti findById(int id) {
         return gasMapper.findById(id);
-    }
+    }*/
 
     @Override
-    public List<Gas> findAllPoint() {
+    public List<Enti> findAllPoint() {
         return gasMapper.findAllPoint();
     }
 
     @Override
     public Results pageList(int count, int pagesize) {
-        List<Gas> pageList = gasMapper.pageList(count, pagesize);
+        List<Enti> pageList = gasMapper.pageList(count, pagesize);
         int totalCount = gasMapper.pageListCount();
         Map<String, Object> result = new HashMap<String, Object>();
         result.put("pageList", pageList);
         result.put("totalCount", totalCount);
-        return new Results(Code.success,"查询成功！！",result,"分页查询部分气体信息");
+        return new Results(Code.success, "查询成功！！", result, "分页查询部分气体信息");
+
     }
+
+    @Override
+    public List<Enti> findAll() {
+        return gasMapper.findall();
+    }
+
+    @Override
+    public List<Enti> findparams(String sql, String param1, String param2, String param3, String param4) {
+        double sum = 0;
+        double avg;
+        List<Enti> entilist = gasMapper.findparams(sql, param1, param2, param3, param4);
+        System.out.println(entilist);
+        if (entilist.size() != 0) {
+            for (int i = 0; i < entilist.size(); i++) {
+                sum += Double.parseDouble(entilist.get(i).getTagVal());
+            }
+            avg = sum / entilist.size();
+            entilist.get(0).setSum(sum);
+            entilist.get(0).setAve(avg);
+            entilist.get(0).setMax(Double.parseDouble((entilist.get(entilist.size() - 1).getTagVal())));
+            entilist.get(0).setMin(Double.parseDouble((entilist.get(0).getTagVal())));
+        } else {
+            System.out.println("数据库暂无此数据!");
+        }
+        return entilist;
+    }
+
+//    @Override
+//    public List<Enti> findallmedium(String tagtype) {
+//        return gasMapper.findallmedium(tagtype);
+//    }
+//
+//    @Override
+//    public List<Enti> findallareaname(String areaname) {
+//        return gasMapper.findallareaname(areaname);
+//    }
+//
+//    @Override
+//    public List<Enti> findallfactory(String factory) {
+//        return gasMapper.findallfactory(factory);
+//    }
+//
+//    @Override
+//    public List<Enti> findallpoint(String point) {
+//        return gasMapper.findallcollpoint(point);
+//    }
 }

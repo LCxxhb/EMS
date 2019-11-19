@@ -5,6 +5,7 @@ import com.longcheng.xxh.energycenter.entity.basepo.Code;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
 import com.longcheng.xxh.energycenter.entity.mass.Media;
 import com.longcheng.xxh.energycenter.entity.mass.MediaExample;
+import com.longcheng.xxh.energycenter.entity.mass.PatchExample;
 import com.longcheng.xxh.energycenter.service.mass.MediaService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
@@ -83,7 +84,18 @@ public class MediaServiceImpl implements MediaService {
 
     @Override
     public Results update(Media media) {
-        return null;
+        String apiDesc = "修改介质接口";
+        try {
+            MediaExample example = new MediaExample();
+            example.createCriteria().andIdEqualTo(media.getId());
+            if(mediaMapper.updateByExampleSelective(media,example) > 0){
+                return new Results(Code.success, "修改介质成功", "", apiDesc);
+            }else {
+                return new Results(Code.error, "修改介质失败", "", apiDesc);
+            }
+        } catch (Exception e) {
+            return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+        }
     }
 
     @Override
