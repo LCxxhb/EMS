@@ -173,7 +173,7 @@
         WHERE id = #{id}
     </select>
 
-    <select id="findAll" resultMap="BaseResultMap" parameterType="com.longcheng.xxh.energycenter.entity.plan.Plan">
+    <select id="findByFactoryOrAreaOrTagtype" resultMap="BaseResultMap" parameterType="com.longcheng.xxh.energycenter.entity.plan.Plan">
         select <include refid="Base_Column_List" />
         from EMS_ENERGY_PLAN
         where 1=1
