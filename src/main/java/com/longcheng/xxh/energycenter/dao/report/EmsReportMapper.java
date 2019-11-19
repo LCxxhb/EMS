@@ -73,4 +73,18 @@ public interface EmsReportMapper {
      * @date 2019/11/15
      **/
     List<HashMap<String,Object>> findWaterByFactoryOrAreaOrTagtype(EmsReport emsReport);
+
+    /**
+     * [查詢] 查询所有气体
+     * @author lixing
+     * @date 2019/11/15
+     **/
+    List<HashMap<String,Object>> findAllGas();
+
+    /**
+     * [查詢] 查询所有水
+     * @author lixing
+     * @date 2019/11/15
+     **/
+    List<HashMap<String,Object>> findAllWater();
 }

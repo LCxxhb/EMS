@@ -47,4 +47,19 @@ public interface EmsReportService {
      * @date 2019/11/15
      **/
     public Results findWaterByFactoryOrAreaOrTagtype(EmsReport emsReport);
+
+
+    /**
+     * [查詢] 查询所有气体
+     * @author lixing
+     * @date 2019/11/15
+     **/
+    public Results findAllGas();
+
+    /**
+     * [查詢] 查询所有水
+     * @author lixing
+     * @date 2019/11/15
+     **/
+    public Results findAllWater();
 }

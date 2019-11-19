@@ -65,7 +65,7 @@ public class EmsReportController {
     }
 
     /**
-     * [查詢] 分頁查詢
+     * [查詢] 按分厂区域介质时间查询气接口
      * @author lixing
      * @date 2019/11/15
      **/
@@ -75,12 +75,32 @@ public class EmsReportController {
     }
 
     /**
-     * [查詢] 分頁查詢
+     * [查詢] 按分厂区域介质时间查询水接口
      * @author lixing
      * @date 2019/11/15
      **/
     @PostMapping("/findWaterByFactoryOrAreaOrTagtype")
     public String findWaterByFactoryOrAreaOrTagtype(EmsReport emsReport) {
         return JSON.toJSONString(emsReportService.findWaterByFactoryOrAreaOrTagtype(emsReport));
+    }
+
+    /**
+     * [查詢] 查询所有气接口
+     * @author lixing
+     * @date 2019/11/15
+     **/
+    @PostMapping("/findAllGas")
+    public String findAllGas(EmsReport emsReport) {
+        return JSON.toJSONString(emsReportService.findAllGas());
+    }
+
+    /**
+     * [查詢] 查询所有水接口
+     * @author lixing
+     * @date 2019/11/15
+     **/
+    @PostMapping("/findAllWater")
+    public String findAllWater() {
+        return JSON.toJSONString(emsReportService.findAllWater());
     }
 }
