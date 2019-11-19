@@ -136,4 +136,23 @@ public class MediaOrProjectServiceImpl implements MediaOrProjectService {
         }
 
     }
+
+
+    @Override
+    public Results findByMediaNameMediaOrProject(String mediaName) {
+        String apiDesc = "通过介质名模糊查询查询配置接口";
+        if(StringUtils.isEmpty(mediaName)){
+            return new Results(Code.success, "介质name不能为空！", "", apiDesc);
+        }else {
+            try {
+                MediaOrProjectExample example = new MediaOrProjectExample();
+                example.createCriteria().andMediaNameLike("%"+ mediaName+"%");
+                List<MediaOrProject> mediaOrProjectList = mediaOrProjectMapper.selectByExample(example);
+                return new Results(Code.success, "通过name查询配置成功", mediaOrProjectList, apiDesc);
+            } catch (Exception e) {
+                return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+            }
+        }
+
+    }
 }
