@@ -21,18 +21,23 @@ public class WaterServiceImpl implements WaterService {
     @Autowired
     private WaterMapper waterMapper;
 
-    public List<Enti>  find_id(String sql, String param, String param2, String param3, String param4, String param5){
+    public List<Enti>  find_id(String sql, String param1, String param2, String param3, String param4, String param5,String param6){
         double sum = 0;
-        double avg ;
-        List<Enti> entilist = waterMapper.find_id(sql, param, param2, param3, param4, param5);
-        for (int i = 0; i < entilist.size(); i++) {
-            sum += Double.parseDouble(entilist.get(i).getTagVal());
+        double avg;
+        List<Enti> entilist = waterMapper.find_id(sql, param1, param2, param3, param4, param5, param6);
+        System.out.println(entilist);
+        if (entilist.size() != 0) {
+            for (int i = 0; i < entilist.size(); i++) {
+                sum += Double.parseDouble(entilist.get(i).getTagVal());
+            }
+            avg = sum / entilist.size();
+            entilist.get(0).setSum(sum);
+            entilist.get(0).setAve(avg);
+            entilist.get(0).setMax(Double.parseDouble((entilist.get(entilist.size() - 1).getTagVal())));
+            entilist.get(0).setMin(Double.parseDouble((entilist.get(0).getTagVal())));
+        } else {
+            System.out.println("数据库暂无此数据!");
         }
-        avg = sum/entilist.size();
-        entilist.get(0).setSum(sum);
-        entilist.get(0).setAve(avg);
-        entilist.get(0).setMax(Double.parseDouble((entilist.get(entilist.size()- 1).getTagVal())));
-        entilist.get(0).setMin(Double.parseDouble((entilist.get(0).getTagVal())));
         return entilist;
     }
 
@@ -42,15 +47,56 @@ public class WaterServiceImpl implements WaterService {
     }
 
     @Override
+    public List<Enti> findparams(String sql, String param1, String param2, String param3, String param4) {
+        double sum = 0;
+        double avg;
+        List<Enti> entilist = waterMapper.findparams(sql, param1, param2, param3, param4);
+        System.out.println(entilist);
+        if (entilist.size() != 0) {
+            for (int i = 0; i < entilist.size(); i++) {
+                sum += Double.parseDouble(entilist.get(i).getTagVal());
+            }
+            avg = sum / entilist.size();
+            entilist.get(0).setSum(sum);
+            entilist.get(0).setAve(avg);
+            entilist.get(0).setMax(Double.parseDouble((entilist.get(entilist.size() - 1).getTagVal())));
+            entilist.get(0).setMin(Double.parseDouble((entilist.get(0).getTagVal())));
+        } else {
+            System.out.println("数据库暂无此数据!");
+        }
+        return entilist;
+    }
+
+//    @Override
+//    public List<Enti> findallmedium(String tagtype) {
+//        return waterMapper.findallmedium(tagtype);
+//    }
+//
+//    @Override
+//    public List<Enti> findallareaname(String areaname) {
+//        return waterMapper.findallareaname(areaname);
+//    }
+//
+//    @Override
+//    public List<Enti> findallfactory(String factory) {
+//        return waterMapper.findallfactory(factory);
+//    }
+//
+//    @Override
+//    public List<Enti> findallpoint(String point) {
+//        return waterMapper.findallcollpoint(point);
+//    }
+
+    /*@Override
     public List<Enti> find(String param1, String param2) {
         List<Enti> list = waterMapper.find(param1, param2);
         return list;
-    }
+    }*/
 
-    @Override
+ /*   @Override
     public Enti findById(int id) {
         return waterMapper.findById(id);
-    }
+    }*/
 
     @Override
     public List<Enti> findAllPoint() {
