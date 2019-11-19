@@ -106,4 +106,18 @@ public class MediaOrProjectController {
     public Results findByMidMediaOrProject(String mid){
         return mediaOrProjectService.findByMidMediaOrProject(mid);
     }
+
+
+    /**
+     * [查詢] 通过介质id查询所有配置
+     * @author yangbo
+     * @date 2019/10/28
+     **/
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/findByMediaNameMediaOrProject",method = RequestMethod.POST)
+    public Results findByMediaNameMediaOrProject(String mediaName){
+        return mediaOrProjectService.findByMediaNameMediaOrProject(mediaName);
+    }
+
 }
