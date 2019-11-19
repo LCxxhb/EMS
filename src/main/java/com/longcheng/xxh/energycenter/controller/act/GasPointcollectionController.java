@@ -42,28 +42,46 @@ public class GasPointcollectionController {
     @ResponseBody
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/findallareaname", method = RequestMethod.POST)
-    public String findAllAreaname(String areaname) {
-        List<Enti> regions = gasPointcollectionService.findAllPoint(areaname);
+    public String findAllAreaname(String areaname, String begintime, String endreadtime) {
+        List<Enti> regions = gasPointcollectionService.findAllAreaname(areaname, begintime, endreadtime);
         Results result = new Results(Code.success, "查询成功！！", regions, "查询分厂所有数据信息");
         return JSON.toJSONString(result);
     }
 
 
-    @ResponseBody
+   /* @ResponseBody
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/find_water", method = RequestMethod.POST)
     public String find_water(String areaname, String factory, String tagtype) {
         List<Enti> regions = gasPointcollectionService.find_water(areaname, factory, tagtype);
         Results result = new Results(Code.success, "查询成功！！", regions, "查询水介质信息");
         return JSON.toJSONString(result);
-    }
+    }*/
 
-    @ResponseBody
+    /*@ResponseBody
     @CrossOrigin(origins = "*")
     @RequestMapping(value = "/find_gas", method = RequestMethod.POST)
     public String find_gas(String areaname, String factory, String tagtype) {
         List<Enti> regions = gasPointcollectionService.find_gas(areaname, factory, tagtype);
         Results result = new Results(Code.success, "查询成功！！", regions, "查询气体介质信息");
+        return JSON.toJSONString(result);
+    }*/
+
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/findallfactory", method = RequestMethod.POST)
+    public String findAllFactory(String factory, String begintime, String endreadtime) {
+        List<Enti> regions = gasPointcollectionService.findAllFactory(factory,begintime,endreadtime);
+        Results result = new Results(Code.success, "查询成功！！", regions, "查询区域所有数据信息");
+        return JSON.toJSONString(result);
+    }
+
+    @ResponseBody
+    @CrossOrigin(origins = "*")
+    @RequestMapping(value = "/findallDatatype", method = RequestMethod.POST)
+    public String findAllDatatype(String datatype) {
+        List<Enti> regions = gasPointcollectionService.findAllDatatype(datatype);
+        Results result = new Results(Code.success, "查询成功！！", regions, "查询分厂所有数据信息");
         return JSON.toJSONString(result);
     }
 
