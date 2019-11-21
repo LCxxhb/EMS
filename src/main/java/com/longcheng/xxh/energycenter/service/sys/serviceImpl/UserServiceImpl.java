@@ -57,7 +57,9 @@ public class UserServiceImpl implements UserService {
                 //根据登录信息查询用户信息
                 User exUser = userMapper.findUserByName(user);
                 logger.info("根据用户名查询到的用户信息为{}", JSON.toJSONString(exUser));
-                if (exUser != null && encoder.matches(user.getPassword(), exUser.getPassword()) && !StringUtils.equals("0", exUser.getStatus())) {
+                if (null == exUser) {
+                    return new Results(Code.error, "没有查询到该用户信息！", "", apiDesc);
+                } else if (encoder.matches(user.getPassword(), exUser.getPassword()) && !StringUtils.equals("0", exUser.getStatus())) {
                     //使得前后端可以通话操作，采用JWT和token技术实现
                     //生成令牌
                     String token = jwtUtil.createJWT(exUser.getId().toString(), exUser.getUsername(), "user");
@@ -109,14 +111,15 @@ public class UserServiceImpl implements UserService {
     public Results insert(User user) {
         String apiDesc = "添加用户接口";
         user.setLastUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));//设置操作时间
-        //user.setLastUpdateBy(baseServiceImpl.getCurrentUserName());//设置操作人
+        user.setLastUpdateBy(baseServiceImpl.getCurrentUserName());//设置操作人
         logger.info("密码加密前用户对象信息为{}", JSON.toJSONString(user));
         //对密码进行加盐加密
         user.setPassword(encoder.encode(user.getPassword()));
         logger.info("密码加密后用户对象信息为{}", JSON.toJSONString(user));
         // valid
-        if (StringUtils.isEmpty(user.getUsername())) {
-            return new Results(Code.param, "用户名不能为空", "", apiDesc);
+        String errMsg = paramsValid(user);
+        if (!StringUtils.equals("参数校验通过",errMsg)) {
+            return new Results(Code.param, errMsg, "", apiDesc);
         } else if (userMapper.findUserByName(user) != null) {
             logger.info("已存在{}用户", JSON.toJSONString(user.getUsername()));
             return new Results(Code.error, "用户名重复！", "", apiDesc);
@@ -141,7 +144,7 @@ public class UserServiceImpl implements UserService {
         String msgSuccess = "";
         String msgError = "";
         //判断禁用启用
-        if (StringUtils.equals("0",status)) {
+        if (StringUtils.equals("0", status)) {
             msgSuccess = "用户禁用成功!";
             msgError = "用户禁用成功!";
         } else {
@@ -312,4 +315,23 @@ public class UserServiceImpl implements UserService {
         return new Results();
     }
 
+    /**
+     * 添加用户参数校验方法
+     *
+     * @param user
+     * @return
+     */
+    public String paramsValid(User user) {
+        if (StringUtils.isEmpty(user.getUsername())) {
+            return "用户名不能为空！";
+        } else if (StringUtils.isEmpty(user.getRoleId())) {
+            return "用户角色不能为空！";
+        } else if (StringUtils.isEmpty(user.getAreaId().toString())) {
+            return "用户所在区域不能为空！";
+        } else if (StringUtils.isEmpty(user.getPassword())) {
+            return "用户密码不能为空！";
+        } else {
+            return "参数校验通过";
+        }
+    }
 }
