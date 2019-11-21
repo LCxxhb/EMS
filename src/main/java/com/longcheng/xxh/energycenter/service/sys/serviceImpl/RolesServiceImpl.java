@@ -3,16 +3,19 @@ package com.longcheng.xxh.energycenter.service.sys.serviceImpl;
 import com.alibaba.fastjson.JSON;
 import com.longcheng.xxh.energycenter.dao.sys.MenuMapper;
 import com.longcheng.xxh.energycenter.dao.sys.RolesMapper;
+import com.longcheng.xxh.energycenter.dao.sys.UserMapper;
 import com.longcheng.xxh.energycenter.entity.basepo.Code;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
 import com.longcheng.xxh.energycenter.entity.sys.Menu;
 import com.longcheng.xxh.energycenter.entity.sys.Roles;
+import com.longcheng.xxh.energycenter.entity.sys.User;
 import com.longcheng.xxh.energycenter.service.sys.RolesService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -31,6 +34,9 @@ public class RolesServiceImpl implements RolesService {
 
     @Autowired
     private MenuMapper menuMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Autowired
     private BaseServiceImpl baseServiceImpl;
@@ -69,17 +75,19 @@ public class RolesServiceImpl implements RolesService {
         } else {
             try {
                 String[] ids = id.split(",");
-                int count = 0;
-                for (int i = 0; i < ids.length; i++) {
-                    rolesMapper.delete(ids[i]);
-                    count++;
+                //判断该角色下是否有用户
+                User  user=new User();
+                user.setRoleId(ids[0]);
+                if(CollectionUtils.isEmpty(userMapper.findAll(user))){
+                    if (rolesMapper.delete(ids[0])>0) {
+                        return new Results(Code.success, "删除角色信息成功", "", apiDesc);
+                    } else {
+                        return new Results(Code.error, "删除角色信息失败", "", apiDesc);
+                    }
+                }else{
+                    return new Results(Code.error, "该角色下已有用户不能删除", "", apiDesc);
                 }
-                logger.info("删除的角色条数为{}条", count);
-                if (count > 0) {
-                    return new Results(Code.success, "删除角色信息成功", "", apiDesc);
-                } else {
-                    return new Results(Code.error, "删除角色信息失败", "", apiDesc);
-                }
+
             } catch (Exception e) {
                 return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
             }

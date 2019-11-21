@@ -141,7 +141,7 @@ public class UserServiceImpl implements UserService {
         String msgSuccess = "";
         String msgError = "";
         //判断禁用启用
-        if ("0" == status) {
+        if (StringUtils.equals("0",status)) {
             msgSuccess = "用户禁用成功!";
             msgError = "用户禁用成功!";
         } else {
@@ -160,6 +160,7 @@ public class UserServiceImpl implements UserService {
                     count++;
                 }
                 if (count > 0) {
+                    logger.info(msgSuccess);
                     return new Results(Code.success, msgSuccess, "", apiDesc);
                 } else {
                     return new Results(Code.error, msgError, "", apiDesc);
