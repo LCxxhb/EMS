@@ -117,6 +117,8 @@ public class MenuServiceImpl implements MenuService {
                     map.put("name", menu.getMenuname());
                     map.put("menuname", menu.getMenuname());
                     map.put("munuurl", menu.getMunuurl());
+                    map.put("lastupdateby", menu.getLastUpdateBy());
+                    map.put("lastupdatedate", menu.getLastUpdateDate());
                     menulist.add(map);
                 }
                 return new Results(Code.success, "查询菜单列表成功", menulist, apiDesc);
