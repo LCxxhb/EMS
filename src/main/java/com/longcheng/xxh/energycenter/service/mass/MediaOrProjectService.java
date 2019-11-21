@@ -49,6 +49,13 @@ import com.longcheng.xxh.energycenter.entity.mass.Project;
          */
         public Results findByMidMediaOrProject(String mid);
 
+
+        /**
+         * 通过MediaName查詢所有配置
+         */
+        public Results findByMediaNameMediaOrProject(String mediaName);
+
+
     }
 
 

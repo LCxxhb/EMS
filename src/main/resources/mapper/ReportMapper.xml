@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.longcheng.xxh.energycenter.dao.report.EmsReportMapper">
+
+    <resultMap id="BaseResultMap" type="com.longcheng.xxh.energycenter.entity.report.EmsReport">
+        <result column="id" property="id"/>
+        <result column="areaname" property="areaname"/>
+        <result column="areaid" property="areaid"/>
+        <result column="branchfactory" property="branchfactory"/>
+        <result column="collectionpoint" property="collectionpoint"/>
+        <result column="description" property="description"/>
+        <result column="tagtype" property="tagtype"/>
+        <result column="usetype" property="usetype"/>
+        <result column="tagval" property="tagval"/>
+        <result column="readtime" property="readtime"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+                id,
+                areaname,
+                areaid,
+                branchfactory,
+                collectionpoint,
+                description,
+                tagtype,
+                usetype,
+                tagval,
+                readtime
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id"
+            parameterType="com.longcheng.xxh.energycenter.entity.report.EmsReport">
+        INSERT INTO ems_report
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test='null != areaname'>
+                areaname,
+            </if>
+            <if test='null != areaid'>
+                areaid,
+            </if>
+            <if test='null != branchfactory'>
+                branchfactory,
+            </if>
+            <if test='null != collectionpoint'>
+                collectionpoint,
+            </if>
+            <if test='null != description'>
+                description,
+            </if>
+            <if test='null != tagtype'>
+                tagtype,
+            </if>
+            <if test='null != usetype'>
+                usetype,
+            </if>
+            <if test='null != tagval'>
+                tagval,
+            </if>
+            <if test='null != readtime'>
+                readtime
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test='null != areaname'>
+                #{areaname},
+            </if>
+            <if test='null != areaid'>
+                #{areaid},
+            </if>
+            <if test='null != branchfactory'>
+                #{branchfactory},
+            </if>
+            <if test='null != collectionpoint'>
+                #{collectionpoint},
+            </if>
+            <if test='null != description'>
+                #{description},
+            </if>
+            <if test='null != tagtype'>
+                #{tagtype},
+            </if>
+            <if test='null != usetype'>
+                #{usetype},
+            </if>
+            <if test='null != tagval'>
+                #{tagval},
+            </if>
+            <if test='null != readtime'>
+                #{readtime}
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM ems_report
+        WHERE id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.longcheng.xxh.energycenter.entity.report.EmsReport">
+        UPDATE ems_report
+        <set>
+            <if test='null != areaname'>areaname = #{areaname},</if>
+            <if test='null != areaid'>areaid = #{areaid},</if>
+            <if test='null != branchfactory'>branchfactory = #{branchfactory},</if>
+            <if test='null != collectionpoint'>collectionpoint = #{collectionpoint},</if>
+            <if test='null != description'>description = #{description},</if>
+            <if test='null != tagtype'>tagtype = #{tagtype},</if>
+            <if test='null != usetype'>usetype = #{usetype},</if>
+            <if test='null != tagval'>tagval = #{tagval},</if>
+            <if test='null != readtime'>readtime = #{readtime}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+    <select id="load" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ems_report
+        WHERE id = #{id}
+    </select>
+
+    <select id="pageList" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ems_report
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="pageListCount" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM ems_report
+    </select>
+
+    <select id="findGasByFactoryOrAreaOrTagtype" parameterType="com.longcheng.xxh.energycenter.entity.report.EmsReport"
+            resultType="java.util.Map">
+        SELECT
+        GP.areaname,
+        GP.branchfactory,
+        GD.collectionpoint,
+        GP.description,
+        GD.tagtype,
+        GD.usetype,
+        GD.tagval,
+        GD.readtime
+        FROM
+        EMS_HIS_DATA_GAS GD
+        LEFT JOIN EMS.EMS_GAS_POINTCOLLECTION GP ON GD.COllECTIONPOINT = GP.COllECTIONPOINT
+        WHERE
+        <if test='areaname != null and areaname != ""'>
+            GP.areaname = #{areaname}
+        </if>
+        <if test='branchfactory != null and branchfactory != ""'>
+            and GP.branchfactory = #{branchfactory}
+        </if>
+        <if test='tagtype != null and tagtype != ""'>
+            and GD.tagtype = #{tagtype}
+        </if>
+
+        <if test='readtime != null and readtime != ""'>
+            and GD.readtime like to_date('${readtime}','yyyy-mm-dd HH24')
+        </if>
+        order by GD.readtime desc
+    </select>
+    <select id="findWaterByFactoryOrAreaOrTagtype"
+            parameterType="com.longcheng.xxh.energycenter.entity.report.EmsReport" resultType="java.util.Map">
+        SELECT
+        GP.areaname,
+        GP.branchfactory,
+        GD.collectionpoint,
+        GP.description,
+        GD.tagtype,
+        GD.usetype,
+        GD.tagval,
+        GD.readtime
+        FROM
+        EMS_HIS_DATA_WATER GD
+        LEFT JOIN EMS.EMS_GAS_POINTCOLLECTION GP ON GD.COllECTIONPOINT = GP.COllECTIONPOINT
+        WHERE
+        <if test='areaname != null and areaname != ""'>
+            GP.areaname = #{areaname}
+        </if>
+        <if test='branchfactory != null and branchfactory != ""'>
+            and GP.branchfactory = #{branchfactory}
+        </if>
+        <if test='tagtype != null and tagtype != ""'>
+            and GD.tagtype = #{tagtype}
+        </if>
+
+        <if test='readtime != null and readtime != ""'>
+            and GD.readtime like to_date('${readtime}','yyyy-mm-dd HH24')
+        </if>
+        order by GD.readtime desc
+    </select>
+
+    <select id="findAllWater" resultType="java.util.Map">
+        SELECT
+        GP.areaname,
+        GP.branchfactory,
+        GD.collectionpoint,
+        GP.description,
+        GD.tagtype,
+        GD.usetype,
+        GD.tagval,
+        GD.readtime
+        FROM
+        EMS_HIS_DATA_WATER GD
+        LEFT JOIN EMS.EMS_GAS_POINTCOLLECTION GP ON GD.COllECTIONPOINT = GP.COllECTIONPOINT
+        where ROWNUM &lt;= 10000
+    </select>
+
+    <select id="findAllGas" resultType="java.util.Map">
+        SELECT
+        GP.areaname,
+        GP.branchfactory,
+        GD.collectionpoint,
+        GP.description,
+        GD.tagtype,
+        GD.usetype,
+        GD.tagval,
+        GD.readtime
+        FROM
+        EMS_HIS_DATA_GAS GD
+        LEFT JOIN EMS.EMS_GAS_POINTCOLLECTION GP ON GD.COllECTIONPOINT = GP.COllECTIONPOINT
+        where ROWNUM &lt;= 10000
+    </select>
+</mapper>

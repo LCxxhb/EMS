@@ -4,6 +4,7 @@ import com.alibaba.druid.util.StringUtils;
 import com.longcheng.xxh.energycenter.dao.mass.UnitMapper;
 import com.longcheng.xxh.energycenter.entity.basepo.Code;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
+import com.longcheng.xxh.energycenter.entity.mass.PatchExample;
 import com.longcheng.xxh.energycenter.entity.mass.Unit;
 import com.longcheng.xxh.energycenter.entity.mass.UnitExample;
 import com.longcheng.xxh.energycenter.service.mass.UnitService;
@@ -60,7 +61,19 @@ public class UnitServiceImpl implements UnitService {
 
     @Override
     public Results update(Unit unit) {
-        return null;
+        String apiDesc = "修改单位接口";
+        try {
+            UnitExample example = new UnitExample();
+            example.createCriteria().andIdEqualTo(unit.getId());
+            if(unitMapper.updateByExampleSelective(unit,example) > 0){
+                return new Results(Code.success, "修改介质单位成功", "", apiDesc);
+            }else {
+                return new Results(Code.error, "修改介质单位失败", "", apiDesc);
+            }
+        } catch (Exception e) {
+            return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
+        }
+
     }
 
     @Override

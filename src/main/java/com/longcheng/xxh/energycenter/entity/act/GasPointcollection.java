@@ -259,10 +259,41 @@ public class  GasPointcollection{
     }
 
 
+    @Override
     public String toString() {
-        String a = "COLLECTIONPOINT," +
-                "BRANCHFACTORY," +
+        return "GasPointcollection{" +
+                "BRANCHFACTORY='" + BRANCHFACTORY + '\'' +
+                ", AREANAME='" + AREANAME + '\'' +
+                ", AREAID='" + AREAID + '\'' +
+                ", CUSTOMPROPERTIES='" + CUSTOMPROPERTIES + '\'' +
+                ", DESCRIPTION='" + DESCRIPTION + '\'' +
+                ", TAGTYPE='" + TAGTYPE + '\'' +
+                ", USETYPE='" + USETYPE + '\'' +
+                ", DATATYPE='" + DATATYPE + '\'' +
+                ", DRIVENAME='" + DRIVENAME + '\'' +
+                ", DEVICENAME='" + DEVICENAME + '\'' +
+                ", DEVICEADDRESS='" + DEVICEADDRESS + '\'' +
+                ", SCANMECHANISM='" + SCANMECHANISM + '\'' +
+                ", SCANCYCLE='" + SCANCYCLE + '\'' +
+                ", SCANOHASE='" + SCANOHASE + '\'' +
+                ", ADMITCONTROL='" + ADMITCONTROL + '\'' +
+                ", ADMITSCAN='" + ADMITSCAN + '\'' +
+                ", USERANGETRANSFORM='" + USERANGETRANSFORM + '\'' +
+                ", PROJECTUNIT='" + PROJECTUNIT + '\'' +
+                ", PROJECTZERO='" + PROJECTZERO + '\'' +
+                ", PROJECTFULL='" + PROJECTFULL + '\'' +
+                ", PROJECTSTARTZERO='" + PROJECTSTARTZERO + '\'' +
+                ", PROJECTSTARTFULL='" + PROJECTSTARTFULL + '\'' +
+                ", ADMITZEROIMPACTION='" + ADMITZEROIMPACTION + '\'' +
+                ", ZERO='" + ZERO + '\'' +
+                ", FLOATINGVALUE='" + FLOATINGVALUE + '\'' +
+                '}';
+    }
+
+    public String toexcel() {
+        return "COLLECTIONPOINT," +
                 "AREANAME," +
+                "BRANCHFACTORY," +
                 "AREAID," +
                 "DESCRIPTION," +
                 "TAGTYPE," +
@@ -271,22 +302,7 @@ public class  GasPointcollection{
                 "DRIVENAME," +
                 "DEVICENAME," +
                 "DEVICEADDRESS," +
-                "SCANMECHANISM," +
-                "SCANCYCLE," +
-                "SCANOHASE," +
-                "ADMITCONTROL," +
-                "ADMITSCAN," +
-                "USERANGETRANSFORM," +
-                "PROJECTUNIT," +
-                "PROJECTZERO," +
-                "PROJECTFULL," +
-                "PROJECTSTARTZERO," +
-                "PROJECTSTARTFULL," +
-                "ADMITZEROIMPACTION," +
-                "ZERO,"  +
-                "FLOATINGVALUE，" +
-                "TYPE"
-        ;
-        return a;
+                "PROJECTUNIT"
+                ;
     }
 }

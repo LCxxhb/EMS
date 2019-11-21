@@ -7,9 +7,7 @@ import com.longcheng.xxh.energycenter.entity.basepo.Results;
 import com.longcheng.xxh.energycenter.entity.plan.Plan;
 import com.longcheng.xxh.energycenter.service.plan.PlanService;
 import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
-
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -30,7 +28,7 @@ public class PlanServiceImpl implements PlanService {
     public Results insert(Plan plan) {
         String apiDesc = "添加计划接口";
         // valid参数校验
-        plan.setUpdateBy("admin");
+        plan.setCreateBy("admin");
         plan.setCreateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         if (StringUtils.isEmpty(plan.getMediaName())) {
             return new Results(Code.param, "介质名称不能为空", "", apiDesc);
@@ -80,13 +78,13 @@ public class PlanServiceImpl implements PlanService {
     @Override
     public Results update(Plan plan) {
         String apiDesc = "修改计划接口";
+        plan.setUpdateBy("admins");
+        plan.setUpdateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
         if (StringUtils.isEmpty(String.valueOf(plan.getId()))) {
             return new Results(Code.param, "计划id为空", "", apiDesc);
         } else {
             try {
                 if (planMapper.update(plan) > 0) {
-                    plan.setUpdateBy("admins");
-                    plan.setUpdateTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));
                     return new Results(Code.success, "编辑计划成功", "", apiDesc);
                 } else {
                     return new Results(Code.error, "编辑计划失败", "", apiDesc);
@@ -134,13 +132,14 @@ public class PlanServiceImpl implements PlanService {
         String apiDesc = "查所有计划接口";
         try {
             List<Plan> plans = planMapper.findAll(plan);
-            if (CollectionUtils.isEmpty(plans)) {
-                return new Results(Code.error, "没有查询到计划！", plans, apiDesc);
-            } else {
+//            if (CollectionUtils.isEmpty(plans)) {
+//                return new Results(Code.error, "查询所有计划失败", plans, apiDesc);
+//            } else {
                 return new Results(Code.success, "查询所有计划成功", plans, apiDesc);
-            }
+//            }
         } catch (Exception e) {
             return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
         }
     }
+
 }
