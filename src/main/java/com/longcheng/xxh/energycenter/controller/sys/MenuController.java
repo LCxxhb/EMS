@@ -14,6 +14,7 @@ import javax.annotation.Resource;
  * @date 2019/10/10
  */
 @RestController
+@CrossOrigin
 @RequestMapping(value = "/menu")
 public class MenuController {
 
@@ -26,8 +27,8 @@ public class MenuController {
      * @author shadow
      * @date 2019/10/10
      **/
-    @CrossOrigin(origins = "*")
-    @PostMapping("/insert")
+
+    @PostMapping(value = "/insert", produces = "text/html;charset=UTF-8")
     public String insert(Menu menu) {
         return JSON.toJSONString(menuService.insert(menu));
     }
@@ -38,8 +39,7 @@ public class MenuController {
      * @author shadow
      * @date 2019/10/10
      **/
-    @CrossOrigin(origins = "*")
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete")
     public String delete(String id) {
         return JSON.toJSONString(menuService.delete(id));
     }
@@ -50,8 +50,7 @@ public class MenuController {
      * @author shadow
      * @date 2019/10/10
      **/
-    @CrossOrigin(origins = "*")
-    @PostMapping("/update")
+    @PostMapping(value = "/update", produces = "text/html;charset=UTF-8")
     public String update(Menu menu) {
         return JSON.toJSONString(menuService.update(menu));
     }
@@ -62,8 +61,8 @@ public class MenuController {
      * @author shadow
      * @date 2019/10/10
      **/
-    @CrossOrigin(origins = "*")
-    @PostMapping("/findParentMenu")
+
+    @PostMapping(value = "/findParentMenu", produces = "text/html;charset=UTF-8")
     public String update() {
         return JSON.toJSONString(menuService.findParentMenu());
     }
@@ -74,8 +73,8 @@ public class MenuController {
      * @author shadow
      * @date 2019/10/10
      **/
-    @CrossOrigin(origins = "*")
-    @PostMapping("/load")
+
+    @PostMapping(value = "/load", produces = "text/html;charset=UTF-8")
     public String load(int pid) {
         return JSON.toJSONString(menuService.load(pid));
     }
@@ -86,8 +85,8 @@ public class MenuController {
      * @author shadow
      * @date 2019/09/27
      **/
-    @CrossOrigin(origins = "*")
-    @PostMapping("/findAll")
+
+    @PostMapping(value = "/findAll", produces = "text/html;charset=UTF-8")
     public String findAll() {
         return JSON.toJSONString(menuService.findAll());
     }
@@ -98,7 +97,7 @@ public class MenuController {
      * @author shadow
      * @date 2019/10/10
      **/
-    @PostMapping("/pageList")
+    @PostMapping(value = "/pageList")
     public String pageList(@RequestParam(required = false, defaultValue = "0") int offset,
                            @RequestParam(required = false, defaultValue = "10") int pagesize) {
         menuService.pageList(offset, pagesize);

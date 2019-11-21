@@ -7,7 +7,6 @@ import com.longcheng.xxh.energycenter.entity.basepo.Code;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
 import com.longcheng.xxh.energycenter.entity.sys.Menu;
 import com.longcheng.xxh.energycenter.entity.sys.Roles;
-import com.longcheng.xxh.energycenter.entity.sys.User;
 import com.longcheng.xxh.energycenter.service.sys.RolesService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -15,9 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -30,17 +26,14 @@ import java.util.*;
 @Service
 public class RolesServiceImpl implements RolesService {
 
-    @Resource
+    @Autowired
     private RolesMapper rolesMapper;
 
-    @Resource
+    @Autowired
     private MenuMapper menuMapper;
 
     @Autowired
-    private HttpSession session;
-
-    @Autowired
-    private HttpServletRequest request;
+    private BaseServiceImpl baseServiceImpl;
 
     private final static Logger logger = LoggerFactory.getLogger(RolesServiceImpl.class);
 
@@ -52,11 +45,7 @@ public class RolesServiceImpl implements RolesService {
             return new Results(Code.param, "角色名称不能为空", "", apiDesc);
         } else {
             roles.setLastUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));// 设置时间
-            User user = (User) session.getAttribute("user");
-            User user1 = (User) request.getSession().getAttribute("user");
-//            User user2 = UserRequest.getCurrentUser();
-//            logger.info("user信息为{},user1信息为{},user2信息为{}", JSON.toJSONString(user),JSON.toJSONString(user1),JSON.toJSONString(user2));
-            roles.setLastUpdateBy("admin");//设置更新人
+            roles.setLastUpdateBy(baseServiceImpl.getCurrentUserName());
             logger.info("角色对象信息为{}", JSON.toJSONString(roles));
             try {
                 if (rolesMapper.insert(roles) > 0) {
@@ -100,6 +89,8 @@ public class RolesServiceImpl implements RolesService {
 
     @Override
     public Results update(Roles roles) {
+        roles.setLastUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));// 设置时间
+        roles.setLastUpdateBy(baseServiceImpl.getCurrentUserName());
         int ret = rolesMapper.update(roles);
         return new Results();
     }
@@ -127,7 +118,9 @@ public class RolesServiceImpl implements RolesService {
         } else {
             try {
                 Roles exroles = rolesMapper.load(Integer.parseInt(id));
-                //设置权限
+                //设置操作人，操作时间，权限菜单
+                exroles.setLastUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));// 设置时间
+                exroles.setLastUpdateBy(baseServiceImpl.getCurrentUserName());
                 exroles.setPermission(permission);
                 if (rolesMapper.update(exroles) > 0) {
                     return new Results(Code.success, "权限分配成功！", "", apiDesc);

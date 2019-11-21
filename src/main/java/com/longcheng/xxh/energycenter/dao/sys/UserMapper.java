@@ -33,6 +33,12 @@ public interface UserMapper {
     User findUserByNameAndPassword(User user);
 
     /**
+     * [根据用户名称查询用户信息]
+     * @author shadow
+     * @date 2019/09/27
+     **/
+    User findUserByName(User user);
+    /**
      * [刪除]
      * @author shadow
      * @date 2019/09/27
