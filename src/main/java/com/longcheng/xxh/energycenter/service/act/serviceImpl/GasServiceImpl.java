@@ -27,19 +27,19 @@ public class GasServiceImpl implements GasService {
 
     /**
      * 不定参数查询
-     *
      * @param sql
-     * @param param1
-     * @param param2
-     * @param param3
-     * @param param4
-     * @param param5
+     * @param areaname
+     * @param factory
+     * @param tagtype
+     * @param begintime
+     * @param endtime
+     * @param datatype
      * @return
      */
-    public List<Enti> find_id(String sql, String param1, String param2, String param3, String param4, String param5,String param6) {
+    public List<Enti> find_id(String sql,String areaname, String factory, String tagtype, String begintime, String endtime,String datatype) {
         double sum = 0;
         double avg;
-        List<Enti> entilist = gasMapper.find_id(sql, param1, param2, param3, param4, param5, param6);
+        List<Enti> entilist = gasMapper.find_id(sql, areaname,  factory,tagtype,  begintime,  endtime, datatype);
         System.out.println(entilist);
         if (entilist.size() != 0) {
             for (int i = 0; i < entilist.size(); i++) {
@@ -82,10 +82,10 @@ public class GasServiceImpl implements GasService {
     }
 
     @Override
-    public List<Enti> findparams(String sql, String param1, String param2, String param3, String param4) {
+    public List<Enti> findparams(String sql, String datatype,String areaname, String factory, String tagtype) {
         double sum = 0;
         double avg;
-        List<Enti> entilist = gasMapper.findparams(sql, param1, param2, param3, param4);
+        List<Enti> entilist = gasMapper.findparams(sql, datatype, areaname,  factory, tagtype);
         System.out.println(entilist);
         if (entilist.size() != 0) {
             for (int i = 0; i < entilist.size(); i++) {
