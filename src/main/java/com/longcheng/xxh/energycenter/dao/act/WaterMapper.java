@@ -18,7 +18,7 @@ public interface WaterMapper {
      * @return
      */
     @Select("${sql}")
-    List<Enti> find_id(@Param("sql") String sql, @Param("param1") String param1, @Param("param2") String param2, @Param("param3")  String param3, @Param("param4") String param4,@Param("param5") String param5,@Param("param6") String param6);
+    List<Enti> find_id(@Param("sql") String sql, @Param("areaname") String areaname, @Param("factory") String factory, @Param("tagtype")  String tagtype, @Param("begintime") String begintime,@Param("endtime") String endtime,@Param("datatype") String datatype);
 
     /**
      * 根据参数查询
@@ -77,14 +77,14 @@ public interface WaterMapper {
     /**
      * 不定参数实时查询
      * @param sql
-     * @param param1
-     * @param param2
-     * @param param3
-     * @param param4
+     * @param datatype
+     * @param areaname
+     * @param factory
+     * @param tagtype
      * @return
      */
     @Select("${sql}")
-    List<Enti> findparams(@Param("sql") String sql, @Param("param1") String param1, @Param("param2") String param2, @Param("param3")  String param3, @Param("param4") String param4);
+    List<Enti> findparams(@Param("sql") String sql,  @Param("datatype") String datatype,@Param("areaname") String areaname, @Param("factory") String factory, @Param("tagtype")  String tagtype);
 //    /**
 //     * 具体水介质类型实时数据查询
 //     * @return

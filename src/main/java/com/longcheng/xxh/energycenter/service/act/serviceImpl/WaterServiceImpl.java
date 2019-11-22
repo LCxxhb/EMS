@@ -21,10 +21,10 @@ public class WaterServiceImpl implements WaterService {
     @Autowired
     private WaterMapper waterMapper;
 
-    public List<Enti>  find_id(String sql, String param1, String param2, String param3, String param4, String param5,String param6){
+    public List<Enti>  find_id(String sql, String areaname, String factory, String tagtype, String begintime, String endtime,String datatype){
         double sum = 0;
         double avg;
-        List<Enti> entilist = waterMapper.find_id(sql, param1, param2, param3, param4, param5, param6);
+        List<Enti> entilist = waterMapper.find_id(sql,  areaname,  factory,tagtype,  begintime,  endtime, datatype);
         System.out.println(entilist);
         if (entilist.size() != 0) {
             for (int i = 0; i < entilist.size(); i++) {
@@ -47,11 +47,10 @@ public class WaterServiceImpl implements WaterService {
     }
 
     @Override
-    public List<Enti> findparams(String sql, String param1, String param2, String param3, String param4) {
+    public List<Enti> findparams(String sql, String datatype,String areaname, String factory, String tagtype) {
         double sum = 0;
         double avg;
-        List<Enti> entilist = waterMapper.findparams(sql, param1, param2, param3, param4);
-        System.out.println(entilist);
+        List<Enti> entilist = waterMapper.findparams(sql, datatype, areaname,  factory,  tagtype);
         if (entilist.size() != 0) {
             for (int i = 0; i < entilist.size(); i++) {
                 sum += Double.parseDouble(entilist.get(i).getTagVal());
