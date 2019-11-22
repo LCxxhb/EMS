@@ -154,7 +154,7 @@ public class RolesServiceImpl implements RolesService {
                 List<Menu> rootMenu = menuMapper.findMenuByPermission(ids);//根据权限查询菜单列表,原始的数据
                 logger.info("查询出来的菜单列表为{}", JSON.toJSONString(rootMenu));
                 if (rootMenu.size() == 0 || rootMenu == null) {
-                    return new Results(Code.error, "根据角色id 查询菜单列表为空！", rootMenu, apiDesc);
+                    return new Results(Code.success, "根据角色id 查询菜单列表为空！", rootMenu, apiDesc);
                 } else {
                     // 定义返回的结果list
                     List<Menu> menuList = new ArrayList<Menu>();
