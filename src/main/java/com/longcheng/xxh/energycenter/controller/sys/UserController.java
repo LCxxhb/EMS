@@ -82,8 +82,7 @@ public class UserController {
      **/
     @PostMapping(value = "/findAll", produces = "text/html;charset=UTF-8")
     public String findAll(User user) {
-        Results results = userService.findAll(user);
-        return JSON.toJSONString(results);
+        return JSON.toJSONString(userService.findAll(user));
     }
 
     /**

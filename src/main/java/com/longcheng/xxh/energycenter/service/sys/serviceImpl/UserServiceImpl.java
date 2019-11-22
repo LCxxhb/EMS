@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService {
             List<HashMap<String, Object>> lists = userMapper.findAll(user);
             logger.info("查询到的用户列表为：{}", JSON.toJSONString(lists));
             if (CollectionUtils.isEmpty(lists)) {
-                return new Results(Code.error, "查询用户列表为空！", lists, apiDesc);
+                return new Results(Code.success, "查询用户列表为空！", lists, apiDesc);
             } else {
                 return new Results(Code.success, "查询用户列表成功", lists, apiDesc);
             }

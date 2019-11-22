@@ -109,7 +109,7 @@ public class RolesServiceImpl implements RolesService {
         try {
             List<Roles> lists = rolesMapper.findAll();
             if (lists == null || lists.size() == 0) {
-                return new Results(Code.error, "查询角色列表为空！", lists, apiDesc);
+                return new Results(Code.success, "查询角色列表为空！", lists, apiDesc);
             } else {
                 return new Results(Code.success, "查询角色列表成功", lists, apiDesc);
             }

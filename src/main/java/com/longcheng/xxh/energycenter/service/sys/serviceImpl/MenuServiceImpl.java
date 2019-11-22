@@ -108,7 +108,7 @@ public class MenuServiceImpl implements MenuService {
             List<Menu> lists = menuMapper.findAll();
             List menulist = new ArrayList();
             if (lists == null || lists.size() == 0) {
-                return new Results(Code.error, "查询菜单列表失败", lists, apiDesc);
+                return new Results(Code.success, "查询菜单列表为空", lists, apiDesc);
             } else {
                 for (Menu menu : lists) {
                     Map map = new HashMap();
