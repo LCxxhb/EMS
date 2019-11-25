@@ -14,3 +14,7 @@ jwt:
  config:
    key: lcjt
    ttl: 360000
+logging:
+  level:
+    com.longcheng.xxh.energycenter.dao: debug
+

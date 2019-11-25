@@ -150,7 +150,7 @@
         WHERE ID = #{id}
     </delete>
     <!--用户禁用和启用-->
-    <delete id="isuse" >
+    <delete id="isuse">
         UPDATE EMS_SYS_USER
         set status = #{status}
         WHERE ID = #{id}
@@ -212,7 +212,8 @@
         left join ems_sys_region o on u.area_id = o.aid
         where 1=1
         <if test='null != username and "" != username'>
-            and u.username = #{username}
+            and u.username like '%'||#{username}||'%'
+
         </if>
         <if test='null != roleId and "" != roleId'>
             and u.role_id = #{roleId}
