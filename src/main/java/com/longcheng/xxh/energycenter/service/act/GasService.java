@@ -11,7 +11,7 @@ public interface GasService {
  /*   //参数查询
     public List<Enti> find(String param1, String param2);*/
     //不定参数查询
-     List<Enti>  find_id(String sql, String param1, String param2, String param3, String param4, String param5,String param6);
+     List<Enti>  find_id(String sql, String areaname, String factory, String tagtype, String begintime, String endtime,String datatype);
 /*    //主键查询
     public Enti findById(int id);*/
     //查询所有
@@ -21,7 +21,7 @@ public interface GasService {
     //实时查询气体数据
     public List<Enti> findAll();
     //不定参数实时查询
-    List<Enti> findparams(@Param("sql") String sql, @Param("param1") String param1, @Param("param2") String param2, @Param("param3")  String param3, @Param("param4") String param4);
+    List<Enti> findparams( String sql,String datatype,String areaname, String factory, String tagtype);
 //    //具体水介质类型实时数据查询
 //    List<Enti> findallmedium(String tagtype);
 //    //具体水介质分厂实时数据查询

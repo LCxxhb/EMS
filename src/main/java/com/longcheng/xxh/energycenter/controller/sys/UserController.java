@@ -7,14 +7,12 @@ import com.longcheng.xxh.energycenter.service.sys.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
+@CrossOrigin
 @RequestMapping(value = "/user")
 public class UserController {
 
@@ -29,8 +27,7 @@ public class UserController {
      * @param user
      * @return
      */
-
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/login", produces = "text/html;charset=UTF-8")
     public String login(User user, HttpServletRequest request) {
         return JSON.toJSONString(userService.login(user, request));
     }
@@ -40,8 +37,7 @@ public class UserController {
      *
      * @return
      */
-
-    @PostMapping(value = "/checkOut")
+    @PostMapping(value = "/checkOut", produces = "text/html;charset=UTF-8")
     public String chekout(HttpServletRequest request) {
         return JSON.toJSONString(userService.checkOut(request));
     }
@@ -52,8 +48,7 @@ public class UserController {
      *
      * @return
      */
-
-    @PostMapping(value = "/updatePwd")
+    @PostMapping(value = "/updatePwd", produces = "text/html;charset=UTF-8")
     public String updatePassword(String id, String oldPwd, String newPwd) {
         return JSON.toJSONString(userService.updatePassword(id, oldPwd, newPwd));
     }
@@ -63,8 +58,7 @@ public class UserController {
      *
      * @return
      */
-
-    @PostMapping(value = "/isuse")
+    @PostMapping(value = "/isuse", produces = "text/html;charset=UTF-8")
     public String isuse(String ids, String status) {
         return JSON.toJSONString(userService.isuse(ids, status));
     }
@@ -75,8 +69,7 @@ public class UserController {
      * @author shadow
      * @date 2019/09/27
      **/
-
-    @PostMapping("/insert")
+    @PostMapping(value = "/insert", produces = "text/html;charset=UTF-8")
     public String insert(User user) {
         return JSON.toJSONString(userService.insert(user));
     }
@@ -87,7 +80,7 @@ public class UserController {
      * @author shadow
      * @date 2019/09/27
      **/
-    @PostMapping("/findAll")
+    @PostMapping(value = "/findAll", produces = "text/html;charset=UTF-8")
     public String findAll(User user) {
         return JSON.toJSONString(userService.findAll(user));
     }
@@ -98,8 +91,7 @@ public class UserController {
      * @author shadow
      * @date 2019/09/27
      **/
-
-    @PostMapping("/delete")
+    @PostMapping(value = "/delete", produces = "text/html;charset=UTF-8")
     public String delete(String id) {
         return JSON.toJSONString(userService.delete(id));
     }
@@ -110,8 +102,7 @@ public class UserController {
      * @author shadow
      * @date 2019/09/27
      **/
-
-    @PostMapping("/update")
+    @PostMapping(value = "/update", produces = "text/html;charset=UTF-8")
     public String update(User user) {
         return JSON.toJSONString(userService.update(user));
     }
@@ -122,8 +113,7 @@ public class UserController {
      * @author shadow
      * @date 2019/09/27
      **/
-
-    @PostMapping("/findbyId")
+    @PostMapping(value = "/findbyId", produces = "text/html;charset=UTF-8")
     public String load(int id) {
         return JSON.toJSONString(userService.load(id));
 
@@ -135,8 +125,7 @@ public class UserController {
      * @author shadow
      * @date 2019/09/27
      **/
-
-    @PostMapping("/resetPassword")
+    @PostMapping(value = "/resetPassword", produces = "text/html;charset=UTF-8")
     public String resetPassword(String id) {
         return JSON.toJSONString(userService.resetPassword(id));
     }
@@ -147,7 +136,6 @@ public class UserController {
      * @author shadow
      * @date 2019/09/27
      **/
-
     @PostMapping("/pageList")
     public Results pageList(@RequestParam(required = false, defaultValue = "0") int offset,
                             @RequestParam(required = false, defaultValue = "10") int pagesize) {

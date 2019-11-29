@@ -3,6 +3,7 @@ package com.longcheng.xxh.energycenter.service.sys.serviceImpl;
 import com.alibaba.fastjson.JSON;
 import com.longcheng.xxh.energycenter.dao.sys.MenuMapper;
 import com.longcheng.xxh.energycenter.dao.sys.RolesMapper;
+import com.longcheng.xxh.energycenter.dao.sys.UserMapper;
 import com.longcheng.xxh.energycenter.entity.basepo.Code;
 import com.longcheng.xxh.energycenter.entity.basepo.Results;
 import com.longcheng.xxh.energycenter.entity.sys.Menu;
@@ -14,10 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -30,17 +29,17 @@ import java.util.*;
 @Service
 public class RolesServiceImpl implements RolesService {
 
-    @Resource
+    @Autowired
     private RolesMapper rolesMapper;
 
-    @Resource
+    @Autowired
     private MenuMapper menuMapper;
 
     @Autowired
-    private HttpSession session;
+    private UserMapper userMapper;
 
     @Autowired
-    private HttpServletRequest request;
+    private BaseServiceImpl baseServiceImpl;
 
     private final static Logger logger = LoggerFactory.getLogger(RolesServiceImpl.class);
 
@@ -52,11 +51,7 @@ public class RolesServiceImpl implements RolesService {
             return new Results(Code.param, "角色名称不能为空", "", apiDesc);
         } else {
             roles.setLastUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));// 设置时间
-            User user = (User) session.getAttribute("user");
-            User user1 = (User) request.getSession().getAttribute("user");
-//            User user2 = UserRequest.getCurrentUser();
-//            logger.info("user信息为{},user1信息为{},user2信息为{}", JSON.toJSONString(user),JSON.toJSONString(user1),JSON.toJSONString(user2));
-            roles.setLastUpdateBy("admin");//设置更新人
+            roles.setLastUpdateBy(baseServiceImpl.getCurrentUserName());
             logger.info("角色对象信息为{}", JSON.toJSONString(roles));
             try {
                 if (rolesMapper.insert(roles) > 0) {
@@ -80,17 +75,19 @@ public class RolesServiceImpl implements RolesService {
         } else {
             try {
                 String[] ids = id.split(",");
-                int count = 0;
-                for (int i = 0; i < ids.length; i++) {
-                    rolesMapper.delete(ids[i]);
-                    count++;
+                //判断该角色下是否有用户
+                User  user=new User();
+                user.setRoleId(ids[0]);
+                if(CollectionUtils.isEmpty(userMapper.findAll(user))){
+                    if (rolesMapper.delete(ids[0])>0) {
+                        return new Results(Code.success, "删除角色信息成功", "", apiDesc);
+                    } else {
+                        return new Results(Code.error, "删除角色信息失败", "", apiDesc);
+                    }
+                }else{
+                    return new Results(Code.error, "该角色下已有用户不能删除", "", apiDesc);
                 }
-                logger.info("删除的角色条数为{}条", count);
-                if (count > 0) {
-                    return new Results(Code.success, "删除角色信息成功", "", apiDesc);
-                } else {
-                    return new Results(Code.error, "删除角色信息失败", "", apiDesc);
-                }
+
             } catch (Exception e) {
                 return new Results(Code.trycatch, "捕获到异常" + e.toString(), "", apiDesc);
             }
@@ -100,6 +97,8 @@ public class RolesServiceImpl implements RolesService {
 
     @Override
     public Results update(Roles roles) {
+        roles.setLastUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));// 设置时间
+        roles.setLastUpdateBy(baseServiceImpl.getCurrentUserName());
         int ret = rolesMapper.update(roles);
         return new Results();
     }
@@ -110,7 +109,7 @@ public class RolesServiceImpl implements RolesService {
         try {
             List<Roles> lists = rolesMapper.findAll();
             if (lists == null || lists.size() == 0) {
-                return new Results(Code.error, "查询角色列表为空！", lists, apiDesc);
+                return new Results(Code.success, "查询角色列表为空！", lists, apiDesc);
             } else {
                 return new Results(Code.success, "查询角色列表成功", lists, apiDesc);
             }
@@ -127,7 +126,9 @@ public class RolesServiceImpl implements RolesService {
         } else {
             try {
                 Roles exroles = rolesMapper.load(Integer.parseInt(id));
-                //设置权限
+                //设置操作人，操作时间，权限菜单
+                exroles.setLastUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));// 设置时间
+                exroles.setLastUpdateBy(baseServiceImpl.getCurrentUserName());
                 exroles.setPermission(permission);
                 if (rolesMapper.update(exroles) > 0) {
                     return new Results(Code.success, "权限分配成功！", "", apiDesc);
@@ -153,7 +154,7 @@ public class RolesServiceImpl implements RolesService {
                 List<Menu> rootMenu = menuMapper.findMenuByPermission(ids);//根据权限查询菜单列表,原始的数据
                 logger.info("查询出来的菜单列表为{}", JSON.toJSONString(rootMenu));
                 if (rootMenu.size() == 0 || rootMenu == null) {
-                    return new Results(Code.error, "根据角色id 查询菜单列表为空！", rootMenu, apiDesc);
+                    return new Results(Code.success, "根据角色id 查询菜单列表为空！", rootMenu, apiDesc);
                 } else {
                     // 定义返回的结果list
                     List<Menu> menuList = new ArrayList<Menu>();

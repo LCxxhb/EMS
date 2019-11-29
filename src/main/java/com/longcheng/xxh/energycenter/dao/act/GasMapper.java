@@ -20,7 +20,7 @@ public interface GasMapper {
      * @return
      */
     @Select("${sql}")
-    List<Enti> find_id(@Param("sql") String sql, @Param("param1") String param1, @Param("param2") String param2, @Param("param3")  String param3, @Param("param4") String param4,@Param("param5") String param5,@Param("param6") String param6);
+    List<Enti> find_id(@Param("sql") String sql, @Param("areaname") String areaname, @Param("factory") String factory, @Param("tagtype")  String tagtype, @Param("begintime") String begintime,@Param("endtime") String endtime,@Param("datatype") String datatype);
 
 
 
@@ -69,7 +69,7 @@ public interface GasMapper {
      * @return
      */
     @Select("${sql}")
-    List<Enti> findparams(@Param("sql") String sql, @Param("param1") String param1, @Param("param2") String param2, @Param("param3")  String param3, @Param("param4") String param4);
+    List<Enti> findparams(@Param("sql") String sql, @Param("datatype") String datatype,@Param("areaname") String areaname, @Param("factory") String factory, @Param("tagtype")  String tagtype);
 //    /**
 //     * 具体气体介质类型实时数据查询
 //     * @return

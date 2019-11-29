@@ -3,9 +3,8 @@ package com.longcheng.xxh.energycenter.controller.sys;
 import com.alibaba.fastjson.JSON;
 import com.longcheng.xxh.energycenter.entity.sys.Roles;
 import com.longcheng.xxh.energycenter.service.sys.RolesService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import javax.annotation.Resource;
 
 /**
  * roles
@@ -14,10 +13,11 @@ import javax.annotation.Resource;
  * @date 2019/10/10
  */
 @RestController
+@CrossOrigin
 @RequestMapping(value = "/roles")
 public class RolesController {
 
-    @Resource
+    @Autowired
     private RolesService rolesService;
 
     /**
@@ -26,8 +26,7 @@ public class RolesController {
      * @author shadow
      * @date 2019/10/10
      **/
-    @CrossOrigin(origins = "*")
-    @PostMapping("/insert")
+    @PostMapping(value = "/insert", produces = "text/html;charset=UTF-8")
     public String insert(Roles roles) {
         return JSON.toJSONString(rolesService.insert(roles));
     }
@@ -38,8 +37,8 @@ public class RolesController {
      * @author shadow
      * @date 2019/10/10
      **/
-    @CrossOrigin(origins = "*")
-    @PostMapping("/delete")
+
+    @PostMapping(value = "/delete", produces = "text/html;charset=UTF-8")
     public String delete(String id) {
         return JSON.toJSONString(rolesService.delete(id));
     }
@@ -50,8 +49,7 @@ public class RolesController {
      * @author shadow
      * @date 2019/10/10
      **/
-    @CrossOrigin(origins = "*")
-    @PostMapping("/update")
+    @PostMapping(value = "/update", produces = "text/html;charset=UTF-8")
     public String update(Roles roles) {
         return JSON.toJSONString(rolesService.update(roles));
     }
@@ -62,8 +60,7 @@ public class RolesController {
      * @author shadow
      * @date 2019/09/27
      **/
-    @CrossOrigin(origins = "*")
-    @PostMapping("/findAll")
+    @PostMapping(value = "/findAll", produces = "text/html;charset=UTF-8")
     public String findAll() {
         return JSON.toJSONString(rolesService.findAll());
     }
@@ -75,19 +72,18 @@ public class RolesController {
      * @author shadow
      * @date 2019/09/27
      **/
-    @CrossOrigin(origins = "*")
-    @PostMapping("/setPermission")
+    @PostMapping(value = "/setPermission", produces = "text/html;charset=UTF-8")
     public String setPermission(Roles roles) {
-        return JSON.toJSONString(rolesService.setPermission(String.valueOf(roles.getId()),roles.getPermission()));
+        return JSON.toJSONString(rolesService.setPermission(String.valueOf(roles.getId()), roles.getPermission()));
     }
+
     /**
      * [查詢] 根據角色id 查詢菜单列表
      *
      * @author shadow
      * @date 2019/10/10
      **/
-    @CrossOrigin(origins = "*")
-    @PostMapping("/findMenuByRoleId")
+    @PostMapping(value = "/findMenuByRoleId", produces = "text/html;charset=UTF-8")
     public String findMenuByRoleId(int id) {
         return JSON.toJSONString(rolesService.findMenuByRoleId(id));
     }

@@ -148,14 +148,13 @@
         EMS_HIS_DATA_GAS GD
         LEFT JOIN EMS.EMS_GAS_POINTCOLLECTION GP ON GD.COllECTIONPOINT = GP.COllECTIONPOINT
         WHERE
-        -- ROWNUM &lt;= 10000
-        <if test='null !=areaname'>
+        <if test='areaname != null and areaname != ""'>
             GP.areaname = #{areaname}
         </if>
-        <if test='null != branchfactory'>
+        <if test='branchfactory != null and branchfactory != ""'>
             and GP.branchfactory = #{branchfactory}
         </if>
-        <if test='null != tagtype'>
+        <if test='tagtype != null and tagtype != ""'>
             and GD.tagtype = #{tagtype}
         </if>
 
@@ -179,14 +178,13 @@
         EMS_HIS_DATA_WATER GD
         LEFT JOIN EMS.EMS_GAS_POINTCOLLECTION GP ON GD.COllECTIONPOINT = GP.COllECTIONPOINT
         WHERE
-        -- ROWNUM &lt;= 10000
-        <if test='null !=areaname'>
+        <if test='areaname != null and areaname != ""'>
             GP.areaname = #{areaname}
         </if>
-        <if test='null != branchfactory'>
+        <if test='branchfactory != null and branchfactory != ""'>
             and GP.branchfactory = #{branchfactory}
         </if>
-        <if test='null != tagtype'>
+        <if test='tagtype != null and tagtype != ""'>
             and GD.tagtype = #{tagtype}
         </if>
 
@@ -194,5 +192,37 @@
             and GD.readtime like to_date('${readtime}','yyyy-mm-dd HH24')
         </if>
         order by GD.readtime desc
+    </select>
+
+    <select id="findAllWater" resultType="java.util.Map">
+        SELECT
+        GP.areaname,
+        GP.branchfactory,
+        GD.collectionpoint,
+        GP.description,
+        GD.tagtype,
+        GD.usetype,
+        GD.tagval,
+        GD.readtime
+        FROM
+        EMS_HIS_DATA_WATER GD
+        LEFT JOIN EMS.EMS_GAS_POINTCOLLECTION GP ON GD.COllECTIONPOINT = GP.COllECTIONPOINT
+        where ROWNUM &lt;= 10000
+    </select>
+
+    <select id="findAllGas" resultType="java.util.Map">
+        SELECT
+        GP.areaname,
+        GP.branchfactory,
+        GD.collectionpoint,
+        GP.description,
+        GD.tagtype,
+        GD.usetype,
+        GD.tagval,
+        GD.readtime
+        FROM
+        EMS_HIS_DATA_GAS GD
+        LEFT JOIN EMS.EMS_GAS_POINTCOLLECTION GP ON GD.COllECTIONPOINT = GP.COllECTIONPOINT
+        where ROWNUM &lt;= 10000
     </select>
 </mapper>

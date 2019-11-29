@@ -8,14 +8,12 @@ import com.longcheng.xxh.energycenter.service.sys.MenuService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * menu
@@ -26,15 +24,19 @@ import java.util.Map;
 @Service
 public class MenuServiceImpl implements MenuService {
 
-    @Resource
+    @Autowired
     private MenuMapper menuMapper;
+
+    @Autowired
+    private BaseServiceImpl baseServiceImpl;
     private final static Logger logger = LoggerFactory.getLogger(MenuServiceImpl.class);
 
     @Override
     public Results insert(Menu menu) {
         String apiDesc = "添加菜单接口";
         // valid
-        menu.setId(BigDecimal.valueOf(0));
+        menu.setLastUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));// 设置时间
+        menu.setLastUpdateBy(baseServiceImpl.getCurrentUserName());
         if (StringUtils.isEmpty(menu.getMenuname()) || StringUtils.isEmpty(menu.getMunuurl())) {
             return new Results(Code.param, "菜单不能为空", "", apiDesc);
         } else {
@@ -85,6 +87,8 @@ public class MenuServiceImpl implements MenuService {
         if (StringUtils.isEmpty(String.valueOf(menu.getId())) || StringUtils.isEmpty(menu.getMenuname())) {
             return new Results(Code.param, "菜单id或菜单名称不能为空", "", apiDesc);
         } else {
+            menu.setLastUpdateDate(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()));// 设置时间
+            menu.setLastUpdateBy(baseServiceImpl.getCurrentUserName());
             try {
                 if (menuMapper.update(menu) > 0) {
                     return new Results(Code.success, "编辑菜单成功", "", apiDesc);
@@ -104,7 +108,7 @@ public class MenuServiceImpl implements MenuService {
             List<Menu> lists = menuMapper.findAll();
             List menulist = new ArrayList();
             if (lists == null || lists.size() == 0) {
-                return new Results(Code.error, "查询菜单列表失败", lists, apiDesc);
+                return new Results(Code.success, "查询菜单列表为空", lists, apiDesc);
             } else {
                 for (Menu menu : lists) {
                     Map map = new HashMap();
@@ -113,6 +117,9 @@ public class MenuServiceImpl implements MenuService {
                     map.put("name", menu.getMenuname());
                     map.put("menuname", menu.getMenuname());
                     map.put("munuurl", menu.getMunuurl());
+                    map.put("lastupdateby", menu.getLastUpdateBy());
+                    map.put("lastupdatedate", menu.getLastUpdateDate());
+                    map.put("spare", menu.getSpare());//新增排序
                     menulist.add(map);
                 }
                 return new Results(Code.success, "查询菜单列表成功", menulist, apiDesc);

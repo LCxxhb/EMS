@@ -20,46 +20,47 @@ public class GasController {
 
     /**
      * 不定参数历史数据查询
-     * @param param1
-     * @param param2
-     * @param param3
-     * @param param4
-     * @param param5
+     * @param areaname
+     * @param factory
+     * @param tagtype
+     * @param begintime
+     * @param endtime
+     * @param datatype
      * @return
      */
     @RequestMapping(value = "/history", method = RequestMethod.POST)
     @CrossOrigin(origins = "*")
     @ResponseBody
-    public String find_id(String param1, String param2, String param3, String param4, String param5,String param6) {
+    public String find_id(String areaname, String factory, String tagtype, String begintime, String endtime,String datatype) {
         String sql = null;
         String a = "SELECT A .AREANAME,A .BRANCHFACTORY,B.*FROM EMS_GAS_POINTCOLLECTION A inner JOIN EMS_HIS_DATA_GAS B ON  A .COLLECTIONPOINT = B.COLLECTIONPOINT  ";
-        String b = " where A.AREANAME = #{param1} ";
-        if (param1 != null){
+        String b = " where A.AREANAME = #{areaname} ";
+        if (areaname != null&& areaname != ""){
             sql = a + b;
         }else {
             sql = a;
         }
-        String c = "and A.BRANCHFACTORY = #{param2} ";
-        if (param2 != null)
+        String c = "and A.BRANCHFACTORY = #{factory} ";
+        if (factory != null&& factory != "")
             sql += c;
-        String d = "and B.TAGTYPE = #{param3} ";
-        if (param3 != null)
+        String d = "and B.TAGTYPE = #{tagtype} ";
+        if (tagtype != null&& tagtype != "")
             sql += d;
-        String e = "and B.READTIME >= (select to_date(#{param4},'yyyy-mm-dd,hh24:mi:ss') from dual )";
-        if (param4 != null)
+        String e = "and B.READTIME >= (select to_date(#{begintime},'yyyy-mm-dd,hh24:mi:ss') from dual )";
+        if (begintime != null&& begintime != "")
             sql += e;
-        String f = "and B.READTIME <= (select to_date(#{param5},'yyyy-mm-dd,hh24:mi:ss') from dual )";
-        if (param5 != null)
+        String f = "and B.READTIME <= (select to_date(#{endtime},'yyyy-mm-dd,hh24:mi:ss') from dual )";
+        if (endtime != null&& endtime != "")
             sql += f;
-        String g = "and A.DATATYPE = #{param6}";
-        if (param6 != null)
+        String g = "and A.DATATYPE = #{datatype}";
+        if (datatype != null&& datatype != "")
             sql += g;
         System.out.println(sql);
         List<Enti> list ;
-        if (gasService.find_id(sql, param1, param2, param3, param4, param5,param6) == null){
+        if (gasService.find_id(sql, areaname,factory,tagtype,begintime,endtime,datatype) == null){
             list = null;
         }else{
-            list = gasService.find_id(sql, param1, param2, param3, param4, param5,param6);
+            list = gasService.find_id(sql, areaname,factory,tagtype,begintime,endtime,datatype);
         }
             return JSON.toJSONString(new Results(Code.success, "查询成功！！", list, "查询部分气体介质信息"));
     }
@@ -133,30 +134,30 @@ public class GasController {
     @RequestMapping(value = "/diately", method = RequestMethod.POST)
     @CrossOrigin(origins = "*")
     @ResponseBody
-    public String findParams(String param1, String param2, String param3, String param4) {
+    public String findParams(String datatype, String areaname, String factory, String tagtype) {
         String sql = null;
         String a = "SELECT * FROM EMS_HIS_DATA_GAS A INNER JOIN (SELECT DISTINCT COLLECTIONPOINT,MAX (READTIME) AS NEW_READTIME FROM EMS_HIS_DATA_GAS GROUP BY COLLECTIONPOINT) D ON A .COLLECTIONPOINT = D .COLLECTIONPOINT AND A .READTIME = D .NEW_READTIME INNER JOIN EMS_GAS_POINTCOLLECTION M ON D .COLLECTIONPOINT = M .COLLECTIONPOINT  ";
-        String b = " where A.DATATYPE = #{param1} ";
-        if (param1 != null){
+        String b = " where A.DATATYPE = #{datatype} ";
+        if (datatype != null && datatype != ""){
             sql = a + b;
         }else {
             sql = a;
         }
-        String c = "and M.AREANAME = #{param2} ";
-        if (param2 != null)
+        String c = "and M.AREANAME = #{areaname} ";
+        if (areaname != null&& areaname != "")
             sql += c;
         String d = "and M.BRANCHFACTORY = #{param3} ";
-        if (param3 != null)
+        if (factory != null&& factory != "")
             sql += d;
-        String e = "and A.TAGTYPE = #{param4}";
-        if (param4 != null)
+        String e = "and A.TAGTYPE = #{tagtype}";
+        if (tagtype != null&& tagtype != "")
             sql += e;
         System.out.println(sql);
         List<Enti> list ;
-        if (gasService.findparams(sql, param1, param2, param3, param4) == null){
+        if (gasService.findparams(sql, datatype,  areaname,  factory,  tagtype) == null){
             list = null;
         }else{
-            list = gasService.findparams(sql, param1, param2, param3, param4);
+            list = gasService.findparams(sql, datatype,  areaname,  factory,  tagtype);
         }
         return JSON.toJSONString(new Results(Code.success, "查询成功！！", list, "查询部分气体介质信息"));
     }
