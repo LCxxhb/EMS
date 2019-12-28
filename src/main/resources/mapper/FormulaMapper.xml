@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.longcheng.xxh.energycenter.dao.plan.FormulaMapper">
+
+    <resultMap id="BaseResultMap" type="com.longcheng.xxh.energycenter.entity.plan.Formula" >
+        <result column="id" property="id" />
+        <result column="prodect_name" property="prodectName" />
+        <result column="consume" property="consume" />
+        <result column="output" property="output" />
+        <result column="status" property="status" />
+        <result column="create_date" property="createDate" />
+        <result column="update_date" property="updateDate" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+                id,
+                prodect_name,
+                consume,
+                output,
+                status,
+                create_date,
+                update_date,
+                remark
+    </sql>
+
+    <insert id="insert" useGeneratedKeys="true" keyColumn="id" parameterType="com.longcheng.xxh.energycenter.entity.plan.Formula">
+        INSERT INTO EMS_ENERGY_FORMULA
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test ='null != prodectName'>
+                prodect_name,
+            </if>
+            <if test ='null != consume'>
+                consume,
+            </if>
+            <if test ='null != output'>
+                output,
+            </if>
+            <if test ='null != status'>
+                status,
+            </if>
+            <if test ='null != createDate'>
+                create_date,
+            </if>
+            <if test ='null != updateDate'>
+                update_date,
+            </if>
+            <if test ='null != remark'>
+                remark
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test ='null != prodectName'>
+                #{prodectName},
+            </if>
+            <if test ='null != consume'>
+                #{consume},
+            </if>
+            <if test ='null != output'>
+                #{output},
+            </if>
+            <if test ='null != status'>
+                #{status},
+            </if>
+            <if test ='null != createDate'>
+                #{createDate},
+            </if>
+            <if test ='null != updateDate'>
+                #{updateDate},
+            </if>
+            <if test ='null != remark'>
+                #{remark}
+            </if>
+        </trim>
+    </insert>
+
+    <delete id="delete" >
+        DELETE FROM EMS_ENERGY_FORMULA
+        WHERE id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.longcheng.xxh.energycenter.entity.plan.Formula">
+        UPDATE EMS_ENERGY_FORMULA
+        <set>
+            <if test ='null != prodectName'>prodect_name = #{prodectName},</if>
+            <if test ='null != consume'>consume = #{consume},</if>
+            <if test ='null != output'>output = #{output},</if>
+            <if test ='null != status'>status = #{status},</if>
+            <if test ='null != createDate'>create_date = #{createDate},</if>
+            <if test ='null != updateDate'>update_date = #{updateDate},</if>
+            <if test ='null != remark'>remark = #{remark}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+
+    <select id="load" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM EMS_ENERGY_FORMULA
+        WHERE id = #{id}
+    </select>
+
+    <select id="pageList" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM EMS_ENERGY_FORMULA
+        LIMIT #{offset}, #{pageSize}
+    </select>
+
+    <select id="pageListCount" resultType="java.lang.Integer">
+        SELECT count(1)
+        FROM EMS_ENERGY_FORMULA
+    </select>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        SELECT <include refid="Base_Column_List" />
+        FROM EMS_ENERGY_FORMULA
+    </select>
+
+</mapper>
